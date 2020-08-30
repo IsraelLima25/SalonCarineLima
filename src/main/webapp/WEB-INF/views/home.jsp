@@ -1,14 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Spring - MVC</title>
-</head>
-<body>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
-	<h1>Infraestrutura b√°sica desenvolvida</h1>
+<tags:pageTemplate titulo="Home">
 
-</body>
-</html>
+	<h1>Infraestrutura b·sica desenvolvida</h1>
+
+	<button class="btn btn-primary">Testando Bootstrap</button>
+
+	<script src="resources/jquery-3.5.1/jquery-3.5.1.js"></script>
+	<script src="resources/bootstrap-4.5.2/js/bootstrap.min.js"></script>
+	<script src="resources/popper/popper.js"></script>
+
+</tags:pageTemplate>
+
+
+
+
+
