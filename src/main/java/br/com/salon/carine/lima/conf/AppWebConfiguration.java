@@ -20,10 +20,10 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 		resolver.setSuffix(".jsp");
 		return resolver;
 	}
-
+	
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		configurer.enable();
+		super.configureDefaultServletHandling(configurer);
 	}
 
 	
