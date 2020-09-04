@@ -32,7 +32,12 @@
 
 	<script src="${rsc}/jquery-3.5.1/jquery-3.5.1.js"></script>
 	<script src="${rsc}/bootstrap-4.5.2/js/bootstrap.min.js"></script>
-	<script src="resources/popper/popper.js"></script>
+	<script src="${rsc}/popper/popper.js"></script>
+	<script src="${rsc}/js/global.js"></script>
+	<script src="${rsc}/js/filter-table.js"></script>
+
+
+
 
 </body>
 </html>

@@ -1,10 +1,17 @@
 package br.com.salon.carine.lima.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.services.ClienteService;
@@ -12,7 +19,7 @@ import br.com.salon.carine.lima.services.ClienteService;
 @Controller
 @RequestMapping(value = "cliente")
 public class ClienteController {
-	
+
 	@Autowired
 	private ClienteService serviceCliente;
 
@@ -23,11 +30,25 @@ public class ClienteController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView cadastrarCliente(ClienteDTO clienteDTO) {
-		ModelAndView modelAndView = new ModelAndView("cliente/formCadastro");
+	public ModelAndView cadastrarCliente(ClienteDTO clienteDTO, RedirectAttributes redirectAttributes) {
 		this.serviceCliente.cadastrar(clienteDTO);
-		return modelAndView;
+		redirectAttributes.addFlashAttribute("sucesso", "cliente cadastrado com sucesso");
+		return new ModelAndView("redirect:cliente/listar");
+	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/listar")
+	public ModelAndView listarClientes() {
+		ModelAndView modelAndView = new ModelAndView("cliente/lista");
+		List<ClienteDTO> lista = this.serviceCliente.listarTodos();
+		modelAndView.addObject("lista", lista);
+		return modelAndView;
+	}
+
+	@RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE, value = "/remover/{id}")
+	@ResponseBody
+	public ClienteDTO removerCliente(@PathVariable("id") Integer id) {
+		ClienteDTO clienteRemovido = this.serviceCliente.remover(id);
+		return clienteRemovido;
 	}
 
 }

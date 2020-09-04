@@ -26,25 +26,28 @@
 					</div>
 					<div class="form-group">
 						<label class="color-font-label" for="logradouro">Logradouro</label>
-						<input type="text" class="form-control" id="logradouro" name="endereco.logradouro">
+						<input type="text" class="form-control" id="logradouro"
+							name="endereco.logradouro">
 					</div>
 					<div class="form-group">
 						<label class="color-font-label" for="numero">Numero</label> <input
-							type="number" class="form-control" id="numero" name="endereco.numero">
+							type="number" class="form-control" id="numero"
+							name="endereco.numero">
 					</div>
 					<div class="form-group">
 						<label class="color-font-label" for="ponto-referencia">Ponto
 							Referência</label> <input type="text" class="form-control"
-							name="endereco.pontoReferencia"
-							id="ponto-referencia">
+							name="endereco.pontoReferencia" id="ponto-referencia">
 					</div>
 					<div class="form-group">
 						<label class="color-font-label" for="complemento">Complemento</label>
-						<input type="text" class="form-control" id="complemento" name="endereco.complemento">
+						<input type="text" class="form-control" id="complemento"
+							name="endereco.complemento">
 					</div>
 					<div class="form-group">
 						<label class="color-font-label" for="bairro">Bairro</label> <input
-							type="text" class="form-control" id="bairro" name="endereco.bairro">
+							type="text" class="form-control" id="bairro"
+							name="endereco.bairro">
 					</div>
 					<div class="text-center alinhamento">
 						<button id="btnCadastrar" style="margin-bottom: 16px;"
@@ -59,28 +62,10 @@
 				<i class="fas fa-chevron-up"></i>
 			</div>
 
-			<!-- Modal -->
-			<div class="modal fade" id="modalConfirmarCadastro" tabindex="-1"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<img src="resources/img/logomarca-removebg-preview.png" width="50"
-								height="50" alt="logomarca">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">Cliente cadastrado com sucesso!!</div>
-						<div class="modal-footer"></div>
-					</div>
-				</div>
-			</div>
 		</section>
 	</main>
 
-	<script src="${contextPath}resources/js/global.js"></script>
+	<script src="resources/js/global.js"></script>
 </tags:pageTemplate>
 
 
