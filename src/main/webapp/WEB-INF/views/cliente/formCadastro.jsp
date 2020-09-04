@@ -65,7 +65,7 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<img src="../../img/logomarca-removebg-preview.png" width="50"
+							<img src="resources/img/logomarca-removebg-preview.png" width="50"
 								height="50" alt="logomarca">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">

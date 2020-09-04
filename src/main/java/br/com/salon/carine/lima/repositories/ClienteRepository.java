@@ -20,10 +20,8 @@ public class ClienteRepository {
 	public EntityManager manager;
 
 	public void cadastrar(Cliente cliente) {
-
 		this.enderecoRepository.cadastrar(cliente.getEndereco());
 		this.manager.persist(cliente);
-
 	}
 
 }

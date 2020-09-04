@@ -10,18 +10,19 @@ import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.services.ClienteService;
 
 @Controller
+@RequestMapping(value = "cliente")
 public class ClienteController {
 	
 	@Autowired
 	private ClienteService serviceCliente;
 
-	@RequestMapping(method = RequestMethod.GET, value = "cliente")
+	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView formCadastroCliente() {
 		ModelAndView modelAndView = new ModelAndView("cliente/formCadastro");
 		return modelAndView;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "cliente")
+	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView cadastrarCliente(ClienteDTO clienteDTO) {
 		ModelAndView modelAndView = new ModelAndView("cliente/formCadastro");
 		this.serviceCliente.cadastrar(clienteDTO);
