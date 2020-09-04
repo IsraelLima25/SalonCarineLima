@@ -27,7 +27,7 @@ public class JPAConfiguration {
 
 		dataSource.setUsername("root");
 		dataSource.setPassword("root");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/SalonCarineLima");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/SalonCarineLima?useSSL=false");
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 
 		factoryBean.setDataSource(dataSource);

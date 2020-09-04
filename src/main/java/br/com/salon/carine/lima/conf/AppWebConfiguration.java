@@ -8,9 +8,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import br.com.salon.carine.lima.controllers.HomeController;
+import br.com.salon.carine.lima.models.Cliente;
+import br.com.salon.carine.lima.repositories.ClienteRepository;
+import br.com.salon.carine.lima.services.ClienteService;
 
 @EnableWebMvc
-@ComponentScan(basePackageClasses = HomeController.class)
+@ComponentScan(basePackageClasses = {HomeController.class, Cliente.class, 
+									 	ClienteService.class, ClienteRepository.class,} )
+
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	@Bean
@@ -20,11 +25,15 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 		resolver.setSuffix(".jsp");
 		return resolver;
 	}
-	
+
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		super.configureDefaultServletHandling(configurer);
+		configurer.enable();
 	}
 
-	
+//	@Override
+//	 public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+//	        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+//	    }
+
 }

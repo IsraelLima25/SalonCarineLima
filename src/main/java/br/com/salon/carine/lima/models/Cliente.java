@@ -74,6 +74,12 @@ public class Cliente implements Serializable {
 	}
 
 	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", endereco="
+				+ endereco + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -97,5 +103,4 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
-
 }

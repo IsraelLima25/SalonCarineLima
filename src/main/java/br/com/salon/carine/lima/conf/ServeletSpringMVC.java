@@ -6,7 +6,7 @@ public class ServeletSpringMVC extends AbstractAnnotationConfigDispatcherServlet
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-	
+
 		return null;
 	}
 

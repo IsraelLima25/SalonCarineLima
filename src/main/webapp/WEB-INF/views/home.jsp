@@ -1,5 +1,6 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
+
 <tags:pageTemplate titulo="Home">
 
 	<h1>Infraestrutura básica desenvolvida</h1>
