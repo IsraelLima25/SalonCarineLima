@@ -1,3 +1,7 @@
+setTimeout(() => {
+			$('#mensagemServer').fadeOut('slow');
+		}, 2000);
+
 function filtrar() {
     $('#cliente-table').filterTable('#nome-filter');
 }
@@ -9,7 +13,13 @@ function removerCliente(){
 		method: 'DELETE',
 		
 	}).then(function(data) {
-		removeLineTable(data.id)
+		removeLineTable(data.id);
+		$('#mensagemClient').addClass(`alert alert-${data.mensagem.classe}`);
+		$('#mensagemClient').text(data.mensagem.text);
+		$('#mensagemClient').prop("hidden", false);
+		setTimeout(() => {
+			$('#mensagemClient').fadeOut('slow');
+		}, 2000);
 	})
 	.catch(function(err) {
 		console.log('fail request')

@@ -1,77 +1,83 @@
-body{
-  background-color: #f8f9fa;
+body {
+	background-color: #f8f9fa;
 }
+
 .thumb-redondo {
-    border-radius:80%; 
-    width:160px; 
-    height:160px; 
-    object-fit:cover; 
-    object-position: 0 60%;
-    margin-top: 5px; 
-  }
-  .color-font{
-      color:#f987aa;
-    }
-  .border-color{
-      border-color:#fffafa;
-  }
-  .alinhamento-top{
-      margin-top: 10px;
-  }
-  .alinhamento-bottom{
-    margin-bottom: 25px;
-  }
-  .btn-color-salon{
-      background-color: #f987aa;
-      color: #fffafa;
-      font-size: 18px;   
-      width: 220px;
-      margin-top: 25px;     
-  }
-  .color-font-label{
-      color: #808080;
-  }
+	border-radius: 80%;
+	width: 160px;
+	height: 160px;
+	object-fit: cover;
+	object-position: 0 60%;
+	margin-top: 5px;
+}
 
-  .tamanho-icone-padlock{
-    font-size: 30px;
-    padding-right: 15px;    
-  }
+.color-font {
+	color: #f987aa;
+}
 
-  .dropdown-menu{
-    background-color: #f8f9fa;
-    font-size: 14px;
-    border-style: none;    
-  }
+.border-color {
+	border-color: #fffafa;
+}
 
-.btn:focus,.btn:active {
-    outline: none !important;
-    box-shadow: none;
-    color: #fffafa;
- } 
+.alinhamento-top {
+	margin-top: 10px;
+}
 
- .dropdown-item.active, .dropdown-item:active {
-  color: #fff;
-  text-decoration: none;
-  background-color: #fff;
+.alinhamento-bottom {
+	margin-bottom: 25px;
+}
+
+.btn-color-salon {
+	background-color: #f987aa;
+	color: #fffafa;
+	font-size: 18px;
+	width: 220px;
+	margin-top: 25px;
+}
+
+.color-font-label {
+	color: #808080;
+}
+
+.tamanho-icone-padlock {
+	font-size: 30px;
+	padding-right: 15px;
+}
+
+.dropdown-menu {
+	background-color: #f8f9fa;
+	font-size: 14px;
+	border-style: none;
+}
+
+.btn:focus, .btn:active {
+	outline: none !important;
+	box-shadow: none;
+	color: #fffafa;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+	color: #fff;
+	text-decoration: none;
+	background-color: #fff;
 }
 
 .back-to-top {
-  background-color: #808080;
-  border-radius: 65px;
-  bottom: 14px;
-  box-shadow: 2px 3px 19px -2p;
-  color: #fffafa;
-  cursor: pointer;
-  height: 40px;
-  position: fixed;
-  right: 22px;
-  width: 40px;
-  z-index: 3;
-  text-align: center;
-  padding-top: 8px;
-}
-.color-search{
-  color: #212529;
+	background-color: #808080;
+	border-radius: 65px;
+	bottom: 14px;
+	box-shadow: 2px 3px 19px -2p;
+	color: #fffafa;
+	cursor: pointer;
+	height: 40px;
+	position: fixed;
+	right: 22px;
+	width: 40px;
+	z-index: 3;
+	text-align: center;
+	padding-top: 8px;
 }
 
-
+.color-search {
+	color: #212529;
+}

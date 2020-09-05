@@ -3,7 +3,6 @@ package br.com.salon.carine.lima.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +31,8 @@ public class ClienteController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView cadastrarCliente(ClienteDTO clienteDTO, RedirectAttributes redirectAttributes) {
 		this.serviceCliente.cadastrar(clienteDTO);
-		redirectAttributes.addFlashAttribute("sucesso", "cliente cadastrado com sucesso");
+		redirectAttributes.addFlashAttribute("message", this.serviceCliente.message);
+
 		return new ModelAndView("redirect:cliente/listar");
 	}
 
@@ -46,8 +46,9 @@ public class ClienteController {
 
 	@RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE, value = "/remover/{id}")
 	@ResponseBody
-	public ClienteDTO removerCliente(@PathVariable("id") Integer id) {
-		ClienteDTO clienteRemovido = this.serviceCliente.remover(id);
+	public ClienteDTO removerCliente(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+		ClienteDTO clienteRemovido = this.serviceCliente.remover(id);		
+		clienteRemovido.setMensagem(this.serviceCliente.message);
 		return clienteRemovido;
 	}
 

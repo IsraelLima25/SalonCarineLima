@@ -1,6 +1,7 @@
 package br.com.salon.carine.lima.dto;
 
 import br.com.salon.carine.lima.models.Endereco;
+import br.com.salon.carine.lima.util.Message;
 
 public class ClienteDTO {
 
@@ -9,6 +10,7 @@ public class ClienteDTO {
 	private String email;
 	private String telefone;
 	private Endereco endereco;
+	private Message mensagem;
 
 	public ClienteDTO() {
 
@@ -73,6 +75,14 @@ public class ClienteDTO {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+	
+	public Message getMensagem() {
+		return mensagem;
+	}
+	
+	public void setMensagem(Message mensagem) {
+		this.mensagem = mensagem;
 	}
 
 	@Override

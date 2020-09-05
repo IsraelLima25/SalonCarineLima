@@ -9,14 +9,18 @@
 		<h4 class="mt-4 color-font">Catalogo Clientes</h4>
 		<hr />
 
-		<c:if test="${sucesso != null}">
-			<div class="alert alert-success" role="alert">
-				<button type="button" class="close" data-dismiss="alert"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				${sucesso}
-			</div>
+		<!-- Message Client-->
+		<div id="mensagemClient" hidden role="alert">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+
+		<!-- Message Server-->
+		<c:if test="${message != null}">
+			<div id="mensagemServer" class="alert alert-${message.classe}"
+				role="alert">${message.text}</div>
 		</c:if>
 		<div class="form-group">
 			<label class="color-font-label" for="nome-filter">Filtrar por

@@ -7,11 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.salon.carine.lima.dto.ClienteDTO;
+import br.com.salon.carine.lima.enuns.TypeMessage;
 import br.com.salon.carine.lima.models.Cliente;
 import br.com.salon.carine.lima.repositories.ClienteRepository;
+import br.com.salon.carine.lima.util.Message;
+import br.com.salon.carine.lima.util.Messenger;
 
 @Service
-public class ClienteService {
+public class ClienteService implements Messenger {
+
+	@Autowired
+	public Message message;
 
 	@Autowired
 	private ClienteRepository clienteRepository;
@@ -19,7 +25,7 @@ public class ClienteService {
 	public void cadastrar(ClienteDTO clienteDTO) {
 		Cliente cliente = inClienteDTOFromCliente(clienteDTO);
 		this.clienteRepository.cadastrar(cliente);
-
+		emitterMessagesuccess("Cliente cadastrado com sucesso");
 	}
 
 	public List<ClienteDTO> listarTodos() {
@@ -33,7 +39,7 @@ public class ClienteService {
 
 		Cliente cliente = this.clienteRepository.remover(id);
 		ClienteDTO clienteDTO = inClienteFromClienteDTO(cliente);
-
+		emitterMessagesuccess("Cliente removido com sucesso");;
 		return clienteDTO;
 	}
 
@@ -74,6 +80,34 @@ public class ClienteService {
 
 		return listaClienteDTO;
 
+	}
+
+	@Override
+	public void emitterMessagesuccess(String text) {
+		this.message.setType(TypeMessage.SUCESSO);
+		this.message.setClasse("success");
+		this.message.setText(text);
+	}
+
+	@Override
+	public void emitterMessagedanger(String text) {
+		this.message.setType(TypeMessage.ALERTA);
+		this.message.setClasse("danger");
+		this.message.setText(text);
+	}
+
+	@Override
+	public void emitterMessageinfo(String text) {
+		this.message.setType(TypeMessage.INFO);
+		this.message.setClasse("info");
+		this.message.setText(text);
+	}
+
+	@Override
+	public void emitterMessagewarning(String text) {
+		this.message.setType(TypeMessage.ATENCAO);
+		this.message.setClasse("warning");
+		this.message.setText(text);
 	}
 
 }
