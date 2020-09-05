@@ -81,3 +81,7 @@ body {
 .color-search {
 	color: #212529;
 }
+
+.erro {
+	color: red;
+}
