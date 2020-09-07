@@ -24,7 +24,7 @@
 						<label class="color-font-label" for="cep">Cep</label> 
 						<input type="text" class="form-control" id="cep" name="endereco.cep">
 						<small hidden id="cepMsgValid" class="form-text erro">
-							Cep Inválido
+							
 						</small>
 					</div>
 					
@@ -75,7 +75,7 @@
 	</main>
 	
 	<script src="resources/js/global.js"></script>
-	<script src="resources/js/via-cep.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="resources/js/via-cep.js"></script>
 </tags:pageTemplate>
 
 

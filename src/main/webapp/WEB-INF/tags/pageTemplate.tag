@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport"
+
+<meta name="viewport" charset="UTF-8"
 	content="width=device-width, initial-scale=1, maximum-scale=1" />
 <title>${titulo}-SalãoCarine</title>
 
@@ -35,7 +35,7 @@
 
 	<script src="${rsc}/bootstrap-4.5.2/js/bootstrap.min.js"></script>
 	<script src="${rsc}/popper/popper.js"></script>
-	<script src="${rsc}/js/global.js"></script>
+	<script charset="UTF-8" src="${rsc}/js/global.js"></script>
 	<script src="${rsc}/js/filter-table.js"></script>
 
 </body>

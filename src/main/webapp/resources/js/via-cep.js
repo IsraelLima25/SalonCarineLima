@@ -10,11 +10,15 @@ $(document).ready(
 
 			$("#cep").blur(
 					function() {
-						// Nova variável "cep" somente com dígitos.
-						var cep = $(this).val().replace(/\D/g, '');
+						// capturando cep
+						var cep = $(this).val();
+						
 						// Verifica se campo cep possui valor informado.
 						if (cep != "") {
-
+							
+							// Extrair somente digitos da variavel 'cep'
+							var cep = $(this).val().replace(/\D/g, '');
+							
 							// Expressão regular para validar o CEP.
 							var validacep = /^[0-9]{8}$/;
 
@@ -42,24 +46,20 @@ $(document).ready(
 										// CEP pesquisado não foi encontrado.
 										limpa_formulario_cep();
 										$('#cepMsgValid').prop("hidden", false);
-										$('#cepMsgValid').text("Cep inexistente")
+										$('#cepMsgValid').text("Este cep não existe")
 									}
 								});
 							} // end if.
 							else {
 								// cep é inválido.
-								limpa_formulario_cep();
 								$('#cepMsgValid').prop("hidden", false);
+								$('#cepMsgValid').text("cep inválido");
 							}
-						} // end if.
-						else {
-							// cep sem valor, limpa formulario.
+						}  // end if.
+						else{
+							// Limpa o formulário
 							limpa_formulario_cep();
-							$('#cepMsgValid').prop("hidden", false);
-							$('#cepMsgValid').text("O cep está vazio ou possui caracteres inválidos." +
-									" Não se precocupe, este campo não é obrigatório");
-						
+							$('#cepMsgValid').text("");
 						}
-
 					});
 		});
