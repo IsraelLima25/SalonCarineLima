@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
 <tags:pageTemplate titulo="Cadastro Cliente">
@@ -6,7 +8,8 @@
 			<div class="container">
 				<h4 class="mt-4 color-font">Cadastrar Cliente</h4>
 				<hr />
-				<form action="/SalonCarineLima/cliente" method="POST">
+				
+				<form name="formCadastro">
 					<div class="form-group">
 						<label class="color-font-label" for="nome">Nome *</label> <input
 							type="text" class="form-control" id="nome" name="nome">
@@ -47,14 +50,14 @@
 					</div>
 					
 					<div class="form-group">
-						<label class="color-font-label" for="numero">Numero</label> <input
+						<label class="color-font-label" for="numero">Número</label> <input
 							type="number" class="form-control" id="numero"
 							name="endereco.numero">
 					</div>
 					
 					<div class="form-group">
 						<label class="color-font-label" for="ponto-referencia">Ponto
-							Refer�ncia</label> <input type="text" class="form-control"
+							Referência</label> <input type="text" class="form-control"
 							name="endereco.pontoReferencia" id="ponto-referencia">
 					</div>
 					
@@ -67,15 +70,13 @@
 				</form>
 			</div>
 
-			<div class="back-to-top" href="#">
-				<i class="fas fa-chevron-up"></i>
-			</div>
-
 		</section>
+		
 	</main>
 	
-	<script src="resources/js/global.js"></script>
-	<script type="text/javascript" charset="UTF-8" src="resources/js/via-cep.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../resources/js/cliente/cadastro.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../resources/js/via-cep.js"></script>
+	
 </tags:pageTemplate>
 
 

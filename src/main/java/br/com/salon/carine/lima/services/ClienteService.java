@@ -7,49 +7,87 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.salon.carine.lima.dto.ClienteDTO;
-import br.com.salon.carine.lima.enuns.TypeMessage;
+import br.com.salon.carine.lima.dto.EnderecoDTO;
+import br.com.salon.carine.lima.dto.MessageDTO;
+import br.com.salon.carine.lima.dto.ResponseClienteDTO;
 import br.com.salon.carine.lima.models.Cliente;
+import br.com.salon.carine.lima.models.Endereco;
 import br.com.salon.carine.lima.repositories.ClienteRepository;
-import br.com.salon.carine.lima.util.Message;
-import br.com.salon.carine.lima.util.Messenger;
 
 @Service
-public class ClienteService implements Messenger {
-
-	@Autowired
-	public Message message;
+public class ClienteService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
 
-	public void cadastrar(ClienteDTO clienteDTO) {
+	@Autowired
+	private EnderecoService enderecoService;
+
+	public ResponseClienteDTO cadastrar(ClienteDTO clienteDTO) {
 		Cliente cliente = inClienteDTOFromCliente(clienteDTO);
 		this.clienteRepository.cadastrar(cliente);
-		emitterMessagesuccess("Cliente cadastrado com sucesso");
+
+		ResponseClienteDTO response = new ResponseClienteDTO();
+		response.setCliente(clienteDTO);
+		response.setMessage(new MessageDTO("Cliente", "Cliente cadastrado com sucesso"));
+
+		return response;
+
 	}
 
 	public List<ClienteDTO> listarTodos() {
 		List<Cliente> listaCliente = this.clienteRepository.listarTodos();
 		List<ClienteDTO> listClienteDTO = inListClienteFromListClienteDTO(listaCliente);
 		return listClienteDTO;
-
 	}
 
 	public ClienteDTO remover(Integer id) {
 
-		Cliente cliente = this.clienteRepository.remover(id);
+		if (id != null) {
+			ClienteDTO clienteDTO = new ClienteDTO();
+			Cliente cliente = this.clienteRepository.buscarClientePorID(id);
+			Cliente clienteProximo = this.clienteRepository.buscarClienteProximoParaAtual(cliente);
+			this.clienteRepository.remover(cliente.getId());
+			if (clienteProximo != null) {
+				clienteDTO = inClienteFromClienteDTO(clienteProximo);
+				return clienteDTO;
+			}
+		}
+
+		return null;
+	}
+
+	public ClienteDTO buscarClientePorId(Integer id) {
+		Cliente cliente = this.clienteRepository.buscarClientePorID(id);
 		ClienteDTO clienteDTO = inClienteFromClienteDTO(cliente);
-		emitterMessagesuccess("Cliente removido com sucesso");;
 		return clienteDTO;
 	}
+
+	public ResponseClienteDTO alterarCliente(ClienteDTO clienteDTO) {
+		Cliente cliente = inClienteDTOFromCliente(clienteDTO);
+		this.clienteRepository.alterarCliente(cliente);
+
+		ResponseClienteDTO response = new ResponseClienteDTO();
+		response.setCliente(clienteDTO);
+
+		response.setMessage(new MessageDTO("Cliente", "Cliente Alterado com sucesso"));
+
+		return response;
+	}
+
+	/* Coverter's */
 
 	private Cliente inClienteDTOFromCliente(ClienteDTO clienteDTO) {
 
 		Cliente cliente = new Cliente();
+		cliente.setId(clienteDTO.getId());
 		cliente.setNome(clienteDTO.getNome());
 		cliente.setTelefone(clienteDTO.getTelefone());
 		cliente.setEmail(clienteDTO.getEmail());
-		cliente.setEndereco(clienteDTO.getEndereco());
+
+		Endereco endereco = this.enderecoService.inEnderecoDTOFromEndereco(clienteDTO.getEndereco());
+
+		cliente.setEndereco(endereco);
 
 		return cliente;
 	}
@@ -61,7 +99,10 @@ public class ClienteService implements Messenger {
 		clienteDTO.setNome(cliente.getNome());
 		clienteDTO.setTelefone(cliente.getTelefone());
 		clienteDTO.setEmail(cliente.getEmail());
-		clienteDTO.setEndereco(cliente.getEndereco());
+
+		EnderecoDTO enderecoDTO = this.enderecoService.inEnderecoFromEnderecoDTO(cliente.getEndereco());
+
+		clienteDTO.setEndereco(enderecoDTO);
 
 		return clienteDTO;
 
@@ -73,41 +114,17 @@ public class ClienteService implements Messenger {
 		ClienteDTO clienteDTO;
 
 		for (Cliente cliente : list) {
+
+			EnderecoDTO enderecoDTO = this.enderecoService.inEnderecoFromEnderecoDTO(cliente.getEndereco());
+
 			clienteDTO = new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getTelefone(),
-					cliente.getEndereco());
+					enderecoDTO);
+
 			listaClienteDTO.add(clienteDTO);
 		}
 
 		return listaClienteDTO;
 
-	}
-
-	@Override
-	public void emitterMessagesuccess(String text) {
-		this.message.setType(TypeMessage.SUCESSO);
-		this.message.setClasse("success");
-		this.message.setText(text);
-	}
-
-	@Override
-	public void emitterMessagedanger(String text) {
-		this.message.setType(TypeMessage.ALERTA);
-		this.message.setClasse("danger");
-		this.message.setText(text);
-	}
-
-	@Override
-	public void emitterMessageinfo(String text) {
-		this.message.setType(TypeMessage.INFO);
-		this.message.setClasse("info");
-		this.message.setText(text);
-	}
-
-	@Override
-	public void emitterMessagewarning(String text) {
-		this.message.setType(TypeMessage.ATENCAO);
-		this.message.setClasse("warning");
-		this.message.setText(text);
 	}
 
 }

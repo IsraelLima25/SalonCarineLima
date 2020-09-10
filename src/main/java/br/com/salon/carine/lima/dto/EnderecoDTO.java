@@ -2,6 +2,7 @@ package br.com.salon.carine.lima.dto;
 
 public class EnderecoDTO {
 
+	private Integer idEndereco;
 	private String cep;
 	private String bairro;
 	private String logradouro;
@@ -13,9 +14,10 @@ public class EnderecoDTO {
 
 	}
 
-	public EnderecoDTO(String cep, String bairro, String logradouro, Integer numero, String complemento,
+	public EnderecoDTO(Integer idEndereco,String cep, String bairro, String logradouro, Integer numero, String complemento,
 			String pontoReferencia) {
-		super();
+
+		this.idEndereco = idEndereco;
 		this.cep = cep;
 		this.bairro = bairro;
 		this.logradouro = logradouro;
@@ -72,10 +74,12 @@ public class EnderecoDTO {
 		this.pontoReferencia = pontoReferencia;
 	}
 
-	@Override
-	public String toString() {
-		return "EnderecoDTO [cep=" + cep + ", bairro=" + bairro + ", logradouro=" + logradouro + ", numero=" + numero
-				+ ", complemento=" + complemento + ", pontoReferencia=" + pontoReferencia + "]";
+	public Integer getIdEndereco() {
+		return idEndereco;
+	}
+
+	public void setIdEndereco(Integer idEndereco) {
+		this.idEndereco = idEndereco;
 	}
 
 }

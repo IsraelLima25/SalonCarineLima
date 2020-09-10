@@ -5,11 +5,9 @@
 <tags:pageTemplate titulo="Lista Cliente">
 
 	<div class="container">
-		<input type="number" id="registroAtual" hidden />
 		<h4 class="mt-4 color-font">Catalogo Clientes</h4>
 		<hr />
-
-		<!-- Message Client-->
+		<!-- Message Client -->
 		<div id="mensagemClient" hidden role="alert">
 			<button type="button" class="close" data-dismiss="alert"
 				aria-label="Close">
@@ -59,41 +57,18 @@
 				<c:forEach items="${lista}" var="cliente">
 					<tr>
 						<td hidden>${cliente.id}</td>
-						<td>${cliente.nome}</td>
-						<td class="text-center"><a type="button"
-							onclick="atualRemover(${cliente.id});" data-toggle="modal"
-							data-target="#modalExluir"> <i class="fas fa-trash-alt"></i>
-						</a></td>
+						<td>
+							<a type="button" onclick="detalharCliente(${cliente.id});">
+							${cliente.nome}
+							</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
-
-	<!-- Modal -->
-	<div class="modal fade" id="modalExluir" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<img src="../resources/img/logomarca-removebg-preview.png"
-						width="50" height="50" alt="logomarca">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">Deseja realmente excluir este cliente?
-				</div>
-				<div class="modal-footer">
-					<button type="button" data-dismiss="modal" style="width: 100px;"
-						class="btn btn-color-salon" onclick="removerCliente();">Sim</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<script src="../resources/js/catalogoCliente.js"></script>
+	
+	<script src="../resources/js/cliente/catalogo.js"></script>
 
 </tags:pageTemplate>
 
