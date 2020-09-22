@@ -11,7 +11,7 @@ $(document).ready(
 			$("#cep").blur(
 					function() {
 						// capturando cep
-						var cep = $(this).val();
+						var cep = $(this).val();						
 						
 						// Verifica se campo cep possui valor informado.
 						if (cep != "") {

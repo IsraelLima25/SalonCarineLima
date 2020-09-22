@@ -2,19 +2,22 @@ package br.com.salon.carine.lima.conf;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import br.com.salon.carine.lima.controllers.HomeController;
+import br.com.salon.carine.lima.exceptions.ControllerExceptionHandler;
 import br.com.salon.carine.lima.models.Cliente;
 import br.com.salon.carine.lima.repositories.ClienteRepository;
 import br.com.salon.carine.lima.services.ClienteService;
 
 @EnableWebMvc
 @ComponentScan(basePackageClasses = {HomeController.class, Cliente.class, 
-									ClienteService.class, ClienteRepository.class})
+									ClienteService.class, ClienteRepository.class, 
+									ControllerExceptionHandler.class})
 
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
@@ -30,6 +33,7 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
+	
 
 //	@Override
 //	 public void addResourceHandlers(final ResourceHandlerRegistry registry) {

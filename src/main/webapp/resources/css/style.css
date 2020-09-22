@@ -12,7 +12,7 @@ body {
 }
 
 .color-font {
-	color: #f987aa;
+	color: #B84BFF;
 }
 
 .border-color {
@@ -28,20 +28,19 @@ body {
 }
 
 .btn-color-salon {
-	background-color: #f987aa;
+	background-color: #B84BFF;
 	color: #fffafa;
 	font-size: 18px;
-	width: 220px;
 	margin-top: 25px;
 }
 
 .color-font-label {
-	color: #808080;
+	color: black;
 }
 
 .tamanho-icone-padlock {
 	font-size: 30px;
-	padding-right: 15px;
+	margin: 5px;
 }
 
 .dropdown-menu {
@@ -63,10 +62,10 @@ body {
 }
 
 .back-to-top {
-	background-color: #808080;
-	border-radius: 65px;
+	background-color: #17a2b8;
+	border-radius: 75px;
 	bottom: 14px;
-	box-shadow: 2px 3px 19px -2p;
+	box-shadow: 0 8px 8px 0 rgba(0, 0, 0, .25);
 	color: #fffafa;
 	cursor: pointer;
 	height: 40px;
@@ -82,6 +81,14 @@ body {
 	color: #212529;
 }
 
-.erro {
+.hr {
+	margin: 10px 0px 10px 0px;
+}
+
+.obrigatorio {
 	color: red;
+}
+
+.container {
+	margin-top: 80px;
 }

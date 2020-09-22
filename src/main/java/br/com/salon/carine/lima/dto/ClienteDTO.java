@@ -1,11 +1,29 @@
 package br.com.salon.carine.lima.dto;
 
-public class ClienteDTO {
+import java.io.Serializable;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+
+public class ClienteDTO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+
+	@Length(min = 1, max = 25, message = "Nome Inválido. Mínimo 1 máximo 25 caracteres")
 	private String nome;
+
+	@Email(message = "Email inválido")
 	private String email;
+
+	@Pattern(regexp = "(^$|.{11})", message = "Telefone inválido. Formato (ddd) 9 99999999")
 	private String telefone;
+	
+	@Valid
 	private EnderecoDTO endereco;
 
 	public ClienteDTO() {
@@ -68,7 +86,7 @@ public class ClienteDTO {
 	public EnderecoDTO getEndereco() {
 		return endereco;
 	}
-
+	
 	public void setEndereco(EnderecoDTO endereco) {
 		this.endereco = endereco;
 	}

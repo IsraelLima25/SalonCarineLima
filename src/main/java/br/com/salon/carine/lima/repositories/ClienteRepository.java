@@ -50,58 +50,31 @@ public class ClienteRepository {
 	}
 	
 	public Cliente buscarClienteAnteriorParaAtual(Cliente cliente) {
-		
-		Cliente clienteAnterior;
-		
-		Cliente ultimoClienteCadastrado = ultimoClienteCadastrado();
-		Cliente primeiroClienteCadastrado = primeiroClienteCadastrado();
-		
-		if(cliente.getId() == primeiroClienteCadastrado.getId()) {
-			clienteAnterior = ultimoClienteCadastrado;
-			return clienteAnterior;
-			
-		}else {
 			
 			TypedQuery<Cliente> typedQuery = this.manager.createQuery(
 					"select c1 "
 							+ "from Cliente c1 where c1.id = (select MAX(c2.id) "
 							+ "from Cliente c2 where c2.id < :id)",Cliente.class);
+			
 			typedQuery.setParameter("id", cliente.getId());
 			
-			clienteAnterior = typedQuery.getSingleResult();
+			Cliente clienteAnterior = typedQuery.getSingleResult();
 			
 			return clienteAnterior;
-		}
-		
 	}
 	
 	public Cliente buscarClienteProximoParaAtual(Cliente cliente) {
 		
-		Cliente clienteProximo = null;
+		TypedQuery<Cliente> typedQuery = this.manager.createQuery("select c1 "
+				+ "from Cliente c1 where c1.id = (select min(c2.id)"
+				+ " from Cliente c2 where c2.id > :id)", Cliente.class);
 		
-		Cliente ultimoClienteCadastrado = ultimoClienteCadastrado();
-		Cliente primeiroClienteCadastrado = primeiroClienteCadastrado();
+		typedQuery.setParameter("id", cliente.getId());
 		
-		if(ultimoClienteCadastrado.getId() == primeiroClienteCadastrado.getId()) {			
-			return clienteProximo;
-			
-		}else if(cliente.getId() == ultimoClienteCadastrado.getId()) { 
-			clienteProximo = primeiroClienteCadastrado;
-			return clienteProximo;
-		}
-		else {
-			TypedQuery<Cliente> typedQuery = this.manager.createQuery("select c1 "
-					+ "from Cliente c1 where c1.id = (select min(c2.id)"
-					+ " from Cliente c2 where c2.id > :id)", Cliente.class);
-			
-			typedQuery.setParameter("id", cliente.getId());
-			
-			clienteProximo = typedQuery.getSingleResult();
-			
-			return clienteProximo;
-		}
+		Cliente clienteProximo = typedQuery.getSingleResult();
 		
-		
+		return clienteProximo;
+
 	}
 	
 	public Cliente ultimoClienteCadastrado() {

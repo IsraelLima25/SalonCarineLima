@@ -31,7 +31,7 @@
 	<!-- Conteudo da pagina -->
 
 	<!--Botão voltar para o topo -->
-	<div class="back-to-top" href="#">
+	<div class="back-to-top" hidden href="#">
 		<i class="fas fa-chevron-up"></i>
 	</div>
 
