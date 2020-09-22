@@ -38,6 +38,7 @@
 	                                class="fas fa-play"></i> Cadastrar</a>
 	                        <a class="dropdown-item" href="../cliente/listar"><i style="font-size: 10px;"
 	                                class="fas fa-play"></i> Listar</a>
+	                                
 	                    </div>
 	                </li>
 	
@@ -64,21 +65,19 @@
 	                        Serviços
 	                    </a>
 	                    <div id="divServico" class="dropdown-menu" aria-labelledby="navbarDropdownServico">
-	                        <a class="dropdown-item" href="../servico/cadastrarServico.html"><i style="font-size: 10px;"
-	                                class="fas fa-play"></i> Cadastro</a>
+	                        <a class="dropdown-item" href="../servico/cadastro"><i style="font-size: 10px;"
+	                                class="fas fa-play"></i> Cadastrar</a>
+	                        <a class="dropdown-item" href="../servico/listar"><i style="font-size: 10px;"
+	                                class="fas fa-play"></i> Listar</a>
 	                    </div>
-	                    <div id="divServico" class="dropdown-menu" aria-labelledby="navbarDropdownServico">
-	                        <a class="dropdown-item" href="../servico/catalogoServico.html"><i style="font-size: 10px;"
-	                                class="fas fa-play"></i> Catálogo</a>
-	                    </div>
+	                   
 	                </li>
-	
-	               
+	               	<li>
 	                    <a class="nav-link" href="../signin/login.html" aria-expanded="false">
 	                        <i class="fas fa-sign-out-alt"></i>
 	                        Sair
 	                    </a>
-	             
+	             	</li>
 	
 	            </ul>
 	        </div>
