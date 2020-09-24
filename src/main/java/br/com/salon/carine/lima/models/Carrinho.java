@@ -30,7 +30,7 @@ public class Carrinho implements Serializable {
 			servicos.put(itemServico, 0);
 		}
 		return servicos.get(itemServico);
-	}
+	}	
 
 	public void esvaziar() {
 		this.servicos.clear();
@@ -44,7 +44,7 @@ public class Carrinho implements Serializable {
 		return itemServico.getTotal(getQuantidadeItem(itemServico));
 	}
 
-	public BigDecimal getTotal() {
+	public BigDecimal getTotalCarrinho() {
 		BigDecimal total = BigDecimal.ZERO;
 
 		for (ServicoItemCarrinho itemServico : servicos.keySet()) {
@@ -52,20 +52,21 @@ public class Carrinho implements Serializable {
 		}
 		return total;
 	}
-
-	public void removerItem(ServicoItemCarrinho itemServico) {
-		servicos.remove(itemServico);
-	}
-
-	public void incrementarQuantidadeItem(ServicoItemCarrinho itemServico) {
-		Integer quantidade = servicos.get(itemServico);
-		quantidade++;
-		servicos.put(itemServico, quantidade);
+	
+	public void removeItem(ServicoItemCarrinho itemServico) {		
+		this.servicos.remove(itemServico);		
 	}
 	
-	public void decrementarQuantidadeItem(ServicoItemCarrinho itemServico) {
+	public void decrementarQuantidadeItem(ServicoItemCarrinho itemServico) {	
+		
 		Integer quantidade = servicos.get(itemServico);
-		quantidade--;
-		servicos.put(itemServico, quantidade);
+		
+		if(quantidade == 0) {
+			removeItem(itemServico);			
+		}else {
+			quantidade--;
+			servicos.put(itemServico, quantidade);
+		}
+		
 	}
 }

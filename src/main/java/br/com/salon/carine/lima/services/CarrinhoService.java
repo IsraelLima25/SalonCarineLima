@@ -23,7 +23,6 @@ public class CarrinhoService {
 		Servico servico = ConvertersServico.deServicoDTOparaServico(servicoDTO);
 		ServicoItemCarrinho servicoCarrinho = new ServicoItemCarrinho();
 		servicoCarrinho.setServico(servico);
-		servicoCarrinho.setQuantidade(1);
 
 		carrinho.add(servicoCarrinho);
 
@@ -35,10 +34,6 @@ public class CarrinhoService {
 
 	public Integer getQuantidadeTotalItensCarrinho() {
 		return carrinho.getQuantidadeTotal();
-	}
-	
-	public void imcrementarQuantidadeItemCarrinho(ServicoItemCarrinho item) {
-		this.carrinho.incrementarQuantidadeItem(item);
 	}
 	
 	public void decrementarQuantidadeItemCarrinho(ServicoItemCarrinho item) {
@@ -58,11 +53,6 @@ public class CarrinhoService {
 	}
 
 	public BigDecimal getValorTotalCarrinho() {
-		return carrinho.getTotal();
+		return carrinho.getTotalCarrinho();
 	}
-
-	public void removerItemCarrinho(ServicoItemCarrinho item) {
-		this.carrinho.removerItem(item);
-	}
-
 }

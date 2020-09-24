@@ -8,16 +8,15 @@ public class ServicoItemCarrinho implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Servico servico;
-	private Integer quantidade;
-
+	
 	public ServicoItemCarrinho() {
-		super();
+		
 	}
-
+	
 	public ServicoItemCarrinho(Servico servico) {
 		this.servico = servico;
 	}
-
+	
 	public Servico getServico() {
 		return servico;
 	}
@@ -25,26 +24,18 @@ public class ServicoItemCarrinho implements Serializable {
 	public void setServico(Servico servico) {
 		this.servico = servico;
 	}
-
-	public Integer getQuantidade() {
-		return quantidade;
+	
+	public BigDecimal getTotal(Integer quantidade) {
+		BigDecimal total = BigDecimal.valueOf(quantidade);
+		return this.servico.getPreco().multiply(total);
 	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((servico == null) ? 0 : servico.hashCode());
 		return result;
-	}
-	
-	public BigDecimal getTotal(Integer quantidade) {
-		BigDecimal total = BigDecimal.valueOf(quantidade);
-		return servico.getPreco().multiply(total);
 	}
 
 	@Override
@@ -63,6 +54,5 @@ public class ServicoItemCarrinho implements Serializable {
 			return false;
 		return true;
 	}
-
 
 }
