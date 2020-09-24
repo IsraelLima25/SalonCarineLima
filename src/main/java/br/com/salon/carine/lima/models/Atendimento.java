@@ -3,23 +3,16 @@ package br.com.salon.carine.lima.models;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.List;
 
 import br.com.salon.carine.lima.enuns.StatusAtendimento;
 
-@Entity
 public class Atendimento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Carrinho carrinhoservicos;
+	private List<ServicoItemCarrinho> servicos;
 	private Cliente cliente;
 	private BigDecimal valorTotal;
 	private LocalDateTime dataHora;
@@ -31,10 +24,11 @@ public class Atendimento implements Serializable {
 	public Atendimento() {
 	}
 
-	public Atendimento(Carrinho carrinhoservicos, Cliente cliente, BigDecimal valorTotal, LocalDateTime dataHora,
-			Endereco endereco, StatusAtendimento status, Pagamento pagamento, BigDecimal desconto) {
-		super();
-		this.carrinhoservicos = carrinhoservicos;
+	public Atendimento(Integer id, List<ServicoItemCarrinho> servicos, Cliente cliente, BigDecimal valorTotal,
+			LocalDateTime dataHora, Endereco endereco, StatusAtendimento status, Pagamento pagamento,
+			BigDecimal desconto) {
+		this.id = id;
+		this.servicos = servicos;
 		this.cliente = cliente;
 		this.valorTotal = valorTotal;
 		this.dataHora = dataHora;
@@ -52,12 +46,12 @@ public class Atendimento implements Serializable {
 		this.id = id;
 	}
 
-	public Carrinho getCarrinhoservicos() {
-		return carrinhoservicos;
+	public List<ServicoItemCarrinho> getServicos() {
+		return servicos;
 	}
 
-	public void setCarrinhoservicos(Carrinho carrinhoservicos) {
-		this.carrinhoservicos = carrinhoservicos;
+	public void setServicos(List<ServicoItemCarrinho> servicos) {
+		this.servicos = servicos;
 	}
 
 	public Cliente getCliente() {

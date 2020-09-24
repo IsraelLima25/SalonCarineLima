@@ -49,3 +49,9 @@ function showMessage(data) {
 	$('#modalPage').modal('show');
 }
 
+function showMessageClient(title, body) {
+	$('#title').text(title);
+	$('#body').text(body);
+	$('#modalPage').modal('show');
+}
+

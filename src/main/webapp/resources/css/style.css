@@ -34,6 +34,12 @@ body {
 	margin-top: 25px;
 }
 
+.btn-color-salon-card {
+	background-color: #B84BFF;
+	color: #fffafa;
+	font-size: 18px;
+}
+
 .color-font-label {
 	color: black;
 }
@@ -92,3 +98,35 @@ body {
 .container {
 	margin-top: 80px;
 }
+
+.container-card{
+	margin-top:0px;
+}
+
+ .card-imagem {
+    width: 14rem;
+    object-fit:cover;
+    object-position: 0 60%;
+  }
+  
+ @media only screen and (max-width: 375px) {
+  .card-imagem {
+    width: 20rem;
+    object-fit:cover;
+    object-position: 0 60%;
+  }
+}
+
+ @media only screen and (max-width: 320px) {
+  .card-imagem {
+    width: 15rem;
+    object-fit:cover;
+    object-position: 0 60%;
+  }
+}  
+  .item-carrinho{
+  	border: 1px solid;
+  	border-color: #D3D3D3;
+  	border-radius: 10px;
+  	padding: 10px;
+  }

@@ -17,14 +17,12 @@
 	                        Atendimentos
 	                    </a>
 	                    <div id="divAtendimento" class="dropdown-menu" aria-labelledby="navbarDropdownAtendimento">
-	                        <a class="dropdown-item" href="../atendimento/catalogoAtendimento.html"><i style="font-size: 10px;" class="fas fa-play"></i>
-	                            Catálogo</a>
-	                    </div>
-	
-	                    <div id="divAtendimento" class="dropdown-menu" aria-labelledby="navbarDropdownAtendimento">
-	                        <a class="dropdown-item" href="../atendimento/marcarAtendimento.html"><i style="font-size: 10px;" class="fas fa-play"></i>
+	                          <a class="dropdown-item" href="../atendimento/marcar"><i style="font-size: 10px;" class="fas fa-play"></i>
 	                            Marcar</a>
+	                        <a class="dropdown-item" href="../atendimento/catalogoAtendimento.html"><i style="font-size: 10px;" class="fas fa-play"></i>
+	                            Listar</a>
 	                    </div>
+
 	                </li>
 	
 	                <li class="nav-item dropdown dpdwCliente">
@@ -72,6 +70,19 @@
 	                    </div>
 	                   
 	                </li>
+	                
+	               	<li>
+	                    <a class="nav-link" href="../loja/itensLoja" aria-expanded="false">
+	                        Loja
+	                    </a>
+	             	</li>
+	                
+	               	<li>
+	                    <a class="nav-link" href="../carrinho/itensCarrinho" aria-expanded="false">
+	                        Carrinho
+	                    </a>
+	             	</li>
+	             	
 	               	<li>
 	                    <a class="nav-link" href="../signin/login.html" aria-expanded="false">
 	                        <i class="fas fa-sign-out-alt"></i>

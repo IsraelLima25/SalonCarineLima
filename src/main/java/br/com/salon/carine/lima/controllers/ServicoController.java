@@ -116,11 +116,6 @@ public class ServicoController {
 		ResponseServicoDTO response = this.servicoService.alterarServico(servicoDTO);
 
 		return ResponseEntity.ok().body(response);
-
 	}
-	
-	
-	
-	
 
 }

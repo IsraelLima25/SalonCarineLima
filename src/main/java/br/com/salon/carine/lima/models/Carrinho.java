@@ -1,44 +1,71 @@
 package br.com.salon.carine.lima.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope("singleton")
 public class Carrinho implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Map<ServicoItemCarrinho, Integer> servicos = new HashMap<>();
 
-	List<ItemCarrinho> itensCarinho = new ArrayList<ItemCarrinho>();
+	public Collection<ServicoItemCarrinho> getServicos() {
+		return servicos.keySet();
+	}
 
-	public Carrinho() {
+	public void add(ServicoItemCarrinho itemServico) {
+		servicos.put(itemServico, getQuantidadeItem(itemServico) + 1);
+	}
+
+	public Integer getQuantidadeItem(ServicoItemCarrinho itemServico) {
+		if (!servicos.containsKey(itemServico)) {
+			servicos.put(itemServico, 0);
+		}
+		return servicos.get(itemServico);
+	}
+
+	public void esvaziar() {
+		this.servicos.clear();
+	}
+
+	public int getQuantidadeTotal() {
+		return this.servicos.values().stream().reduce(0, (proximo, acumulador) -> proximo + acumulador);
+	}
+
+	public BigDecimal getTotalServico(ServicoItemCarrinho itemServico) {
+		return itemServico.getTotal(getQuantidadeItem(itemServico));
+	}
+
+	public BigDecimal getTotal() {
+		BigDecimal total = BigDecimal.ZERO;
+
+		for (ServicoItemCarrinho itemServico : servicos.keySet()) {
+			total = total.add(getTotalServico(itemServico));
+		}
+		return total;
+	}
+
+	public void removerItem(ServicoItemCarrinho itemServico) {
+		servicos.remove(itemServico);
+	}
+
+	public void incrementarQuantidadeItem(ServicoItemCarrinho itemServico) {
+		Integer quantidade = servicos.get(itemServico);
+		quantidade++;
+		servicos.put(itemServico, quantidade);
 	}
 	
-	public void adicionarItemCarrinho(ItemCarrinho itemCarrinho) {		
-		this.itensCarinho.add(itemCarrinho);		
+	public void decrementarQuantidadeItem(ServicoItemCarrinho itemServico) {
+		Integer quantidade = servicos.get(itemServico);
+		quantidade--;
+		servicos.put(itemServico, quantidade);
 	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public List<ItemCarrinho> getItensCarinho() {
-		return itensCarinho;
-	}
-
-	public void setItensCarinho(List<ItemCarrinho> itensCarinho) {
-		this.itensCarinho = itensCarinho;
-	}
-
 }
