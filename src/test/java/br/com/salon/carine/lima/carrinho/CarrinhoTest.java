@@ -118,6 +118,19 @@ public class CarrinhoTest {
 
 		assertEquals("191.50", totalCarrinho.toString());
 	}
+	
+	@Test
+	public void valorTotalItemCarrinhoAdicionandoRemovendoItens() {
+		
+		ServicoItemCarrinho servicoItemCarrinho1 = new ServicoItemCarrinho(this.servicos.get(0));
+		this.carrinho.add(servicoItemCarrinho1);
+		this.carrinho.add(servicoItemCarrinho1);
+		
+		this.carrinho.removerItemCarrinho(servicoItemCarrinho1);
+		
+		BigDecimal totalCarrinho = this.carrinho.getTotalCarrinho();
+		assertEquals("30.0", totalCarrinho.toString());
+	}
 
 	@Test
 	public void decrementarQuantidadeItemCarrinhoTest() {
@@ -129,15 +142,15 @@ public class CarrinhoTest {
 		this.carrinho.add(servicoItemCarrinho2);
 		this.carrinho.add(servicoItemCarrinho2);
 
-		this.carrinho.decrementarQuantidadeItem(servicoItemCarrinho1);
-		this.carrinho.decrementarQuantidadeItem(servicoItemCarrinho1);
-		this.carrinho.decrementarQuantidadeItem(servicoItemCarrinho1);
-		this.carrinho.decrementarQuantidadeItem(servicoItemCarrinho2);
-		this.carrinho.decrementarQuantidadeItem(servicoItemCarrinho2);
+		this.carrinho.removerItemCarrinho(servicoItemCarrinho1);
+		this.carrinho.removerItemCarrinho(servicoItemCarrinho1);
+		this.carrinho.removerItemCarrinho(servicoItemCarrinho1);
+		this.carrinho.removerItemCarrinho(servicoItemCarrinho2);
+		this.carrinho.removerItemCarrinho(servicoItemCarrinho2);
 
 		int totalItens = this.carrinho.getQuantidadeTotal();
 
-		assertEquals(-1, totalItens);
+		assertEquals(0, totalItens);
 	}
 
 	@Test
@@ -146,7 +159,7 @@ public class CarrinhoTest {
 		this.carrinho.add(servicoItemCarrinho1);
 		this.carrinho.add(servicoItemCarrinho1);
 
-		this.carrinho.removeItem(servicoItemCarrinho1);
+		this.carrinho.removerItemCarrinho(servicoItemCarrinho1);
 
 		int totalItens = this.carrinho.getQuantidadeTotal();
 		assertEquals(0, totalItens);

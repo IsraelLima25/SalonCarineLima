@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
-
+	
 	@ExceptionHandler(ArgumentNotValidException.class)
 	public ResponseEntity<ValidationError> argumentNotValid(ArgumentNotValidException e, 
 			HttpServletRequest request) {
@@ -28,5 +28,4 @@ public class ControllerExceptionHandler {
 		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
 
 	}
-
 }

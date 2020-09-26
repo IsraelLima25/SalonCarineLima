@@ -26,7 +26,7 @@ public class ServicoItemCarrinho implements Serializable {
 	}
 	
 	public BigDecimal getTotal(Integer quantidade) {
-		BigDecimal total = BigDecimal.valueOf(quantidade);
+		BigDecimal total = BigDecimal.valueOf(quantidade);		
 		return this.servico.getPreco().multiply(total);
 	}
 	

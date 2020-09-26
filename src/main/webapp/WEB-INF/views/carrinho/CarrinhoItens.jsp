@@ -24,49 +24,75 @@
 								<b>Total Carrinho</b>
 							</p>
 							<p>
-								<b>R$ 50000,00</b>
+								<b id="total">R$ ${total}</b>
 							</p>
 						</div>
 					</div>
 				</div>
 				<hr />
-				<div class="item-carrinho mt-4">
-					<div class="row">
-						<div class="col-4 col-md-4 text-center">
-							<p>Preço</p>
-							<p>R$ 20,00</p>
-						</div>
-						<div class="col-4 col-md-4 text-center">
-							<p>Descricao do Servico</p>
-						</div>
-						<div class="col-4 col-md-4 text-center">
-							<p>Total</p>
-							<p>R$ 20,00</p>
-						</div>
-					</div>
-					<div class="mt-2 row">
-						<div class="col-4 col-md-4 text-center">
-							<a href="#" class="text-center btn btn-color-salon-card"><i
-								class="fas fa-minus-circle"></i></a>
-						</div>
-						<div class="col-4 col-md-4 text-center">
-							<p>Quantidade</p>
-							<p>1</p>
-						</div>
-						<div class="col-4 col-md-4 text-center">
-							<a href="#" class="btn btn-color-salon-card"><i
-								class="fas fa-plus-circle"></i></a>
-						</div>
-					</div>
+				<div>
+					<c:choose>
+						<c:when test="${itens.size() == 0}">
+							<tr>
+								<p>
+									<i>Nenhum serviço cadastrado</i>
+								</p>
+							</tr>
 
-					<div class="row mt-2">
-						<div class="col-12 col-md-12 text-center">
-							<button class="btn btn-danger">
-								<i class="fas fa-trash-alt"></i> Remover item do carrinho
-							</button>
-						</div>
-					</div>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${itens}" var="item">
+								<div class="item-carrinho mt-4">
+									<div class="row">
+										<div class="col-4 col-md-4 text-center">
+											<p>Preço</p>
+											<p>R$ ${item.servicoDTO.preco}</p>
+										</div>
+										<div class="col-4 col-md-4 text-center">
+											<p>${item.servicoDTO.descricao}</p>
+										</div>
+										<div class="col-4 col-md-4 text-center">
+											<p>Total</p>
+											<p id="total-${item.servicoDTO.id}">R$ ${item.precoTotal}</p>
+										</div>
+									</div>
+									<div class="mt-2 row">
+
+										<div class="col-4 col-md-4 text-center">
+											<a type="button" class="text-center btn btn-color-salon-card"
+												onclick="removerItem(${item.servicoDTO.id})"> <i
+												class="fas fa-minus-circle"></i>
+											</a>
+										</div>
+
+										<div class="col-4 col-md-4 text-center">
+											<p>Quantidade</p>
+											<p id="quantidade-${item.servicoDTO.id}">${item.quantidade}</p>
+										</div>
+										<div class="col-4 col-md-4 text-center">
+											<a class="btn btn-color-salon-card"
+												onclick="incrementarItem(${item.servicoDTO.id})"> <i
+												class="fas fa-plus-circle"></i>
+											</a>
+										</div>
+									</div>
+
+									<div class="row mt-2">
+										<div class="col-12 col-md-12 text-center">
+											<button class="btn btn-danger"
+												onclick="removerServico(${item.servicoDTO.id})">
+												<i class="fas fa-trash-alt"></i> Remover item do carrinho
+											</button>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</div>
+
+
+
 			</div>
 		</section>
 	</main>
