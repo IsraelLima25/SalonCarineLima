@@ -29,5 +29,5 @@ public class ServeletSpringMVC extends AbstractAnnotationConfigDispatcherServlet
 		encodingFilter.setEncoding("UTF-8");
 		return new Filter[] { encodingFilter };
 	}	
-
+	
 }

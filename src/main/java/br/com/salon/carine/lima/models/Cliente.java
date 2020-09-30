@@ -1,6 +1,8 @@
 package br.com.salon.carine.lima.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -26,6 +29,10 @@ public class Cliente implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
+	
+	
+	@OneToMany(mappedBy = "cliente")
+	private List<Atendimento> atendimentos = new ArrayList<>();
 
 	public Cliente() {
 	}
@@ -77,7 +84,15 @@ public class Cliente implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	public List<Atendimento> getAtendimentos() {
+		return atendimentos;
+	}
 
+	public void setAtendimentos(List<Atendimento> atendimentos) {
+		this.atendimentos = atendimentos;
+	}
+	
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", endereco="

@@ -96,6 +96,10 @@ public class CarrinhoService {
 	public BigDecimal getValorTotalCarrinho() {
 		return carrinho.getTotalCarrinho();
 	}
-
+	
+	public List<ServicoItemCarrinhoDTO> finalizarAtendimentoItensCarrinho() {
+		List<ServicoItemCarrinhoDTO> servicosCarrinho = getServicosCarrinho();
+		return servicosCarrinho;
+	}
 
 }

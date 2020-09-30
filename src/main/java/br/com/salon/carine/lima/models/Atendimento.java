@@ -3,39 +3,66 @@ package br.com.salon.carine.lima.models;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import br.com.salon.carine.lima.converters.LocalDateTimeAttributeConverter;
 import br.com.salon.carine.lima.enuns.StatusAtendimento;
 
+@Entity
 public class Atendimento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private List<ServicoItemCarrinho> servicos;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
+
 	private BigDecimal valorTotal;
+
+	@Convert(converter = LocalDateTimeAttributeConverter.class)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime dataHora;
+
+	@OneToOne
+	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
+
+	@Enumerated(EnumType.ORDINAL)
 	private StatusAtendimento status;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "pagamento_id")
 	private Pagamento pagamento;
+
 	private BigDecimal desconto;
 
-	public Atendimento() {
-	}
+	private BigDecimal taxa;
 
-	public Atendimento(Integer id, List<ServicoItemCarrinho> servicos, Cliente cliente, BigDecimal valorTotal,
-			LocalDateTime dataHora, Endereco endereco, StatusAtendimento status, Pagamento pagamento,
-			BigDecimal desconto) {
-		this.id = id;
-		this.servicos = servicos;
-		this.cliente = cliente;
-		this.valorTotal = valorTotal;
-		this.dataHora = dataHora;
-		this.endereco = endereco;
-		this.status = status;
-		this.pagamento = pagamento;
-		this.desconto = desconto;
+	@OneToMany(mappedBy = "atendimento")
+	private List<ServicoItemCarrinho> itens = new ArrayList<>();
+
+	public Atendimento() {
 	}
 
 	public Integer getId() {
@@ -44,14 +71,6 @@ public class Atendimento implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public List<ServicoItemCarrinho> getServicos() {
-		return servicos;
-	}
-
-	public void setServicos(List<ServicoItemCarrinho> servicos) {
-		this.servicos = servicos;
 	}
 
 	public Cliente getCliente() {
@@ -73,7 +92,7 @@ public class Atendimento implements Serializable {
 	public LocalDateTime getDataHora() {
 		return dataHora;
 	}
-
+	
 	public void setDataHora(LocalDateTime dataHora) {
 		this.dataHora = dataHora;
 	}
@@ -108,6 +127,22 @@ public class Atendimento implements Serializable {
 
 	public void setDesconto(BigDecimal desconto) {
 		this.desconto = desconto;
+	}
+
+	public List<ServicoItemCarrinho> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ServicoItemCarrinho> itens) {
+		this.itens = itens;
+	}
+
+	public BigDecimal getTaxa() {
+		return taxa;
+	}
+
+	public void setTaxa(BigDecimal taxa) {
+		this.taxa = taxa;
 	}
 
 	@Override

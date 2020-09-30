@@ -3,11 +3,9 @@ package br.com.salon.carine.lima.models;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Endereco implements Serializable {
@@ -23,10 +21,7 @@ public class Endereco implements Serializable {
 	private Integer numero;
 	private String complemento;
 	private String pontoReferencia;
-	
-	@OneToOne(mappedBy = "endereco", fetch = FetchType.EAGER)
-	private Cliente cliente;
-	
+
 	public Endereco() {
 	}
 
@@ -92,7 +87,7 @@ public class Endereco implements Serializable {
 	public Integer getId() {
 		return id;
 	}
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}

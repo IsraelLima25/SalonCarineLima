@@ -14,11 +14,7 @@
 
 				<div class="total-carrinho mt-3">
 					<div class="row">
-						<div class="col-6 col-md-6 text-left">
-							<p>
-								<button class="btn btn-success">Atender</button>
-							</p>
-						</div>
+						<div class="col-6 col-md-6 text-left mt-4"></div>
 						<div class="col-6 col-md-6 text-right">
 							<p>
 								<b>Total Carrinho</b>
@@ -35,7 +31,7 @@
 						<c:when test="${itens.size() == 0}">
 							<tr>
 								<p>
-									<i>Nenhum serviço cadastrado</i>
+									<i>Nenhum serviço adicionado ao carrinho</i>
 								</p>
 							</tr>
 
@@ -91,7 +87,12 @@
 					</c:choose>
 				</div>
 
-
+				<div class="text-center alinhamento">
+					<button id="btnMarcarAtendimento" spellcheck="false" style="margin-bottom: 16px;"
+						class="btn btn-color-salon btn-block" onclick="marcarAtendimento()">
+							Marcar Atendimento
+						</button>
+				</div>
 
 			</div>
 		</section>

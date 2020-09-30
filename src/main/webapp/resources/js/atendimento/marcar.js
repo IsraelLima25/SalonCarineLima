@@ -1,38 +1,56 @@
-function adicionarItemSelecionadoAoCarrinho() {
-	let idServico = ($("#selectServicos option:selected").text().split("-")[0]);
-	buscarItemServer(idServico);
-}
+$(function() {
+	$('button[type=submit]').click(function(e) {
+		e.preventDefault();
+		$.post({
+			url : '/SalonCarineLima/atendimento/marcar',
+			method : 'POST',
+			data : $('form[name=formMarcar]').serialize()
+		})
+		.then(function(data, textStatus, xhr) {
+// if (xhr.status === 201) {
+// showMessage(data);
+// atualizarPagina();
+// }
+		})
+		.catch(function(err) {
+			thowErrorPage(err.responseJSON);
+			console.log("Fail request");
+			console.log(err);
+		})
 
-function adicionarItemLineTableCarrinho(response) {
+	})
+});
 
-	$("table tbody").empty();
+function limparMessagesErrors(){
 	
-	response.forEach(function(item) {
-		var line = "<tr>" +
-		"<td>"+item.servico.descricao+"</td>" +
-		"<td class='text-center'><a href=''><span>-</span></a>"+item.quantidade+"<a href=''><span>+</span></a></td>" +
-		"<td class='text-center'><a type=button><i class= 'fas fa-trash-alt obrigatorio'></i></a></td>"
-		"</tr>";
-		
-		$("table tbody").append(line);
-	});
+	$('.cliente').prop('hidden',true);
+	$('.cliente').text('');
 }
 
-$('#rbOutroEndereco').click(function() {
-	$('#outroEndereco').prop('hidden', false);
-})
+function topPage() {
+	$("html, body").animate({
+		scrollTop : 0
+	}, 600);
+}
 
-$('#rbEnderecoCliente').click(function() {
-	$('#outroEndereco').prop('hidden', true);
+$('#slcTipoEndereco').change(function() {
+	var tipoSelecionado = $('#slcTipoEndereco option:selected').val();
+	
+	if(tipoSelecionado === 'outro-endereco'){
+		$('#outroEndereco').prop('hidden', false);
+	}else{
+		$('#outroEndereco').prop('hidden', true);
+
+	}
 })
 
 $('#slcFormaPagamento').change(function() {
 	var valueSelected = $('#slcFormaPagamento option:selected').val();
 
-	if (valueSelected === 'cart') {
+	if (valueSelected === 'carteira') {
 		$('#groupBandeiras').prop('hidden', true);
 		$('#groupQuantidadeParcelas').prop('hidden', true);
-	} else if (valueSelected === 'cred') {
+	} else if (valueSelected === 'credito') {
 		$('#groupBandeiras').prop('hidden', false);
 		$('#groupQuantidadeParcelas').prop('hidden', false);
 	} else {

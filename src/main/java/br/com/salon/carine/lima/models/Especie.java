@@ -1,9 +1,10 @@
 package br.com.salon.carine.lima.models;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Especie extends Pagamento {
-
-	public Especie(Atendimento atendimento) {
-		super(atendimento);
-	}
-
+	
+	private static final long serialVersionUID = 1L;
+	
 }

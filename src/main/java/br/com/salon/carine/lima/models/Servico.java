@@ -2,23 +2,29 @@ package br.com.salon.carine.lima.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Servico implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String descricao;
 	private BigDecimal preco;
+
+	@OneToMany(mappedBy = "servico")
+	private List<ServicoItemCarrinho> itens = new ArrayList<>();
 
 	public Servico() {
 
@@ -52,6 +58,14 @@ public class Servico implements Serializable {
 
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
+	}
+
+	public List<ServicoItemCarrinho> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ServicoItemCarrinho> itens) {
+		this.itens = itens;
 	}
 
 	@Override

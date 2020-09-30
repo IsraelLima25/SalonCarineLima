@@ -38,5 +38,5 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 //	 public void addResourceHandlers(final ResourceHandlerRegistry registry) {
 //	        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 //	    }
-
+	
 }

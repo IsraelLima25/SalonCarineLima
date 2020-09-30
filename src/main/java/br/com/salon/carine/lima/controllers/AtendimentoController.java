@@ -1,18 +1,26 @@
 package br.com.salon.carine.lima.controllers;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.logging.Logger;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.salon.carine.lima.dto.ClienteDTO;
-import br.com.salon.carine.lima.dto.ServicoDTO;
-import br.com.salon.carine.lima.models.Carrinho;
+import br.com.salon.carine.lima.dto.MarcarAtendimentoDTO;
+import br.com.salon.carine.lima.exceptions.ArgumentNotValidException;
+import br.com.salon.carine.lima.services.AtendimentoService;
+import br.com.salon.carine.lima.services.CarrinhoService;
 import br.com.salon.carine.lima.services.ClienteService;
-import br.com.salon.carine.lima.services.ServicoService;
 
 @Controller
 @RequestMapping(value = "atendimento")
@@ -22,24 +30,38 @@ public class AtendimentoController {
 	private ClienteService serviceCliente;
 	
 	@Autowired
-	private ServicoService serviceServico;
+	private CarrinhoService carrinhoService;
 	
 	@Autowired
-	private Carrinho carrinho;
+	private AtendimentoService atendimentoService;
 	
-	@RequestMapping(method = RequestMethod.GET, value = "marcar")
-	public ModelAndView marcarAtendimento() {
+	private Logger logger = Logger.getLogger("br.com.salon.carine.lima.Atendimento");
+
+	
+	@RequestMapping(method = RequestMethod.GET, value = "formMarcar")
+	public ModelAndView formMarcarAtendimento() {		
 		
 		List<ClienteDTO> clientes = serviceCliente.listarTodos();
-		List<ServicoDTO> servicos = serviceServico.listarTodos();
-		
+		BigDecimal valorTotalCarrinho = carrinhoService.getValorTotalCarrinho();
 		ModelAndView modelAndView = new ModelAndView("atendimento/formMarcar");
 		modelAndView.addObject("clientes", clientes);
-		modelAndView.addObject("servicos",servicos);
-		
-		carrinho.esvaziar();
+		modelAndView.addObject("valorTotalCarrinho", valorTotalCarrinho);
 		
 		return modelAndView;
 	}
-
+	
+	@RequestMapping(method = RequestMethod.POST, value = "marcar")
+	public ResponseEntity<MarcarAtendimentoDTO> marcaAtendimento(
+			@Valid MarcarAtendimentoDTO atendimentoDTO, BindingResult result, 
+			HttpServletRequest request){
+		
+		if(result.hasErrors()) {
+			this.logger.info("Formulário de atendimento inváido");
+			throw new ArgumentNotValidException(result, request);
+		}
+		
+		atendimentoService.marcarAtendimento(atendimentoDTO);		
+		return null;
+		
+	}
 }

@@ -4,6 +4,7 @@ function incrementarItem(idServico){
 		method: 'GET',
 		
 	}).then(function(response) {
+		console.log(response);
 		atualizarValoresServico(response);
 		atualizarTotalCarrinho();
 	}).catch(function(err) {
@@ -63,6 +64,23 @@ function atualizarValorTotalCarrinho(valorTotal){
 function atualizaCardsServicos(idServico){
 	atualizarTotalCarrinho();
 	window.location.href = "/SalonCarineLima/carrinho/itensCarrinho";
+}
+
+function marcarAtendimento(){
+	$.ajax({
+		url: "/SalonCarineLima/carrinho/totalCarrinho",
+		method: 'GET',
+		
+	}).then(function(valorTotalCarrinho) {
+		if(valorTotalCarrinho > 0){
+			window.location.href = "/SalonCarineLima/atendimento/formMarcar";
+		}else{
+			showMessageClient("Carrinho Vazio","Nenhum serviço foi adicionado ao carrinho");
+		}
+	}).catch(function(err) {
+		console.log('fail request');
+		console.log(err);
+	})
 }
 
 

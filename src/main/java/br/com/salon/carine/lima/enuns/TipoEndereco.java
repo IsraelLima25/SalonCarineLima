@@ -1,13 +1,13 @@
 package br.com.salon.carine.lima.enuns;
 
-public enum BandeiraCartao {
+public enum TipoEndereco {
 
-	ELO(0,"elo"), MASTERCARD(1,"master-card"), VISA(2,"visa");
-	
+	CASA(0, "casa"), ENDERECO_CLIENTE(1, "endereco-cliente"), OUTRO_ENDERECO(2, "outro-endereco");
+
 	private Integer codigo;
 	private String descricao;
 
-	private BandeiraCartao (Integer codigo, String descricao){
+	private TipoEndereco(Integer codigo, String descricao) {
 		this.codigo = codigo;
 		this.descricao = descricao;
 	}
@@ -28,19 +28,19 @@ public enum BandeiraCartao {
 		this.descricao = descricao;
 	}
 
-	public static BandeiraCartao getBandeiraCartao(String descricao) {
+	public static TipoEndereco getTipoEndereco(String descricao) {
+
 		if (descricao == null) {
 			return null;
 		}
 
-		for (BandeiraCartao b : BandeiraCartao.values()) {
-			if (descricao.equals(b.getDescricao())) {
-				return b;
+		for (TipoEndereco t : TipoEndereco.values()) {
+			if (descricao.equals(t.getDescricao())) {
+				return t;
 			}
 		}
 
-		throw new IllegalArgumentException("Bandeira Inválida " + descricao);
+		throw new IllegalArgumentException("Endereço Inválido " + descricao);
 
 	}
-	
 }

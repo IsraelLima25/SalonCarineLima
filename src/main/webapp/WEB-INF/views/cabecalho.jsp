@@ -17,10 +17,10 @@
 	                        Atendimentos
 	                    </a>
 	                    <div id="divAtendimento" class="dropdown-menu" aria-labelledby="navbarDropdownAtendimento">
-	                          <a class="dropdown-item" href="../atendimento/marcar"><i style="font-size: 10px;" class="fas fa-play"></i>
-	                            Marcar</a>
 	                        <a class="dropdown-item" href="../atendimento/catalogoAtendimento.html"><i style="font-size: 10px;" class="fas fa-play"></i>
-	                            Listar</a>
+	                            Agenda</a>
+	                        <a class="dropdown-item" href="../atendimento/catalogoAtendimento.html"><i style="font-size: 10px;" class="fas fa-play"></i>
+	                            Cancelar</a>
 	                    </div>
 
 	                </li>

@@ -20,12 +20,16 @@ public class ClienteRepository {
 
 	public void cadastrar(Cliente cliente) {
 
-		this.manager.persist(cliente);
+		manager.persist(cliente);
+	}
+	
+	public void alterar(Cliente cliente) {
+		manager.merge(cliente);
 	}
 
 	public List<Cliente> listarTodos() {
 
-		TypedQuery<Cliente> typedQuery = this.manager.createQuery("select c from Cliente c", Cliente.class);
+		TypedQuery<Cliente> typedQuery = this.manager.createQuery("select c from Cliente c JOIN FETCH c.endereco", Cliente.class);
 		List<Cliente> clientes = typedQuery.getResultList();
 		return clientes;
 	}
@@ -42,11 +46,16 @@ public class ClienteRepository {
 		this.manager.merge(cliente);
 	}
 
-	public Cliente buscarClientePorID(Integer id) {
+	public Cliente buscarClientePorID(Integer idCliente) {
 
-		Cliente findCliente = this.manager.find(Cliente.class, id);
+		TypedQuery<Cliente> typedQuery = this.manager.createQuery
+				("select c from Cliente c JOIN FETCH c.endereco where c.id =:idCliente",
+						Cliente.class);
+		typedQuery.setParameter("idCliente", idCliente);
+		
+		Cliente cliente = typedQuery.getSingleResult();
 
-		return findCliente;
+		return cliente;
 	}
 	
 	public Cliente buscarClienteAnteriorParaAtual(Cliente cliente) {
