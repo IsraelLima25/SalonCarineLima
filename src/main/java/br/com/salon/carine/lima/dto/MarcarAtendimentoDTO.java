@@ -4,37 +4,48 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 public class MarcarAtendimentoDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	private Integer id;
+
 	@Min(value = 1, message = "cliente obrigatório")
 	private Integer cliente;
-	
+
 	private BigDecimal desconto;
 	private BigDecimal taxa;
-	
+
+	@NotBlank(message = "Pagamento obrigatório")
 	private String formaPagamento;
-	
+
 	private String bandeiraCartao;
 	private Integer quantidadeParcelas;
-	
+
+	@NotBlank(message = "Endereco obrigatório")
 	private String tipoEndereco;
-	
+
+	@NotBlank(message = "Data obrigatório")
 	private String data;
-	
+
 	private EnderecoDTO endereco;
-	
+
+	@NotBlank(message = "Hora obrigatório")
 	private String hora;
 
 	public MarcarAtendimentoDTO() {
 	}
 
-	public MarcarAtendimentoDTO(Integer cliente, BigDecimal desconto, BigDecimal taxa, String formaPagamento,
-			String bandeiraCartao, Integer quantidadeParcelas, EnderecoDTO endereco, String tipoEndereco, String data,
-			String hora) {
-
+	public MarcarAtendimentoDTO(Integer id, @Min(value = 1, message = "cliente obrigatório") Integer cliente,
+			BigDecimal desconto, BigDecimal taxa, @NotBlank(message = "Pagamento obrigatório") String formaPagamento,
+			String bandeiraCartao, Integer quantidadeParcelas,
+			@NotBlank(message = "Endereco obrigatório") String tipoEndereco,
+			@NotBlank(message = "Data obrigatório") String data, EnderecoDTO endereco,
+			@NotBlank(message = "Hora obrigatório") String hora) {
+		super();
+		this.id = id;
 		this.cliente = cliente;
 		this.desconto = desconto;
 		this.taxa = taxa;
@@ -42,9 +53,17 @@ public class MarcarAtendimentoDTO implements Serializable {
 		this.bandeiraCartao = bandeiraCartao;
 		this.quantidadeParcelas = quantidadeParcelas;
 		this.tipoEndereco = tipoEndereco;
-		this.endereco = endereco;
 		this.data = data;
+		this.endereco = endereco;
 		this.hora = hora;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getCliente() {

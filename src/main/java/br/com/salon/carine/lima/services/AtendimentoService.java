@@ -14,6 +14,8 @@ import br.com.salon.carine.lima.converters.ConvertersCliente;
 import br.com.salon.carine.lima.converters.ConvertersServico;
 import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.dto.MarcarAtendimentoDTO;
+import br.com.salon.carine.lima.dto.MessageDTO;
+import br.com.salon.carine.lima.dto.ResponseMarcarDTO;
 import br.com.salon.carine.lima.dto.ServicoDTO;
 import br.com.salon.carine.lima.dto.ServicoItemCarrinhoDTO;
 import br.com.salon.carine.lima.enuns.StatusAtendimento;
@@ -49,7 +51,7 @@ public class AtendimentoService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 
-	public void marcarAtendimento(MarcarAtendimentoDTO atendimentoDTO) {
+	public ResponseMarcarDTO marcarAtendimento(MarcarAtendimentoDTO atendimentoDTO) {
 
 		Cliente clienteAtendimento = getClienteAtendimento(atendimentoDTO.
 				getCliente());
@@ -80,6 +82,12 @@ public class AtendimentoService {
 		}
 		
 		esvaziarCarrinho();
+		
+		ResponseMarcarDTO response = new ResponseMarcarDTO();
+		response.setAtendimento(atendimentoDTO);
+		response.setMessage(new MessageDTO("Atendimento", "Atendimento marcado com sucesso"));
+		
+		return response;
 	}
 	
 	private void esvaziarCarrinho() {

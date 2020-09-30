@@ -1,6 +1,7 @@
 package br.com.salon.carine.lima.controllers;
 
 import java.math.BigDecimal;
+import java.net.URI;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -14,9 +15,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.dto.MarcarAtendimentoDTO;
+import br.com.salon.carine.lima.dto.ResponseClienteDTO;
+import br.com.salon.carine.lima.dto.ResponseMarcarDTO;
 import br.com.salon.carine.lima.exceptions.ArgumentNotValidException;
 import br.com.salon.carine.lima.services.AtendimentoService;
 import br.com.salon.carine.lima.services.CarrinhoService;
@@ -51,7 +55,7 @@ public class AtendimentoController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "marcar")
-	public ResponseEntity<MarcarAtendimentoDTO> marcaAtendimento(
+	public ResponseEntity<ResponseMarcarDTO> marcaAtendimento(
 			@Valid MarcarAtendimentoDTO atendimentoDTO, BindingResult result, 
 			HttpServletRequest request){
 		
@@ -60,8 +64,14 @@ public class AtendimentoController {
 			throw new ArgumentNotValidException(result, request);
 		}
 		
-		atendimentoService.marcarAtendimento(atendimentoDTO);		
-		return null;
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(atendimentoDTO.getId())
+				.toUri();
+
+		ResponseMarcarDTO response = atendimentoService.marcarAtendimento(atendimentoDTO);
+
+		return ResponseEntity.created(uri).body(response);
+		
 		
 	}
 }

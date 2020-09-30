@@ -15,9 +15,10 @@
 				<form name="formMarcar">
 					<div class="form-group">
 
-						<label for="exampleFormControlSelect1">Cliente
+						<label for="slcClientes">Cliente
 							<span class="obrigatorio">*</span>
-						</label> <select class="form-control" id="exampleFormControlSelect1"
+						</label> 
+						<select class="form-control" id="slcClientes"
 							name="cliente">
 							<option value=0>Selecionar Cliente</option>
 							<c:forEach items="${clientes}" var="cliente">
@@ -25,7 +26,6 @@
 							</c:forEach>
 						</select>
 						<small hidden class="form-text obrigatorio cliente"></small>
-						
 					</div>
 
 					<div class="form-group">
@@ -46,23 +46,24 @@
 					</div>
 
 					<div class="form-group">
-						<label for="slcFormaPagamento">Forma de Pagamento</label> <select
-							class="form-control" id="slcFormaPagamento" name="formaPagamento">
+						<label for="slcFormasPagamento">Forma de Pagamento</label> <select
+							class="form-control" id="slcFormasPagamento" name="formaPagamento">
 							<option value="">Selecionar Pagamento</option>							
 							<option value="carteira">Carteira</option>
 							<option value="credito">Crédito</option>
 							<option value="debito" class="pagamento">Débito</option>
 						</select>
+						<small hidden class="form-text obrigatorio formaPagamento"></small>
 					</div>
 
 					<div hidden id="groupBandeiras" class="form-group">
 						<label for="slcBandeira">Bandeira Cartão</label> <select
 							class="form-control" id="slcBandeira" name="bandeiraCartao">
-							<option value="">Selecionar Bandeira</option>
 							<option value="elo">Elo</option>
 							<option value="master-card">Mastercard</option>
 							<option value="visa">Visa</option>
 						</select>
+						<small hidden class="form-text obrigatorio bandeiraCartao"></small>
 					</div>
 
 					<div hidden id="groupQuantidadeParcelas" class="form-group">
@@ -73,12 +74,14 @@
 
 					<div class="form-group">
 				
-						<label class="color-font-label" for="slcTipoEndereco">Endereço</label>
-						<select class="form-control" id="slcTipoEndereco" name="tipoEndereco">
+						<label class="color-font-label" for="slcTiposEndereco">Endereço</label>
+						<select class="form-control" id="slcTiposEndereco" name="tipoEndereco">
+							<option value="" selected>Selecionar Endereço</option>
 							<option value="casa">Casa</option>
-							<option value="endereco-cliente" selected>Cliente</option>
+							<option value="endereco-cliente">Cliente</option>
 							<option value="outro-endereco" id="outro">Outro</option>
 						</select>
+						<small hidden class="form-text obrigatorio tipoEndereco"></small>
 					
 					</div>
 
@@ -115,13 +118,15 @@
 					</div>
 
 					<div class="form-group">
-						<label class="color-font-label" for="data">Data</label> 
-						<input type="date" class="form-control" id="data" name="data">
+						<label class="color-font-label" for="dataAtendimento">Data</label> 
+						<input type="date" class="form-control" id="dataAtendimento" name="data">
+						<small hidden class="form-text obrigatorio data"></small>
 					</div>
 
 					<div class="form-group">
-						<label class="color-font-label" for="hora">Hora</label> <input
-							type="time" class="form-control" name="hora" id="hora">
+						<label class="color-font-label" for="horaAtendimento">Hora</label> 
+						<input type="time" class="form-control" name="hora" id="horaAtendimento">
+						<small hidden class="form-text obrigatorio hora"></small>
 					</div>
 
 					<div class="text-center alinhamento">
