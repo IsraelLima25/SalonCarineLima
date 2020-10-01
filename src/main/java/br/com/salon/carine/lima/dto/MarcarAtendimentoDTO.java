@@ -3,8 +3,10 @@ package br.com.salon.carine.lima.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class MarcarAtendimentoDTO implements Serializable {
 
@@ -21,7 +23,11 @@ public class MarcarAtendimentoDTO implements Serializable {
 	@NotBlank(message = "Pagamento obrigatório")
 	private String formaPagamento;
 
+	@NotBlank(message = "Bandeira obrigatório")
 	private String bandeiraCartao;
+
+	@NotNull(message = "Quantidade parcela obrigatório")
+	@Min(value = 1, message = "Quantidade parcela inválida")
 	private Integer quantidadeParcelas;
 
 	@NotBlank(message = "Endereco obrigatório")
@@ -30,7 +36,10 @@ public class MarcarAtendimentoDTO implements Serializable {
 	@NotBlank(message = "Data obrigatório")
 	private String data;
 
-	private EnderecoDTO endereco;
+	private String nome;
+
+	@Valid
+	private EnderecoDTO enderecoDTOAtendimento;
 
 	@NotBlank(message = "Hora obrigatório")
 	private String hora;
@@ -38,13 +47,9 @@ public class MarcarAtendimentoDTO implements Serializable {
 	public MarcarAtendimentoDTO() {
 	}
 
-	public MarcarAtendimentoDTO(Integer id, @Min(value = 1, message = "cliente obrigatório") Integer cliente,
-			BigDecimal desconto, BigDecimal taxa, @NotBlank(message = "Pagamento obrigatório") String formaPagamento,
-			String bandeiraCartao, Integer quantidadeParcelas,
-			@NotBlank(message = "Endereco obrigatório") String tipoEndereco,
-			@NotBlank(message = "Data obrigatório") String data, EnderecoDTO endereco,
-			@NotBlank(message = "Hora obrigatório") String hora) {
-		super();
+	public MarcarAtendimentoDTO(Integer id, Integer cliente, BigDecimal desconto, BigDecimal taxa,
+			String formaPagamento, String bandeiraCartao, Integer quantidadeParcelas, String tipoEndereco, String data,
+			EnderecoDTO enderecoDTOAtendimento, String hora) {
 		this.id = id;
 		this.cliente = cliente;
 		this.desconto = desconto;
@@ -54,8 +59,8 @@ public class MarcarAtendimentoDTO implements Serializable {
 		this.quantidadeParcelas = quantidadeParcelas;
 		this.tipoEndereco = tipoEndereco;
 		this.data = data;
-		this.endereco = endereco;
 		this.hora = hora;
+		this.enderecoDTOAtendimento = enderecoDTOAtendimento;
 	}
 
 	public Integer getId() {
@@ -95,7 +100,6 @@ public class MarcarAtendimentoDTO implements Serializable {
 	}
 
 	public void setFormaPagamento(String formaPagamento) {
-//		this.formaPagamento = FormaPagamento.getFormaPagamento(formaPagamento);
 		this.formaPagamento = formaPagamento;
 	}
 
@@ -123,12 +127,12 @@ public class MarcarAtendimentoDTO implements Serializable {
 		this.quantidadeParcelas = quantidadeParcelas;
 	}
 
-	public EnderecoDTO getEnderecoDTO() {
-		return endereco;
+	public EnderecoDTO getEnderecoDTOAtendimento() {
+		return enderecoDTOAtendimento;
 	}
 
-	public void setEnderecoDTO(EnderecoDTO endereco) {
-		this.endereco = endereco;
+	public void setEnderecoDTOAtendimento(EnderecoDTO enderecoDTOAtendimento) {
+		this.enderecoDTOAtendimento = enderecoDTOAtendimento;
 	}
 
 	public String getData() {
@@ -145,6 +149,14 @@ public class MarcarAtendimentoDTO implements Serializable {
 
 	public void setHora(String hora) {
 		this.hora = hora;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }

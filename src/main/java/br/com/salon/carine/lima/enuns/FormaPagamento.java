@@ -2,7 +2,7 @@ package br.com.salon.carine.lima.enuns;
 
 public enum FormaPagamento {
 	
-	CARTEIRA(0,"carteira"), CREDITO(1,"credito"), DEBITO(2,"debito");
+	ESPECIE(0,"especie"), CREDITO(1,"credito"), DEBITO(2,"debito");
 	
 	private Integer codigo;
 	private String descricao;

@@ -26,5 +26,7 @@ public class Debito extends Pagamento {
 	public void setBandeira(BandeiraCartao bandeira) {
 		this.bandeira = bandeira;
 	}
+	
+	
 
 }

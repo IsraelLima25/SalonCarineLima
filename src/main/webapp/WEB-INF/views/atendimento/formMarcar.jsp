@@ -30,13 +30,14 @@
 
 					<div class="form-group">
 						<label class="color-font-label" for="valorTotal"> Valor
-							Total </label> <input type="number" class="form-control" disabled
+							Total</label> <input type="number" class="form-control" disabled
 							id="valorTotal" value="${valorTotalCarrinho}">
 
 					</div>
 
 					<div class="form-group">
-						<label class="color-font-label" for="desconto">Desconto</label> <input
+						<label class="color-font-label" for="desconto">Desconto
+						</label> <input
 							type="number" class="form-control" id="desconto" name="desconto">
 					</div>
 
@@ -46,10 +47,11 @@
 					</div>
 
 					<div class="form-group">
-						<label for="slcFormasPagamento">Forma de Pagamento</label> <select
+						<label for="slcFormasPagamento">Forma de Pagamento
+							<span class="obrigatorio">*</span> </label> <select
 							class="form-control" id="slcFormasPagamento" name="formaPagamento">
 							<option value="">Selecionar Pagamento</option>							
-							<option value="carteira">Carteira</option>
+							<option value="especie">Espécie</option>
 							<option value="credito">Crédito</option>
 							<option value="debito" class="pagamento">Débito</option>
 						</select>
@@ -57,8 +59,10 @@
 					</div>
 
 					<div hidden id="groupBandeiras" class="form-group">
-						<label for="slcBandeira">Bandeira Cartão</label> <select
+						<label for="slcBandeira">Bandeira Cartão
+						   <span class="obrigatorio">*</span></label> <select
 							class="form-control" id="slcBandeira" name="bandeiraCartao">
+							<option value="" selected>Selecionar Bandeira</option>
 							<option value="elo">Elo</option>
 							<option value="master-card">Mastercard</option>
 							<option value="visa">Visa</option>
@@ -67,14 +71,18 @@
 					</div>
 
 					<div hidden id="groupQuantidadeParcelas" class="form-group">
-						<label class="color-font-label" for="quantidadeParcelas">Quantidade
-							Parcelas</label> <input type="number" class="form-control"
-							id="quantidadeParcelas" name="quantidadeParcelas">
+						<label class="color-font-label" for="quantidadeParcela">Quantidade
+							Parcelas <span class="obrigatorio">*</span></label> 
+							<input type="number" class="form-control"
+							id="quantidadeParcela" name="quantidadeParcelas">
+						<small hidden class="form-text obrigatorio quantidadeParcelas"></small>
+							
 					</div>
 
 					<div class="form-group">
 				
-						<label class="color-font-label" for="slcTiposEndereco">Endereço</label>
+						<label class="color-font-label" for="slcTiposEndereco">Endereço
+						<span class="obrigatorio">*</span></label>
 						<select class="form-control" id="slcTiposEndereco" name="tipoEndereco">
 							<option value="" selected>Selecionar Endereço</option>
 							<option value="casa">Casa</option>
@@ -88,43 +96,51 @@
 					<div hidden id="outroEndereco">
 
 						<div class="form-group mt-3">
-							<label class="color-font-label" for="cep">Cep</label> <input
-								type="number" class="form-control" id="cep" name="endereco.cep">
+							<label class="color-font-label" for="cep">Cep</label> 
+							<input type="number" class="form-control" 
+							id="cep" name="enderecoDTOAtendimento.cep">
+								<small hidden id="cepMsgValid" class="form-text obrigatorio"></small>
 						</div>
 						<div class="form-group">
 							<label class="color-font-label" for="logradouro">Logradouro</label>
-							<input type="text" class="form-control" id="logradouro" name="endereco.logradouro">
+							<input type="text" class="form-control" id="logradouro" 
+							name="enderecoDTOAtendimento.logradouro">
+						</div>
+						<div class="form-group">
+							<label class="color-font-label" for="bairro">Bairro 
+							<span class="obrigatorio">*</span></label> 
+							<input type="text" name="enderecoDTOAtendimento.bairro"
+							class="form-control" id="bairro">
+							<small hidden class="form-text obrigatorio bairro"></small>
 						</div>
 						<div class="form-group">
 							<label class="color-font-label" for="numero">Numero</label> <input
-								type="number" class="form-control" id="numero" name="endereco.numero">
+								type="number" class="form-control" id="numero" 
+								name="enderecoDTOAtendimento.numero">
 						</div>
 						<div class="form-group">
 							<label class="color-font-label" for="ponto-referencia">Ponto
 								Referência</label> 
-								<input type="text" name="endereco.pontoReferencia" 
+								<input type="text" name="enderecoDTOAtendimento.pontoReferencia" 
 								class="form-control" id="ponto-referencia">
 						</div>
 						<div class="form-group">
 							<label class="color-font-label" for="complemento">Complemento</label>
-							<input type="text" name="endereco.complemento"
+							<input type="text" name="enderecoDTOAtendimento.complemento"
 							class="form-control" id="complemento">
-						</div>
-						<div class="form-group">
-							<label class="color-font-label" for="bairro">Bairro</label> 
-							<input type="text" name="endereco.bairro"
-							class="form-control" id="bairro">
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label class="color-font-label" for="dataAtendimento">Data</label> 
+						<label class="color-font-label" for="dataAtendimento">Data
+						<span class="obrigatorio">*</span></label> 
 						<input type="date" class="form-control" id="dataAtendimento" name="data">
 						<small hidden class="form-text obrigatorio data"></small>
 					</div>
 
 					<div class="form-group">
-						<label class="color-font-label" for="horaAtendimento">Hora</label> 
+						<label class="color-font-label" for="horaAtendimento">Hora
+						<span class="obrigatorio">*</span></label> 
 						<input type="time" class="form-control" name="hora" id="horaAtendimento">
 						<small hidden class="form-text obrigatorio hora"></small>
 					</div>
@@ -143,7 +159,25 @@
 			</div>
 
 		</section>
-
+		
+		<!-- Global -->
+		<div class="modal fade" id="modalPageMarcar" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+							<h5 class="modal-title" id="title">Atendimento</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                                <span aria-hidden="true">&times;</span>
+	                            </button>
+					</div>
+					<div id="body" class="modal-body">
+						Atendimento marcado com sucesso
+					</div>
+					<div class="modal-footer"></div>
+				</div>
+			</div>
+		</div>
 	</main>
 
 	<script type="text/javascript" charset="UTF-8" src="../resources/js/atendimento/marcar.js"></script>

@@ -2,17 +2,18 @@ $(function() {
 	$('button[type=submit]').click(function(e) {
 		e.preventDefault();
 		$.post({
-			url : '/SalonCarineLima/atendimento/marcar',
+			url : '/SalonCarineLima/atendimento',
 			method : 'POST',
 			data : $('form[name=formMarcar]').serialize()
 		})
 		.then(function(data, textStatus, xhr) {
 			 if (xhr.status === 201) {
-			 showMessage(data);
-			 atualizarPagina();
+		     limparMessagesErrors();
+			 showModal(data);
 			}
 		})
 		.catch(function(err) {
+			console.log(err);
 			thowErrorPage(err.responseJSON);
 			console.log("Fail request");
 			console.log(err);
@@ -21,21 +22,12 @@ $(function() {
 	})
 });
 
-function atualizarPagina(){
-	limparCampos();
-	limparMessagesErrors();
-	topPage();
-}
+$('#modalPageMarcar').on('hidden.bs.modal', function(e) {
+	window.location.href = "/SalonCarineLima/loja/itensLoja";
+})
 
-function limparCampos() {
-	$('#slcClientes option:contains(Selecionar Cliente)').attr('selected',true);
-	$('#slcFormasPagamento option:contains(Selecionar Pagamento)').attr('selected',true);
-	$('#slcTiposEndereco option:contains(Selecionar Endereco)').attr('selected',true);
-	$('#valorTotal').val('');
-	$('#desconto').val('');
-	$('#taxa').val('');
-	$('#dataAtendimento').val('');
-	$('#horaAtendimento').val('');
+function showModal(data){
+	$('#modalPageMarcar').modal('show');
 }
 
 function limparMessagesErrors(){
@@ -46,8 +38,17 @@ function limparMessagesErrors(){
 	$('.formaPagamento').prop('hidden',true);
 	$('.formaPagamento').text('');
 	
+	$('.bandeiraCartao').prop('hidden',true);
+	$('.bandeiraCartao').text('');
+	
+	$('.quantidadeParcelas').prop('hidden',true);
+	$('.quantidadeParcelas').text('');
+	
 	$('.tipoEndereco').prop('hidden',true);
 	$('.tipoEndereco').text('');
+	
+	$('.bairro').prop('hidden',true);
+	$('.bairro').text('');
 	
 	$('.data').prop('hidden',true);
 	$('.data').text('');
@@ -76,7 +77,7 @@ $('#slcTiposEndereco').change(function() {
 $('#slcFormasPagamento').change(function() {
 	var valueSelected = $('#slcFormasPagamento option:selected').val();
 
-	if (valueSelected === 'carteira') {
+	if (valueSelected === 'especie') {
 		$('#groupBandeiras').prop('hidden', true);
 		$('#groupQuantidadeParcelas').prop('hidden', true);
 	} else if (valueSelected === 'credito') {

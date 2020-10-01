@@ -18,10 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.salon.carine.lima.dto.ClienteDTO;
+import br.com.salon.carine.lima.dto.EnderecoDTO;
 import br.com.salon.carine.lima.dto.MarcarAtendimentoDTO;
-import br.com.salon.carine.lima.dto.ResponseClienteDTO;
 import br.com.salon.carine.lima.dto.ResponseMarcarDTO;
-import br.com.salon.carine.lima.exceptions.ArgumentNotValidException;
 import br.com.salon.carine.lima.services.AtendimentoService;
 import br.com.salon.carine.lima.services.CarrinhoService;
 import br.com.salon.carine.lima.services.ClienteService;
@@ -54,24 +53,19 @@ public class AtendimentoController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "marcar")
+	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<ResponseMarcarDTO> marcaAtendimento(
-			@Valid MarcarAtendimentoDTO atendimentoDTO, BindingResult result, 
+			MarcarAtendimentoDTO atendimentoDTO, BindingResult result, 
 			HttpServletRequest request){
-		
-		if(result.hasErrors()) {
-			this.logger.info("Formulário de atendimento inváido");
-			throw new ArgumentNotValidException(result, request);
-		}
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(atendimentoDTO.getId())
 				.toUri();
 
-		ResponseMarcarDTO response = atendimentoService.marcarAtendimento(atendimentoDTO);
+		ResponseMarcarDTO response = atendimentoService.marcarAtendimento(atendimentoDTO,
+				request, result);
 
 		return ResponseEntity.created(uri).body(response);
-		
 		
 	}
 }
