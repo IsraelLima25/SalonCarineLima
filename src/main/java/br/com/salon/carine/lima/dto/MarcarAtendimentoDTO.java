@@ -36,8 +36,6 @@ public class MarcarAtendimentoDTO implements Serializable {
 	@NotBlank(message = "Data obrigatório")
 	private String data;
 
-	private String nome;
-
 	@Valid
 	private EnderecoDTO enderecoDTOAtendimento;
 
@@ -150,13 +148,4 @@ public class MarcarAtendimentoDTO implements Serializable {
 	public void setHora(String hora) {
 		this.hora = hora;
 	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 }

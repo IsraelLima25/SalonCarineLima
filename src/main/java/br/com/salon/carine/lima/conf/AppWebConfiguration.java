@@ -16,7 +16,8 @@ import br.com.salon.carine.lima.services.ClienteService;
 @EnableWebMvc
 @ComponentScan(basePackageClasses = {HomeController.class, Cliente.class, 
 									ClienteService.class, ClienteRepository.class, 
-									ControllerExceptionHandler.class})
+									ControllerExceptionHandler.class
+									})
 
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 

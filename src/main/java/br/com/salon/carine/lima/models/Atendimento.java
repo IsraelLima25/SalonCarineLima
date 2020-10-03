@@ -2,16 +2,15 @@ package br.com.salon.carine.lima.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,10 +18,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import br.com.salon.carine.lima.converters.LocalDateTimeAttributeConverter;
 import br.com.salon.carine.lima.enuns.StatusAtendimento;
 
 @Entity
@@ -33,16 +31,17 @@ public class Atendimento implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
 	private BigDecimal valorTotal;
-
-	@Convert(converter = LocalDateTimeAttributeConverter.class)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-	private LocalDateTime dataHora;
+	
+	@Temporal(TemporalType.DATE)
+	private Calendar data;
+	
+	private Time hora;
 
 	@OneToOne
 	@JoinColumn(name = "endereco_id")
@@ -50,7 +49,7 @@ public class Atendimento implements Serializable {
 
 	@Enumerated(EnumType.ORDINAL)
 	private StatusAtendimento status;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pagamento_id")
 	private Pagamento pagamento;
@@ -89,12 +88,20 @@ public class Atendimento implements Serializable {
 		this.valorTotal = valorTotal;
 	}
 
-	public LocalDateTime getDataHora() {
-		return dataHora;
+	public Calendar getData() {
+		return data;
 	}
-	
-	public void setDataHora(LocalDateTime dataHora) {
-		this.dataHora = dataHora;
+
+	public void setData(Calendar data) {
+		this.data = data;
+	}
+
+	public Time getHora() {
+		return hora;
+	}
+
+	public void setHora(Time hora) {
+		this.hora = hora;
 	}
 
 	public Endereco getEndereco() {

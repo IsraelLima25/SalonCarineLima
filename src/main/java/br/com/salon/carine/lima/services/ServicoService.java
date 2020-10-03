@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.salon.carine.lima.converters.ConvertersServico;
-import br.com.salon.carine.lima.dto.MessageDTO;
-import br.com.salon.carine.lima.dto.ResponseServicoDTO;
 import br.com.salon.carine.lima.dto.ServicoDTO;
 import br.com.salon.carine.lima.models.Servico;
 import br.com.salon.carine.lima.repositories.ServicoRepository;
+import br.com.salon.carine.lima.response.Message;
+import br.com.salon.carine.lima.response.ResponseServico;
 
 @Service
 public class ServicoService {
@@ -22,15 +22,15 @@ public class ServicoService {
 	@Autowired
 	public NextPreviousServicoService nextPreviousServicoService;
 
-	public ResponseServicoDTO cadastrar(ServicoDTO servicoDTO) {
+	public ResponseServico cadastrar(ServicoDTO servicoDTO) {
 
 		Servico servico = ConvertersServico.deServicoDTOparaServico(servicoDTO);
 
 		this.servicoRepository.cadastrar(servico);
 
-		ResponseServicoDTO response = new ResponseServicoDTO();
+		ResponseServico response = new ResponseServico();
 		response.setServico(servicoDTO);
-		response.setMessage(new MessageDTO("Servico", "Serviço cadastrado com sucesso"));
+		response.setMessage(new Message("Servico", "Serviço cadastrado com sucesso"));
 
 		return response;
 
@@ -92,15 +92,15 @@ public class ServicoService {
 		return servicoDTOProximo;
 	}
 
-	public ResponseServicoDTO alterarServico(ServicoDTO servicoDTO) {
+	public ResponseServico alterarServico(ServicoDTO servicoDTO) {
 		
 		Servico servico = ConvertersServico.deServicoDTOparaServico(servicoDTO);
 		this.servicoRepository.alterarCliente(servico);
 
-		ResponseServicoDTO response = new ResponseServicoDTO();
+		ResponseServico response = new ResponseServico();
 		response.setServico(servicoDTO);
 
-		response.setMessage(new MessageDTO("Servico", "Serviço Alterado com sucesso"));
+		response.setMessage(new Message("Servico", "Serviço Alterado com sucesso"));
 
 		return response;
 	}

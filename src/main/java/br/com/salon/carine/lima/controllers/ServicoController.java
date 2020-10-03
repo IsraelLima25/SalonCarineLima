@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.salon.carine.lima.dto.ResponseServicoDTO;
 import br.com.salon.carine.lima.dto.ServicoDTO;
 import br.com.salon.carine.lima.exceptions.ArgumentNotValidException;
 import br.com.salon.carine.lima.models.Servico;
+import br.com.salon.carine.lima.response.ResponseServico;
 import br.com.salon.carine.lima.services.ServicoService;
 
 @Controller
@@ -39,7 +39,7 @@ public class ServicoController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<ResponseServicoDTO> cadastroServico(@Valid ServicoDTO servicoDTO,
+	public ResponseEntity<ResponseServico> cadastroServico(@Valid ServicoDTO servicoDTO,
 			BindingResult result, HttpServletRequest request) {
 
 		this.logger.info("Cadastrando Servico");
@@ -52,7 +52,7 @@ public class ServicoController {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(servicoDTO.getId())
 				.toUri();
 
-		ResponseServicoDTO response = this.servicoService.cadastrar(servicoDTO);
+		ResponseServico response = this.servicoService.cadastrar(servicoDTO);
 
 		return ResponseEntity.created(uri).body(response);
 	}
@@ -76,19 +76,19 @@ public class ServicoController {
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE, value = "/remover/{id}")
-	public ResponseEntity<ResponseServicoDTO> removerCliente(@PathVariable("id") Integer id) {
+	public ResponseEntity<ResponseServico> removerCliente(@PathVariable("id") Integer id) {
 		ServicoDTO servicoProximo = this.servicoService.remover(id);
-		ResponseServicoDTO response = new ResponseServicoDTO();
+		ResponseServico response = new ResponseServico();
 		response.setServico(servicoProximo);
 		return ResponseEntity.ok().body(response);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "proximo/{id}")
-	public ResponseEntity<ResponseServicoDTO> servicoProximo(@PathVariable("id") Integer id) {
+	public ResponseEntity<ResponseServico> servicoProximo(@PathVariable("id") Integer id) {
 		Servico servico = new Servico();
 		servico.setId(id);
 		ServicoDTO servicoProximo = this.servicoService.buscarServicoProximoParaAtual(servico);
-		ResponseServicoDTO response = new ResponseServicoDTO();
+		ResponseServico response = new ResponseServico();
 		response.setServico(servicoProximo);
 
 		return ResponseEntity.ok().body(response);
@@ -96,11 +96,11 @@ public class ServicoController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "anterior/{id}")
-	public ResponseEntity<ResponseServicoDTO> servicoAnterior(@PathVariable("id") Integer id) {
+	public ResponseEntity<ResponseServico> servicoAnterior(@PathVariable("id") Integer id) {
 		Servico servico = new Servico();
 		servico.setId(id);
 		ServicoDTO servicoProximo = this.servicoService.buscarServicoAnteriorParaAtual(servico);
-		ResponseServicoDTO response = new ResponseServicoDTO();
+		ResponseServico response = new ResponseServico();
 		response.setServico(servicoProximo);
 
 		return ResponseEntity.ok().body(response);
@@ -108,12 +108,12 @@ public class ServicoController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "alterar")
-	public ResponseEntity<ResponseServicoDTO> alterarServico(ServicoDTO servicoDTO,
+	public ResponseEntity<ResponseServico> alterarServico(ServicoDTO servicoDTO,
 			BindingResult result, HttpServletRequest request) {
 
 		this.logger.info("Alterando Servico");
 		
-		ResponseServicoDTO response = this.servicoService.alterarServico(servicoDTO);
+		ResponseServico response = this.servicoService.alterarServico(servicoDTO);
 
 		return ResponseEntity.ok().body(response);
 	}

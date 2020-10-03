@@ -18,9 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.salon.carine.lima.dto.ClienteDTO;
-import br.com.salon.carine.lima.dto.ResponseClienteDTO;
 import br.com.salon.carine.lima.exceptions.ArgumentNotValidException;
 import br.com.salon.carine.lima.models.Cliente;
+import br.com.salon.carine.lima.response.ResponseCliente;
 import br.com.salon.carine.lima.services.ClienteService;
 
 @Controller
@@ -39,7 +39,7 @@ public class ClienteController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<ResponseClienteDTO> cadastrarCliente(@Valid ClienteDTO clienteDTO,			
+	public ResponseEntity<ResponseCliente> cadastrarCliente(@Valid ClienteDTO clienteDTO,			
 			BindingResult result, HttpServletRequest request) {
 
 		this.logger.info("Cadastrando Cliente");
@@ -52,14 +52,14 @@ public class ClienteController {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(clienteDTO.getId())
 				.toUri();
 
-		ResponseClienteDTO response = this.serviceCliente.cadastrar(clienteDTO);
+		ResponseCliente response = this.serviceCliente.cadastrar(clienteDTO);
 
 		return ResponseEntity.created(uri).body(response);
 
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "alterar")
-	public ResponseEntity<ResponseClienteDTO> alterarCliente(@Valid ClienteDTO clienteDTO,
+	public ResponseEntity<ResponseCliente> alterarCliente(@Valid ClienteDTO clienteDTO,
 			BindingResult result, HttpServletRequest request) {
 		
 		this.logger.info("Cadastrando Cliente");
@@ -70,7 +70,7 @@ public class ClienteController {
 		}
 
 		this.logger.info("Alterando Cliente");
-		ResponseClienteDTO response = this.serviceCliente.alterarCliente(clienteDTO);
+		ResponseCliente response = this.serviceCliente.alterarCliente(clienteDTO);
 
 		return ResponseEntity.ok().body(response);
 
@@ -85,9 +85,9 @@ public class ClienteController {
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/remover/{id}")
-	public ResponseEntity<ResponseClienteDTO> removerCliente(@PathVariable("id") Integer id) {
+	public ResponseEntity<ResponseCliente> removerCliente(@PathVariable("id") Integer id) {
 		ClienteDTO clienteProximo = this.serviceCliente.remover(id);
-		ResponseClienteDTO response = new ResponseClienteDTO();
+		ResponseCliente response = new ResponseCliente();
 		response.setCliente(clienteProximo);
 		return ResponseEntity.ok().body(response);
 	}
@@ -102,11 +102,11 @@ public class ClienteController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "proximo/{id}")
-	public ResponseEntity<ResponseClienteDTO> clienteProximo(@PathVariable("id") Integer id) {
+	public ResponseEntity<ResponseCliente> clienteProximo(@PathVariable("id") Integer id) {
 		Cliente cliente = new Cliente();
 		cliente.setId(id);
 		ClienteDTO clienteProximo = this.serviceCliente.buscarClienteProximoParaAtual(cliente);
-		ResponseClienteDTO response = new ResponseClienteDTO();
+		ResponseCliente response = new ResponseCliente();
 		response.setCliente(clienteProximo);
 
 		return ResponseEntity.ok().body(response);
@@ -114,11 +114,11 @@ public class ClienteController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "anterior/{id}")
-	public ResponseEntity<ResponseClienteDTO> clienteAnterior(@PathVariable("id") Integer id) {
+	public ResponseEntity<ResponseCliente> clienteAnterior(@PathVariable("id") Integer id) {
 		Cliente cliente = new Cliente();
 		cliente.setId(id);
 		ClienteDTO clienteProximo = this.serviceCliente.buscarClienteAnteriorParaAtual(cliente);
-		ResponseClienteDTO response = new ResponseClienteDTO();
+		ResponseCliente response = new ResponseCliente();
 		response.setCliente(clienteProximo);
 
 		return ResponseEntity.ok().body(response);

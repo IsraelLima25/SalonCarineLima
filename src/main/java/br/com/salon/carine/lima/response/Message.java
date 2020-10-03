@@ -1,15 +1,15 @@
-package br.com.salon.carine.lima.dto;
+package br.com.salon.carine.lima.response;
 
-public class MessageDTO {
+public class Message {
 
 	private String title;
 	private String body;
 
-	public MessageDTO() {
+	public Message() {
 
 	}
 
-	public MessageDTO(String title, String body) {
+	public Message(String title, String body) {
 		this.title = title;
 		this.body = body;
 	}

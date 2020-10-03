@@ -1,19 +1,21 @@
-package br.com.salon.carine.lima.dto;
+package br.com.salon.carine.lima.response;
 
 import java.io.Serializable;
 
-public class ResponseMarcarDTO implements Serializable {
+import br.com.salon.carine.lima.dto.MarcarAtendimentoDTO;
+
+public class ResponseMarcar implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private MarcarAtendimentoDTO atendimento;
-	private MessageDTO message;
+	private Message message;
 
-	public ResponseMarcarDTO() {
+	public ResponseMarcar() {
 		
 	}
 	
-	public ResponseMarcarDTO(MarcarAtendimentoDTO atendimento, MessageDTO message) {
+	public ResponseMarcar(MarcarAtendimentoDTO atendimento, Message message) {
 		this.atendimento = atendimento;
 		this.message = message;
 	}
@@ -26,11 +28,11 @@ public class ResponseMarcarDTO implements Serializable {
 		this.atendimento = atendimento;
 	}
 
-	public MessageDTO getMessage() {
+	public Message getMessage() {
 		return message;
 	}
 
-	public void setMessage(MessageDTO message) {
+	public void setMessage(Message message) {
 		this.message = message;
 	}
 

@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.salon.carine.lima.converters.ConvertersCliente;
 import br.com.salon.carine.lima.dto.ClienteDTO;
-import br.com.salon.carine.lima.dto.MessageDTO;
-import br.com.salon.carine.lima.dto.ResponseClienteDTO;
 import br.com.salon.carine.lima.models.Cliente;
 import br.com.salon.carine.lima.repositories.ClienteRepository;
+import br.com.salon.carine.lima.response.Message;
+import br.com.salon.carine.lima.response.ResponseCliente;
 
 @Service
 public class ClienteService {
@@ -25,15 +25,15 @@ public class ClienteService {
 	@Autowired
 	private NextPreviousClienteService nextPreviousClienteService;
 
-	public ResponseClienteDTO cadastrar(ClienteDTO clienteDTO) {
+	public ResponseCliente cadastrar(ClienteDTO clienteDTO) {
 
 		Cliente cliente = deClienteDTOParaCliente(clienteDTO);
 
 		this.clienteRepository.cadastrar(cliente);
 
-		ResponseClienteDTO response = new ResponseClienteDTO();
+		ResponseCliente response = new ResponseCliente();
 		response.setCliente(clienteDTO);
-		response.setMessage(new MessageDTO("Cliente", "Cliente cadastrado com sucesso"));
+		response.setMessage(new Message("Cliente", "Cliente cadastrado com sucesso"));
 
 		return response;
 
@@ -82,14 +82,14 @@ public class ClienteService {
 		return clienteDTO;
 	}
 
-	public ResponseClienteDTO alterarCliente(ClienteDTO clienteDTO) {
+	public ResponseCliente alterarCliente(ClienteDTO clienteDTO) {
 		Cliente cliente = deClienteDTOParaCliente(clienteDTO);
 		this.clienteRepository.alterarCliente(cliente);
 
-		ResponseClienteDTO response = new ResponseClienteDTO();
+		ResponseCliente response = new ResponseCliente();
 		response.setCliente(clienteDTO);
 
-		response.setMessage(new MessageDTO("Cliente", "Cliente Alterado com sucesso"));
+		response.setMessage(new Message("Cliente", "Cliente Alterado com sucesso"));
 
 		return response;
 	}

@@ -42,7 +42,6 @@ public class JPAConfiguration {
 		factoryBean.setJpaProperties(props);
 
 		factoryBean.setPackagesToScan("br.com.salon.carine.lima.models");
-
 		return factoryBean;
 	}
 	
