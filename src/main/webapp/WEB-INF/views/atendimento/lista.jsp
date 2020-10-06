@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"	pageEncoding="UTF-8"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 <tags:pageTemplate titulo="Lista Atendimentos">
 	    <main>
@@ -31,6 +31,7 @@
                         cliente</label>
                     <input type="text" onkeyup="filtrar()" class="form-control" id="cliente-atendimento-filter">
                     <button type="button" onclick="atualizarPagina()" class="btn btn-color-salon btn-sm mt-3 fas fa-sync-alt">
+                    	Atualizar Lista
                     </button>
                     
                 </div>
@@ -82,9 +83,10 @@
 							${atendimento.hora}
 						</td>
 						<td class="text-center">
-							<a type="button" class="fas fa-search btn btn-info" 
-								onclick="detalharCliente(${atendimento.id});"></a>
+							<a class="fas fa-search btn btn-info"
+							href="${s:mvcUrl('AC#detalheAtendimento').arg(0,atendimento.id).build()}"></a>
 						</td>
+						
 					</tr>
 				</c:forEach>
 			</tbody>

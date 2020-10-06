@@ -11,6 +11,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,6 +23,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import br.com.salon.carine.lima.enuns.StatusAtendimento;
+import br.com.salon.carine.lima.enuns.TipoEndereco;
 
 @Entity
 public class Atendimento implements Serializable {
@@ -57,8 +59,11 @@ public class Atendimento implements Serializable {
 	private BigDecimal desconto;
 
 	private BigDecimal taxa;
+	
+	@Enumerated(EnumType.ORDINAL)
+	private TipoEndereco tipoEndereco;
 
-	@OneToMany(mappedBy = "atendimento")
+	@OneToMany(mappedBy = "atendimento", fetch = FetchType.EAGER)
 	private List<ServicoItemCarrinho> itens = new ArrayList<>();
 
 	public Atendimento() {
@@ -150,6 +155,14 @@ public class Atendimento implements Serializable {
 
 	public void setTaxa(BigDecimal taxa) {
 		this.taxa = taxa;
+	}
+
+	public TipoEndereco getTipoEndereco() {
+		return tipoEndereco;
+	}
+
+	public void setTipoEndereco(TipoEndereco tipoEndereco) {
+		this.tipoEndereco = tipoEndereco;
 	}
 
 	@Override

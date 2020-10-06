@@ -29,7 +29,7 @@ public enum BandeiraCartao {
 	}
 
 	public static BandeiraCartao getBandeiraCartao(String descricao) {
-		if (descricao == null) {
+		if (descricao == null || descricao.equals("")) {
 			return null;
 		}
 

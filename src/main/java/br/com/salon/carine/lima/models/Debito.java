@@ -9,22 +9,22 @@ public class Debito extends Pagamento {
 
 	private static final long serialVersionUID = 1L;
 	
-	private BandeiraCartao bandeira;
+	private BandeiraCartao bandeiraCartao;
 	
 	public Debito() {
 		
 	}
 
 	public Debito(BandeiraCartao bandeiraCartao) {
-		this.bandeira = bandeiraCartao;
+		this.bandeiraCartao = bandeiraCartao;
 	}
 
 	public BandeiraCartao getBandeira() {
-		return bandeira;
+		return bandeiraCartao;
 	}
 
 	public void setBandeira(BandeiraCartao bandeira) {
-		this.bandeira = bandeira;
+		this.bandeiraCartao = bandeira;
 	}
 	
 	

@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.salon.carine.lima.models.Cliente;
 import br.com.salon.carine.lima.models.Endereco;
 
 @Repository
@@ -16,9 +17,13 @@ public class EnderecoRepository {
 	@PersistenceContext
 	public EntityManager manager;
 	
-	public Endereco buscarEnderecoPorId(Integer id) {
-		Endereco endereco = this.manager.find(Endereco.class, id);
-		return endereco;
+	public Endereco buscarEnderecoPorCliente(Cliente cliente) {
+		if(cliente != null) {
+			Endereco endereco = this.manager.find(Endereco.class, cliente.getId());
+			return endereco;
+		}
+		
+		return null;
 	}
 	
 	public Endereco salvarEndereco(Endereco endereco) {

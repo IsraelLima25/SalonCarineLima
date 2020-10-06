@@ -108,10 +108,15 @@ public class ServicoController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "alterar")
-	public ResponseEntity<ResponseServico> alterarServico(ServicoDTO servicoDTO,
+	public ResponseEntity<ResponseServico> alterarServico(@Valid ServicoDTO servicoDTO,
 			BindingResult result, HttpServletRequest request) {
 
 		this.logger.info("Alterando Servico");
+		
+		if(result.hasErrors()) {
+			this.logger.info("Formulario cliente inválido");
+			throw new ArgumentNotValidException(result, request);
+		}
 		
 		ResponseServico response = this.servicoService.alterarServico(servicoDTO);
 

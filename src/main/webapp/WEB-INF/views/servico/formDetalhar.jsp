@@ -49,11 +49,13 @@
 			<div class="form-group">
 				<label class="color-font-label" for="descricao">Descrição <span class="obrigatorio">*</span></label> 
 				<input type="text" value="${servico.descricao}" name="descricao" class="form-control" id="descricao">
+				<small hidden class="form-text obrigatorio descricao"></small>
 			</div>
 			
 			<div class="form-group">
 				<label class="color-font-label" for="preco">Preço <span class="obrigatorio">*</span></label> 
 				<input type="text" value="${servico.preco}" name="preco" class="form-control" id="preco">
+				<small hidden class="form-text obrigatorio preco"></small>
 			</div>
 
 			<div class="text-center alinhamento">

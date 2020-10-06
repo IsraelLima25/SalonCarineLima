@@ -18,6 +18,7 @@ import br.com.salon.carine.lima.converters.ConvertersCliente;
 import br.com.salon.carine.lima.converters.ConvertersDate;
 import br.com.salon.carine.lima.converters.ConvertersEndereco;
 import br.com.salon.carine.lima.converters.ConvertersServico;
+import br.com.salon.carine.lima.dto.AtendimentoDTO;
 import br.com.salon.carine.lima.dto.AtendimentoListaDTO;
 import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.dto.FiltroDataAtendimentoDTO;
@@ -26,6 +27,7 @@ import br.com.salon.carine.lima.dto.ServicoDTO;
 import br.com.salon.carine.lima.dto.ServicoItemCarrinhoDTO;
 import br.com.salon.carine.lima.enuns.BandeiraCartao;
 import br.com.salon.carine.lima.enuns.StatusAtendimento;
+import br.com.salon.carine.lima.enuns.TipoEndereco;
 import br.com.salon.carine.lima.models.Atendimento;
 import br.com.salon.carine.lima.models.Cliente;
 import br.com.salon.carine.lima.models.Credito;
@@ -64,14 +66,12 @@ public class AtendimentoService {
 	@Autowired
 	private ValidationFormAtendimentoService validationFormAtendimento;
 
-	@Autowired
-	private EnderecoService enderecoService;
-
 	public ResponseMarcar marcarAtendimento(MarcarAtendimentoDTO atendimentoDTO, HttpServletRequest request,
 			BindingResult result) {
 
 		Cliente clienteAtendimento = getClienteAtendimento(atendimentoDTO.getCliente());
 		Endereco enderecoAtendimento = getEnderecoAtendimento(atendimentoDTO);
+		TipoEndereco tipoEndereco = getTipoEndereco(atendimentoDTO);
 		BigDecimal valorTotalCarrinhoAtendimento = carrinhoService.getValorTotalCarrinho();
 		Calendar data = getDataAtendimento(atendimentoDTO.getData());
 		Time hora = getHoraAtendimento(atendimentoDTO.getHora());
@@ -80,7 +80,7 @@ public class AtendimentoService {
 
 		List<ServicoItemCarrinho> itensCarrinho = getItensCarrinho();
 		Atendimento atendimento = builderAtendimento(itensCarrinho, clienteAtendimento, enderecoAtendimento,
-				valorTotalCarrinhoAtendimento, data, hora, desconto, taxa);
+				tipoEndereco, valorTotalCarrinhoAtendimento, data, hora, desconto, taxa);
 
 		Pagamento pagamentoAtendimento = getFormaPagamento(atendimentoDTO, atendimento);
 
@@ -101,6 +101,18 @@ public class AtendimentoService {
 		response.setAtendimento(atendimentoDTO);
 
 		return response;
+	}
+
+	private TipoEndereco getTipoEndereco(MarcarAtendimentoDTO marcarAtendimentoDTO) {
+		if (marcarAtendimentoDTO.getTipoEndereco().equals("endereco-cliente")) {
+			return TipoEndereco.ENDERECO_CLIENTE;
+		} else if (marcarAtendimentoDTO.getTipoEndereco().equals("casa")) {
+			return TipoEndereco.CASA;
+		} else if (marcarAtendimentoDTO.getTipoEndereco().equals("outro-endereco")) {
+			return TipoEndereco.OUTRO_ENDERECO;
+		} 
+		
+		return null;
 	}
 
 	private void esvaziarCarrinho() {
@@ -133,13 +145,14 @@ public class AtendimentoService {
 	}
 
 	private Atendimento builderAtendimento(List<ServicoItemCarrinho> servicosItemCarrinho, Cliente cliente,
-			Endereco endereco, BigDecimal valorTotal, Calendar data, Time hora, BigDecimal desconto,
+			Endereco endereco, TipoEndereco tipoEndereco, BigDecimal valorTotal, Calendar data, Time hora, BigDecimal desconto,
 			BigDecimal taxa) {
 
 		Atendimento atendimento = new Atendimento();
 
 		atendimento.setCliente(cliente);
 		atendimento.setEndereco(endereco);
+		atendimento.setTipoEndereco(tipoEndereco);
 		atendimento.setValorTotal(valorTotal);
 		atendimento.setData(data);
 		atendimento.setHora(hora);
@@ -155,13 +168,13 @@ public class AtendimentoService {
 
 		if (marcarAtendimentoDTO.getTipoEndereco().equals("endereco-cliente")) {
 			Cliente cliente = getClienteAtendimento(marcarAtendimentoDTO.getCliente());
-			Endereco endereco = enderecoRepository.buscarEnderecoPorId(cliente.getId());
+			Endereco endereco = enderecoRepository.buscarEnderecoPorCliente(cliente);
 			marcarAtendimentoDTO.getEnderecoDTOAtendimento().setBairro("null");
 			return endereco;
 		} else if (marcarAtendimentoDTO.getTipoEndereco().equals("casa")) {
-			Endereco endereco = enderecoService.homeAdress(2);
-			marcarAtendimentoDTO.getEnderecoDTOAtendimento().setBairro("null");
-			return endereco;
+			/*Este endereço virá do cadastro do usuário no
+			 *  módulo controle de acesso em fase de desenvolvimento*/
+			return null;
 		} else if (marcarAtendimentoDTO.getTipoEndereco().equals("outro-endereco")) {
 			Endereco enderecoSalvo = enderecoRepository.salvarEndereco(
 					ConvertersEndereco.deEnderecoDTOParaEndereco(marcarAtendimentoDTO.getEnderecoDTOAtendimento()));
@@ -207,25 +220,31 @@ public class AtendimentoService {
 
 	private Time getHoraAtendimento(String hora) {
 		
-		//String[] hour = hora.split(":");
+		if(!(hora.equals(""))) {
+			LocalTime localTime = LocalTime.parse(hora);
+			
+			return Time.valueOf(localTime);
+		}
 		
-		LocalTime localTime = LocalTime.parse(hora);
-
-		return Time.valueOf(localTime);
-		
+		return null;
 	}
 
 	private Calendar getDataAtendimento(String data) {
-
-		String[] dateCharacter = data.split("-");
 		
-		Calendar CalendarDate = Calendar.getInstance();
+		if(!data.equals("")) {
+			
+			String[] dateCharacter = data.split("-");
+			
+			Calendar CalendarDate = Calendar.getInstance();
+			
+			CalendarDate.set(Calendar.YEAR,Integer.parseInt(dateCharacter[0]));
+			CalendarDate.set(Calendar.MONTH,(Integer.parseInt(dateCharacter[1]) - 1));
+			CalendarDate.set(Calendar.DAY_OF_MONTH,Integer.parseInt(dateCharacter[2]));
+			
+			return CalendarDate;
+		}
 		
-		CalendarDate.set(Calendar.YEAR,Integer.parseInt(dateCharacter[0]));
-		CalendarDate.set(Calendar.MONTH,(Integer.parseInt(dateCharacter[1]) - 1));
-		CalendarDate.set(Calendar.DAY_OF_MONTH,Integer.parseInt(dateCharacter[2]));
-		
-		return CalendarDate;
+		return null;
 	}
 
 	public List<AtendimentoListaDTO> listarTodos() {
@@ -245,5 +264,14 @@ public class AtendimentoService {
 				.deListaAtendimentoParaListaAtendimentoDTO(atendimentos);
 
 		return atendimentosDTO;
+	}
+
+	public AtendimentoDTO buscarAtendimentoPorId(Integer id) {
+		
+		Atendimento atendimento = atendimentoRepository.buscarAtendimentoPorId(id);
+		
+		AtendimentoDTO atendimentoDTO = ConvertersAtendimento.deAtendimentoParaAtendimentoDTO(atendimento);
+				
+		return atendimentoDTO;
 	}
 }

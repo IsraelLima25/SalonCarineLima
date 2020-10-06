@@ -1,13 +1,13 @@
 package br.com.salon.carine.lima.enuns;
 
-public enum StatusAtendimento {
+public enum TipoPagamento {
 
-	ATENDIDO(1, "Atendido"), PENDENTE(2, "Pendente");
+	CREDITO(1, "Crédito"), DEBITO(2, "Débito"), ESPECIE(3, "Espécie");
 
 	private Integer codigo;
 	private String descricao;
 
-	private StatusAtendimento(Integer codigo, String descricao) {
+	TipoPagamento(int codigo, String descricao) {
 		this.codigo = codigo;
 		this.descricao = descricao;
 	}
@@ -27,4 +27,5 @@ public enum StatusAtendimento {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
 }

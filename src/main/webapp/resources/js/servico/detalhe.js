@@ -21,6 +21,32 @@ $(function() {
 	})
 });
 
+function atualizarPagina(){
+	limparCampos();
+	limparMessagesErrors();
+	topPage();
+}
+
+function limparCampos() {
+	$('#descricao').val('');
+	$('#preco').val('');
+}
+
+function limparMessagesErrors(){
+
+	$('.descricao').prop('hidden',true);
+	$('.descricao').text('');
+	
+	$('.preco').prop('hidden',true);
+	$('.preco').text('');
+}
+
+function topPage() {
+	$("html, body").animate({
+		scrollTop : 0
+	}, 600);
+}
+
 function removerServico(idServico) {
 	$.post({
 		url : `/SalonCarineLima/servico/remover/${idServico}`,

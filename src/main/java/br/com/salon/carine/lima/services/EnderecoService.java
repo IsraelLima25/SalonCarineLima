@@ -12,11 +12,6 @@ public class EnderecoService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 
-	public Endereco homeAdress(Integer idEndereco) {
-		Endereco endereco = this.enderecoRepository.buscarEnderecoPorId(idEndereco);
-		return endereco;
-	}
-	
 	public Endereco salvarEndereco(Endereco endereco) {
 		Endereco enderecoSalvo = enderecoRepository.salvarEndereco(endereco);
 		return enderecoSalvo;

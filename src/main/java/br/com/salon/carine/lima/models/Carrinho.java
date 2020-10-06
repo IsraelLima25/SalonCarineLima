@@ -5,14 +5,12 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import br.com.salon.carine.lima.converters.ConvertersServico;
 import br.com.salon.carine.lima.dto.ServicoItemCarrinhoDTO;
 
 @Component
-@Scope("singleton")
 public class Carrinho implements Serializable {
 
 	private static final long serialVersionUID = 1L;
