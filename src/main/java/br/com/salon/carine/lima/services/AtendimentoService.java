@@ -40,6 +40,7 @@ import br.com.salon.carine.lima.models.ServicoItemCarrinho;
 import br.com.salon.carine.lima.repositories.AtendimentoRepository;
 import br.com.salon.carine.lima.repositories.EnderecoRepository;
 import br.com.salon.carine.lima.repositories.ServicoItemCarrinhoRepository;
+import br.com.salon.carine.lima.repositoriessdp.AtendimentoRepositorySJPA;
 import br.com.salon.carine.lima.response.ResponseMarcar;
 
 @Service
@@ -50,6 +51,9 @@ public class AtendimentoService {
 
 	@Autowired
 	private AtendimentoRepository atendimentoRepository;
+	
+	@Autowired
+	private AtendimentoRepositorySJPA atendimentoRepositorySJPA;
 
 	@Autowired
 	private CarrinhoService carrinhoService;
