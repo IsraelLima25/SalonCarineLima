@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Servico implements Serializable {
 
@@ -22,7 +24,8 @@ public class Servico implements Serializable {
 
 	private String descricao;
 	private BigDecimal preco;
-
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "servico")
 	private List<ServicoItemCarrinho> itens = new ArrayList<>();
 

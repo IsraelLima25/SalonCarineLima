@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "br.com.salon.carine.lima" })
+@ComponentScan({"br.com.salon.carine.lima"})
 @EnableJpaRepositories(basePackages = "br.com.salon.carine.lima.repositoriessdp")
 public class PersistenceJPAConfig {
 

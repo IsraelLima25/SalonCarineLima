@@ -4,11 +4,14 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class ServicoItemCarrinho implements Serializable {
@@ -18,12 +21,14 @@ public class ServicoItemCarrinho implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "atendimento_id")
 	private Atendimento atendimento;
-
-	@ManyToOne
+	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "servico_id")
 	private Servico servico;
 

@@ -10,6 +10,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -51,7 +53,7 @@ public class AtendimentoService {
 
 	@Autowired
 	private AtendimentoRepository atendimentoRepository;
-	
+
 	@Autowired
 	private AtendimentoRepositorySJPA atendimentoRepositorySJPA;
 
@@ -114,8 +116,8 @@ public class AtendimentoService {
 			return TipoEndereco.CASA;
 		} else if (marcarAtendimentoDTO.getTipoEndereco().equals("outro-endereco")) {
 			return TipoEndereco.OUTRO_ENDERECO;
-		} 
-		
+		}
+
 		return null;
 	}
 
@@ -149,8 +151,8 @@ public class AtendimentoService {
 	}
 
 	private Atendimento builderAtendimento(List<ServicoItemCarrinho> servicosItemCarrinho, Cliente cliente,
-			Endereco endereco, TipoEndereco tipoEndereco, BigDecimal valorTotal, Calendar data, Time hora, BigDecimal desconto,
-			BigDecimal taxa) {
+			Endereco endereco, TipoEndereco tipoEndereco, BigDecimal valorTotal, Calendar data, Time hora,
+			BigDecimal desconto, BigDecimal taxa) {
 
 		Atendimento atendimento = new Atendimento();
 
@@ -176,8 +178,10 @@ public class AtendimentoService {
 			marcarAtendimentoDTO.getEnderecoDTOAtendimento().setBairro("null");
 			return endereco;
 		} else if (marcarAtendimentoDTO.getTipoEndereco().equals("casa")) {
-			/*Este endereço virá do cadastro do usuário no
-			 *  módulo controle de acesso em fase de desenvolvimento*/
+			/*
+			 * Este endereço virá do cadastro do usuário no módulo controle de acesso em
+			 * fase de desenvolvimento
+			 */
 			return null;
 		} else if (marcarAtendimentoDTO.getTipoEndereco().equals("outro-endereco")) {
 			Endereco enderecoSalvo = enderecoRepository.salvarEndereco(
@@ -223,46 +227,48 @@ public class AtendimentoService {
 	}
 
 	private Time getHoraAtendimento(String hora) {
-		
-		if(!(hora.equals(""))) {
+
+		if (!(hora.equals(""))) {
 			LocalTime localTime = LocalTime.parse(hora);
-			
+
 			return Time.valueOf(localTime);
 		}
-		
+
 		return null;
 	}
 
 	private Calendar getDataAtendimento(String data) {
-		
-		if(!data.equals("")) {
-			
+
+		if (!data.equals("")) {
+
 			String[] dateCharacter = data.split("-");
-			
+
 			Calendar CalendarDate = Calendar.getInstance();
-			
-			CalendarDate.set(Calendar.YEAR,Integer.parseInt(dateCharacter[0]));
-			CalendarDate.set(Calendar.MONTH,(Integer.parseInt(dateCharacter[1]) - 1));
-			CalendarDate.set(Calendar.DAY_OF_MONTH,Integer.parseInt(dateCharacter[2]));
-			
+
+			CalendarDate.set(Calendar.YEAR, Integer.parseInt(dateCharacter[0]));
+			CalendarDate.set(Calendar.MONTH, (Integer.parseInt(dateCharacter[1]) - 1));
+			CalendarDate.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dateCharacter[2]));
+
 			return CalendarDate;
 		}
-		
+
 		return null;
 	}
 
-	public List<AtendimentoListaDTO> listarTodos() {
-		List<Atendimento> atendimentos = atendimentoRepository.listarTodos();
-		List<AtendimentoListaDTO> atendimentosDTO = ConvertersAtendimento
-				.deListaAtendimentoParaListaAtendimentoDTO(atendimentos);
-		return atendimentosDTO;
+	public Page<Atendimento> findPageAtendimento(Integer page, Integer size) {
+
+		PageRequest pageRequest = PageRequest.of(page, size);
+
+		Page<Atendimento> pagesAtendimento = atendimentoRepositorySJPA.findAll(pageRequest);
+
+		return pagesAtendimento;
 	}
 
 	public List<AtendimentoListaDTO> getAtendimentosFilterData(FiltroDataAtendimentoDTO filtro) {
-		
+
 		Calendar dataInicio = ConvertersDate.deStringDateParaCalendar(filtro.getDataInicio());
 		Calendar dataFim = ConvertersDate.deStringDateParaCalendar(filtro.getDataFim());
-		
+
 		List<Atendimento> atendimentos = atendimentoRepository.getAtendimentosFilterData(dataInicio, dataFim);
 		List<AtendimentoListaDTO> atendimentosDTO = ConvertersAtendimento
 				.deListaAtendimentoParaListaAtendimentoDTO(atendimentos);
@@ -271,11 +277,11 @@ public class AtendimentoService {
 	}
 
 	public AtendimentoDTO buscarAtendimentoPorId(Integer id) {
-		
+
 		Atendimento atendimento = atendimentoRepository.buscarAtendimentoPorId(id);
-		
+
 		AtendimentoDTO atendimentoDTO = ConvertersAtendimento.deAtendimentoParaAtendimentoDTO(atendimento);
-				
+
 		return atendimentoDTO;
 	}
 }

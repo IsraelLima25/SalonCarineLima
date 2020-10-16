@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,6 +27,7 @@ import br.com.salon.carine.lima.dto.AtendimentoListaDTO;
 import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.dto.FiltroDataAtendimentoDTO;
 import br.com.salon.carine.lima.dto.MarcarAtendimentoDTO;
+import br.com.salon.carine.lima.models.Atendimento;
 import br.com.salon.carine.lima.response.ResponseMarcar;
 import br.com.salon.carine.lima.services.AtendimentoService;
 import br.com.salon.carine.lima.services.CarrinhoService;
@@ -46,14 +49,31 @@ public class AtendimentoController {
 	private Logger logger = Logger.getLogger("br.com.salon.carine.lima.Atendimento");
 	
 	@RequestMapping(method = RequestMethod.GET, value = "listar")
-	public ModelAndView formDetalheAtendimento() {
-		this.logger.info("Detalhando atendimento");
+	public ModelAndView formDetalheAtendimento(
+			@RequestParam(defaultValue = "0") Integer page,
+			@RequestParam(defaultValue = "5") Integer size) {
+		
+		this.logger.info("Iniciando busca paginada model");
+		
 		ModelAndView modelAndView = new ModelAndView("atendimento/lista");
-		List<AtendimentoListaDTO> atendimentosDTO = atendimentoService.listarTodos();
-		modelAndView.addObject("lista", atendimentosDTO);
+		Page<Atendimento> pageAtendimento = atendimentoService.findPageAtendimento(page, size);
+		modelAndView.addObject("paginas", pageAtendimento);
+		
 		return modelAndView;
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "listar/json")
+	public ResponseEntity<Page<Atendimento>> formDetalheAtendimentoJSON(
+			@RequestParam(defaultValue = "0") Integer page,
+			@RequestParam(defaultValue = "5") Integer size,
+			HttpServletRequest request) {
+		
+		this.logger.info("Iniciando busca paginada JSON");
+		
+		Page<Atendimento> pageAtendimento = atendimentoService.findPageAtendimento(page, size);
+		
+		return ResponseEntity.ok().body(pageAtendimento);
+	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "filterData")
 	@ResponseBody
@@ -77,7 +97,6 @@ public class AtendimentoController {
 		
 	}
 
-	
 	@RequestMapping(method = RequestMethod.GET, value = "formMarcar")
 	public ModelAndView formMarcarAtendimento() {		
 		
@@ -113,6 +132,4 @@ public class AtendimentoController {
 		modelAndView.addObject("atendimento",atendimento);
 		return modelAndView;
 	}
-	
-	
 }

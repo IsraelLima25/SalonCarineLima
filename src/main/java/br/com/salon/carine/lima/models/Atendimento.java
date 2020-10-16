@@ -22,6 +22,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import br.com.salon.carine.lima.enuns.StatusAtendimento;
 import br.com.salon.carine.lima.enuns.TipoEndereco;
 
@@ -33,7 +35,7 @@ public class Atendimento implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
@@ -62,7 +64,7 @@ public class Atendimento implements Serializable {
 	
 	@Enumerated(EnumType.ORDINAL)
 	private TipoEndereco tipoEndereco;
-
+	
 	@OneToMany(mappedBy = "atendimento", fetch = FetchType.EAGER)
 	private List<ServicoItemCarrinho> itens = new ArrayList<>();
 
@@ -92,7 +94,7 @@ public class Atendimento implements Serializable {
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-
+	
 	public Calendar getData() {
 		return data;
 	}
