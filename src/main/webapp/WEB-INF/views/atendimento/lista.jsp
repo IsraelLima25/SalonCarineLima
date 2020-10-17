@@ -27,16 +27,16 @@
 						<input class="form-check-input" type="radio" name="exampleRadios"
 							id="rbFilterData" value="option1">
 					</div>
-				</div>
+				</div>	
+				
 				<div class="form-group mt-4" id="groupFilterByClient">
-					<label class="color-font-label" for="cliente-atendimento-filter">Filtrar
-						Atendimento por cliente</label> <input type="text" onkeyup="filtrar()"
-						class="form-control" id="cliente-atendimento-filter">
-					<button type="button" onclick="atualizarPagina()"
-						class="btn btn-color-salon btn-sm mt-3 fas fa-sync-alt">
-						Atualizar Lista</button>
-
-				</div>
+						
+							<label class="color-font-label" for="cliente-atendimento-filter">Filtrar
+								Atendimento por cliente</label> 
+								
+								<input type="text" id="cliente-atendimento-filter" 
+								class="form-control" />
+					</div>		
 
 				<div hidden id="groupFilterByData" class="mt-3">
 					<form name="formFiltro">
@@ -88,7 +88,6 @@
 									class="fas fa-search btn btn-info"
 									href="${s:mvcUrl('AC#detalheAtendimento').arg(0,atendimento.id).build()}"></a>
 								</td>
-
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -137,6 +136,7 @@
 					</nav>
 				</div>
 			</div>
+			
 
 			<div class="back-to-top" href="#">
 				<i class="fas fa-chevron-up"></i>

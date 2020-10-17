@@ -3,11 +3,11 @@ $(function() {
 		e.preventDefault();
 		$.post({
 			url : '/SalonCarineLima/atendimento/filterData',
-			method : 'GET',
 			data : $('form[name=formFiltro]').serialize()
 		})
 		.then(function(data, textStatus, xhr) {
-			atualizarTable(data);
+			console.log(data);
+			rendererTabela(data.content);
 		})
 		.catch(function(err) {
 			console.log(err);
@@ -16,17 +16,9 @@ $(function() {
 	})
 });
 
-function atualizarPagina(){
-	window.location.href = "/SalonCarineLima/atendimento/listar";
-}
 
-function atualizarTable(data){
-	var atendimentos = JSON.parse(data);	
-	rendererTabela(atendimentos);
-}
+/****************** Scripts de paginação *********************************/
 
-
-/*Scripts de paginação*/
 
 function removerActiveButton(){
 	$("nav ul li").removeClass("active");
@@ -152,9 +144,9 @@ function rendererTabela (atendimentos) {
 				<td>${dataFormatada}</td>
 				<td>${horaFormatada}</td>
 				<td class="text-center">
-				<a type="button" class="fas fa-search btn btn-info"
+				<a class="fas fa-search btn btn-info"
+				 href="/SalonCarineLima/atendimento/${atendimento.id}" />
 				</td>
-				
 			</tr>	
 			`
 		);
@@ -171,13 +163,25 @@ function redirect() {
     window.location.href = "../../modules/atendimento/manutencaoAtendimento.html";
 }
 
-function filtrar() {
-    $('#atendimento-table').filterTable('#nome-filter');
+function filtrar(value){
+	console.log(value);
 }
 
-function filtrar() {
-    $('#atendimento-table').filterTable('#cliente-atendimento-filter');
-}
+$('#cliente-atendimento-filter').keyup(function() {
+	var nomeFilter = $(this).val();
+	setTimeout(() => {
+		$.get({
+			url: `/SalonCarineLima/atendimento/cliente/filter?nome=${nomeFilter}`,
+			success: function(response) {
+				rendererTabela(response);
+			},
+			fail: function(erro) {
+				console.log('Fail Request');
+				console.log(erro);
+			}
+		})
+	}, 1000);
+});
 
 $('#rbFilterCliente').click(function () {
     $('#groupFilterByData').prop('hidden', true);

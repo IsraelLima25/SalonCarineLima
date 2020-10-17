@@ -21,7 +21,6 @@ import br.com.salon.carine.lima.converters.ConvertersDate;
 import br.com.salon.carine.lima.converters.ConvertersEndereco;
 import br.com.salon.carine.lima.converters.ConvertersServico;
 import br.com.salon.carine.lima.dto.AtendimentoDTO;
-import br.com.salon.carine.lima.dto.AtendimentoListaDTO;
 import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.dto.FiltroDataAtendimentoDTO;
 import br.com.salon.carine.lima.dto.MarcarAtendimentoDTO;
@@ -258,22 +257,27 @@ public class AtendimentoService {
 	public Page<Atendimento> findPageAtendimento(Integer page, Integer size) {
 
 		PageRequest pageRequest = PageRequest.of(page, size);
-
 		Page<Atendimento> pagesAtendimento = atendimentoRepositorySJPA.findAll(pageRequest);
-
 		return pagesAtendimento;
 	}
 
-	public List<AtendimentoListaDTO> getAtendimentosFilterData(FiltroDataAtendimentoDTO filtro) {
-
-		Calendar dataInicio = ConvertersDate.deStringDateParaCalendar(filtro.getDataInicio());
-		Calendar dataFim = ConvertersDate.deStringDateParaCalendar(filtro.getDataFim());
-
-		List<Atendimento> atendimentos = atendimentoRepository.getAtendimentosFilterData(dataInicio, dataFim);
-		List<AtendimentoListaDTO> atendimentosDTO = ConvertersAtendimento
-				.deListaAtendimentoParaListaAtendimentoDTO(atendimentos);
-
-		return atendimentosDTO;
+	public Page<Atendimento> getAtendimentosFilterData(FiltroDataAtendimentoDTO filtro) {
+		
+		PageRequest pageRequest = PageRequest.of(0, 5);
+		
+		if(filtro.getDataInicio() != "" && filtro.getDataFim() != "") {
+			Calendar dataInicio = ConvertersDate.deStringDateParaCalendar(filtro.getDataInicio());
+			Calendar dataFim = ConvertersDate.deStringDateParaCalendar(filtro.getDataFim());
+						
+			Page<Atendimento> atendimentosDate = atendimentoRepositorySJPA.findByDataBetween(dataInicio,
+					dataFim, pageRequest);
+			
+			return atendimentosDate;
+			
+		}else {
+			
+			return findPageAtendimento(0, 5);
+		}
 	}
 
 	public AtendimentoDTO buscarAtendimentoPorId(Integer id) {
@@ -283,5 +287,11 @@ public class AtendimentoService {
 		AtendimentoDTO atendimentoDTO = ConvertersAtendimento.deAtendimentoParaAtendimentoDTO(atendimento);
 
 		return atendimentoDTO;
+	}
+
+	public List<Atendimento> filtrarAtendimentoPorCliente(String nome) {
+		List<Atendimento> atendimentos = atendimentoRepositorySJPA.searchNome(nome.toLowerCase());
+		return atendimentos;
+
 	}
 }

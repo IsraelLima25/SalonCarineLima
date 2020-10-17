@@ -2,13 +2,11 @@ package br.com.salon.carine.lima.controllers;
 
 import java.math.BigDecimal;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.salon.carine.lima.dto.AtendimentoDTO;
-import br.com.salon.carine.lima.dto.AtendimentoListaDTO;
 import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.dto.FiltroDataAtendimentoDTO;
 import br.com.salon.carine.lima.dto.MarcarAtendimentoDTO;
@@ -62,6 +58,12 @@ public class AtendimentoController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "cliente/filter")
+	public ResponseEntity<List<Atendimento>> filterAtendimentoPorNome(String nome){
+		List<Atendimento> pageAtendimento = atendimentoService.filtrarAtendimentoPorCliente(nome);
+		return ResponseEntity.ok(pageAtendimento);
+	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "listar/json")
 	public ResponseEntity<Page<Atendimento>> formDetalheAtendimentoJSON(
 			@RequestParam(defaultValue = "0") Integer page,
@@ -74,27 +76,15 @@ public class AtendimentoController {
 		
 		return ResponseEntity.ok().body(pageAtendimento);
 	}
-
-	@RequestMapping(method = RequestMethod.GET, value = "filterData")
-	@ResponseBody
-	public String filterDataAtendimento
+	
+	@RequestMapping(method = RequestMethod.POST, value = "filterData")
+	public ResponseEntity<Page<Atendimento>> filterDataAtendimento
 		(FiltroDataAtendimentoDTO filtro) {	
 		
-		List<AtendimentoListaDTO> listaFiltrada = atendimentoService.
+		Page<Atendimento> listaFiltrada = atendimentoService.
 				getAtendimentosFilterData(filtro);
 		
-		List<JSONObject> entities = new ArrayList<JSONObject>();
-		
-		for (AtendimentoListaDTO atendimento : listaFiltrada) {
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("clienteNome", atendimento.getCliente().getNome());
-			jsonObject.put("data", atendimento.getData());
-			jsonObject.put("hora", atendimento.getHora());
-			entities.add(jsonObject);
-		}
-		
-		return entities.toString();
-		
+		return ResponseEntity.ok().body(listaFiltrada);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "formMarcar")
