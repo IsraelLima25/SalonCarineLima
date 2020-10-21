@@ -22,8 +22,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import br.com.salon.carine.lima.enuns.StatusAtendimento;
 import br.com.salon.carine.lima.enuns.TipoEndereco;
 

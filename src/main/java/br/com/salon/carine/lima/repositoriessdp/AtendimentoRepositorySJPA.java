@@ -20,5 +20,4 @@ public interface AtendimentoRepositorySJPA extends PagingAndSortingRepository<At
 	
 	Page<Atendimento> findByDataBetween(Calendar from, Calendar to, Pageable pageable);
 	
-
 }

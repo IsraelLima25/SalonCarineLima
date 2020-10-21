@@ -15,12 +15,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
-import br.com.salon.carine.lima.converters.ConvertersAtendimento;
 import br.com.salon.carine.lima.converters.ConvertersCliente;
 import br.com.salon.carine.lima.converters.ConvertersDate;
 import br.com.salon.carine.lima.converters.ConvertersEndereco;
 import br.com.salon.carine.lima.converters.ConvertersServico;
-import br.com.salon.carine.lima.dto.AtendimentoDTO;
 import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.dto.FiltroDataAtendimentoDTO;
 import br.com.salon.carine.lima.dto.MarcarAtendimentoDTO;
@@ -70,6 +68,8 @@ public class AtendimentoService {
 
 	@Autowired
 	private ValidationFormAtendimentoService validationFormAtendimento;
+	
+	private List<Atendimento> rowAtendimentosList = new ArrayList<>();
 
 	public ResponseMarcar marcarAtendimento(MarcarAtendimentoDTO atendimentoDTO, HttpServletRequest request,
 			BindingResult result) {
@@ -201,7 +201,7 @@ public class AtendimentoService {
 			return pagamentoEspecie;
 		} else if (atendimentoDTO.getFormaPagamento().equals("debito")) {
 			Debito pagamentoDebito = new Debito();
-			pagamentoDebito.setBandeira(BandeiraCartao.getBandeiraCartao(atendimentoDTO.getBandeiraCartao()));
+			pagamentoDebito.setBandeiraCartao(BandeiraCartao.getBandeiraCartao(atendimentoDTO.getBandeiraCartao()));
 			atendimentoDTO.setQuantidadeParcelas(1);
 			return pagamentoDebito;
 		} else if (atendimentoDTO.getFormaPagamento().equals("credito")) {
@@ -280,18 +280,77 @@ public class AtendimentoService {
 		}
 	}
 
-	public AtendimentoDTO buscarAtendimentoPorId(Integer id) {
-
-		Atendimento atendimento = atendimentoRepository.buscarAtendimentoPorId(id);
-
-		AtendimentoDTO atendimentoDTO = ConvertersAtendimento.deAtendimentoParaAtendimentoDTO(atendimento);
-
-		return atendimentoDTO;
+	public Page<Atendimento> buscarAtendimentoPorId(Integer id) {
+		
+		Atendimento atendimento = atendimentoRepositorySJPA.findById(id).get();
+		
+		Integer lineRegister = findRowListAtendimento(atendimento);
+		
+		PageRequest pageRequest = PageRequest.of(lineRegister, 1);
+		
+		Page<Atendimento> pageAtendimento = atendimentoRepositorySJPA.findAll(pageRequest);
+		
+		return pageAtendimento;
+	}
+	
+	private Integer findRowListAtendimento(Atendimento atendimento) {
+		
+		if(rowAtendimentosList.isEmpty()) {
+			loadList();
+			return retornarLineNumber(atendimento);
+		}else {
+			return retornarLineNumber(atendimento);
+		}
+	}
+	
+	private void loadList() {
+		List<Atendimento> Atendimentos = (List<Atendimento>) atendimentoRepositorySJPA.findAll();
+		Atendimentos.stream().forEach(atendimento -> rowAtendimentosList.add(atendimento));
+	}
+	
+	private Integer retornarLineNumber(Atendimento atendimento) {
+		if(atendimento != null) {
+			return rowAtendimentosList.indexOf(atendimento);
+		}
+		
+		return null;
 	}
 
 	public List<Atendimento> filtrarAtendimentoPorCliente(String nome) {
 		List<Atendimento> atendimentos = atendimentoRepositorySJPA.searchNome(nome.toLowerCase());
 		return atendimentos;
 
+	}
+
+	public Page<Atendimento> nextPageService(Integer number) {
+		
+		if(number == rowAtendimentosList.size() - 1) {
+			PageRequest pageRequest = PageRequest.of(0, 1);
+			Page<Atendimento> paginaProxima = atendimentoRepositorySJPA.findAll(pageRequest);
+			
+			return paginaProxima;
+			
+		}else {
+			PageRequest pageRequest = PageRequest.of(number + 1, 1);
+			Page<Atendimento> paginaProxima = atendimentoRepositorySJPA.findAll(pageRequest);
+			
+			return paginaProxima;
+		}
+	}
+
+	public Page<Atendimento> previousPageService(Integer number) {
+		
+		if(number == 0) {
+			PageRequest pageRequest = PageRequest.of(rowAtendimentosList.size() - 1, 1);
+			Page<Atendimento> paginaAterior = atendimentoRepositorySJPA.findAll(pageRequest);
+			return paginaAterior;
+			
+		}else {
+			PageRequest pageRequest = PageRequest.of(number - 1, 1);
+			Page<Atendimento> paginaAterior = atendimentoRepositorySJPA.findAll(pageRequest);
+			
+			return paginaAterior;
+		}
+		
 	}
 }

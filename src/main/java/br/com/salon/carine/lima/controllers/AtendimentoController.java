@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.salon.carine.lima.dto.AtendimentoDTO;
 import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.dto.FiltroDataAtendimentoDTO;
 import br.com.salon.carine.lima.dto.MarcarAtendimentoDTO;
@@ -118,8 +117,27 @@ public class AtendimentoController {
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	public ModelAndView detalheAtendimento(@PathVariable("id") Integer id) {
 		ModelAndView modelAndView = new ModelAndView("atendimento/detalhe");
-		AtendimentoDTO atendimento = atendimentoService.buscarAtendimentoPorId(id);
-		modelAndView.addObject("atendimento",atendimento);
+		Page<Atendimento> atendimento = atendimentoService.buscarAtendimentoPorId(id);
+		modelAndView.addObject("atendimento",atendimento.getContent().get(0));
+		modelAndView.addObject("page", atendimento);
+		return modelAndView;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "next")
+	public ModelAndView nextPage (@RequestParam Integer number){
+		ModelAndView modelAndView = new ModelAndView("atendimento/detalhe");
+		Page<Atendimento> pagina = atendimentoService.nextPageService(number);
+		modelAndView.addObject("atendimento",pagina.getContent().get(0));
+		modelAndView.addObject("page", pagina);
+		return modelAndView;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "previous")
+	public ModelAndView previousPage (@RequestParam Integer number){
+		ModelAndView modelAndView = new ModelAndView("atendimento/detalhe");
+		Page<Atendimento> pagina = atendimentoService.previousPageService(number);
+		modelAndView.addObject("atendimento",pagina.getContent().get(0));
+		modelAndView.addObject("page", pagina);
 		return modelAndView;
 	}
 }

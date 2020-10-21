@@ -19,11 +19,11 @@ public class Debito extends Pagamento {
 		this.bandeiraCartao = bandeiraCartao;
 	}
 
-	public BandeiraCartao getBandeira() {
+	public BandeiraCartao getBandeiraCartao() {
 		return bandeiraCartao;
 	}
 
-	public void setBandeira(BandeiraCartao bandeira) {
+	public void setBandeiraCartao(BandeiraCartao bandeira) {
 		this.bandeiraCartao = bandeira;
 	}
 	

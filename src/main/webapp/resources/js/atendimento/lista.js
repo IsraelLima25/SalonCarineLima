@@ -17,7 +17,7 @@ $(function() {
 });
 
 
-/****************** Scripts de paginação *********************************/
+/****************** Scripts de paginação ***********************************/
 
 
 function removerActiveButton(){

@@ -124,5 +124,4 @@ public class AtendimentoDTO implements Serializable {
 	public void setTipoEndereco(TipoEndereco tipoEndereco) {
 		this.tipoEndereco = tipoEndereco;
 	}
-
 }

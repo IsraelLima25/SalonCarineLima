@@ -2,7 +2,7 @@ package br.com.salon.carine.lima.enuns;
 
 public enum TipoEndereco {
 
-	CASA(0, "casa"), ENDERECO_CLIENTE(1, "endereco-cliente"), OUTRO_ENDERECO(2, "outro-endereco");
+	CASA(0, "casa"), ENDERECO_CLIENTE(1, "cliente"), OUTRO_ENDERECO(2, "outro");
 
 	private Integer codigo;
 	private String descricao;
