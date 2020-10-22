@@ -15,7 +15,8 @@ public class AtendimentoDTO implements Serializable {
 
 	private Integer id;
 	private ClienteDTO cliente;
-	private BigDecimal valorTotal;
+	private BigDecimal totalBruto;
+	private BigDecimal totalLiquido;
 	private String data;
 	private String hora;
 	private EnderecoDTO endereco;
@@ -42,12 +43,20 @@ public class AtendimentoDTO implements Serializable {
 		this.cliente = cliente;
 	}
 
-	public BigDecimal getValorTotal() {
-		return valorTotal;
+	public BigDecimal getTotalBruto() {
+		return totalBruto;
 	}
 
-	public void setValorTotal(BigDecimal valorTotal) {
-		this.valorTotal = valorTotal;
+	public void setTotalBruto(BigDecimal totalBruto) {
+		this.totalBruto = totalBruto;
+	}
+
+	public BigDecimal getTotalLiquido() {
+		return totalLiquido;
+	}
+
+	public void setTotalLiquido(BigDecimal totalLiquido) {
+		this.totalLiquido = totalLiquido;
 	}
 
 	public String getData() {

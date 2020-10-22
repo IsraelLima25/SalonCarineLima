@@ -55,7 +55,6 @@ public class ClienteController {
 		ResponseCliente response = this.serviceCliente.cadastrar(clienteDTO);
 
 		return ResponseEntity.created(uri).body(response);
-
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "alterar")
@@ -110,7 +109,6 @@ public class ClienteController {
 		response.setCliente(clienteProximo);
 
 		return ResponseEntity.ok().body(response);
-
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "anterior/{id}")
@@ -122,7 +120,5 @@ public class ClienteController {
 		response.setCliente(clienteProximo);
 
 		return ResponseEntity.ok().body(response);
-
 	}
-
 }

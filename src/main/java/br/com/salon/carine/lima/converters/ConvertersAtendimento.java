@@ -54,7 +54,8 @@ public class ConvertersAtendimento {
 		atendimentoDTO.setPagamento(atendimento.getPagamento());
 		atendimentoDTO.setStatus(atendimento.getStatus());
 		atendimentoDTO.setTaxa(atendimento.getTaxa());
-		atendimentoDTO.setValorTotal(atendimento.getValorTotal());
+		atendimentoDTO.setTotalBruto(atendimento.getTotalBruto());
+		atendimentoDTO.setTotalLiquido(atendimento.getTotalLiquido());
 
 		for (ServicoItemCarrinho item : atendimento.getItens()) {
 			ServicoItemCarrinhoDTO itemDTO = new ServicoItemCarrinhoDTO();

@@ -2,14 +2,18 @@ package br.com.salon.carine.lima.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Calendar;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@Entity
 public class Lancamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -19,14 +23,18 @@ public class Lancamento implements Serializable {
 	private Integer id;
 	
 	@Temporal(TemporalType.DATE)
-	private LocalDate data;
+	private Calendar data;
 	
 	private BigDecimal valorTotal;
 
+	@OneToOne
+	@JoinColumn(name = "atendimento_id")
+	private Atendimento atendimento;
+	
 	public Lancamento() {
 	}
 
-	public Lancamento(LocalDate data, BigDecimal valorTotal) {
+	public Lancamento(Calendar data, BigDecimal valorTotal) {
 		super();
 		this.data = data;
 		this.valorTotal = valorTotal;
@@ -40,11 +48,11 @@ public class Lancamento implements Serializable {
 		this.id = id;
 	}
 
-	public LocalDate getData() {
+	public Calendar getData() {
 		return data;
 	}
 
-	public void setData(LocalDate data) {
+	public void setData(Calendar data) {
 		this.data = data;
 	}
 
@@ -79,6 +87,14 @@ public class Lancamento implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Atendimento getAtendimento() {
+		return atendimento;
+	}
+
+	public void setAtendimento(Atendimento atendimento) {
+		this.atendimento = atendimento;
 	}
 
 }

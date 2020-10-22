@@ -38,7 +38,9 @@ public class Atendimento implements Serializable {
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
-	private BigDecimal valorTotal;
+	private BigDecimal totalBruto;
+	
+	private BigDecimal totalLiquido;
 	
 	@Temporal(TemporalType.DATE)
 	private Calendar data;
@@ -84,15 +86,23 @@ public class Atendimento implements Serializable {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
-	public BigDecimal getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal(BigDecimal valorTotal) {
-		this.valorTotal = valorTotal;
-	}
 	
+	public BigDecimal getTotalBruto() {
+		return totalBruto;
+	}
+
+	public void setTotalBruto(BigDecimal totalBruto) {
+		this.totalBruto = totalBruto;
+	}
+
+	public BigDecimal getTotalLiquido() {
+		return totalLiquido;
+	}
+
+	public void setTotalLiquido(BigDecimal totalLiquido) {
+		this.totalLiquido = totalLiquido;
+	}
+
 	public Calendar getData() {
 		return data;
 	}

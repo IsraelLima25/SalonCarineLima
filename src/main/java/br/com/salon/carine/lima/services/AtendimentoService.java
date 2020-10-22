@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -77,15 +78,15 @@ public class AtendimentoService {
 		Cliente clienteAtendimento = getClienteAtendimento(atendimentoDTO.getCliente());
 		Endereco enderecoAtendimento = getEnderecoAtendimento(atendimentoDTO);
 		TipoEndereco tipoEndereco = getTipoEndereco(atendimentoDTO);
-		BigDecimal valorTotalCarrinhoAtendimento = carrinhoService.getValorTotalCarrinho();
 		Calendar data = getDataAtendimento(atendimentoDTO.getData());
 		Time hora = getHoraAtendimento(atendimentoDTO.getHora());
 		BigDecimal desconto = atendimentoDTO.getDesconto();
 		BigDecimal taxa = atendimentoDTO.getTaxa();
-
+		BigDecimal totalBruto = carrinhoService.getValorTotalCarrinho();
+		BigDecimal totalLiquido = getTotalLiquido(taxa, desconto);
 		List<ServicoItemCarrinho> itensCarrinho = getItensCarrinho();
 		Atendimento atendimento = builderAtendimento(itensCarrinho, clienteAtendimento, enderecoAtendimento,
-				tipoEndereco, valorTotalCarrinhoAtendimento, data, hora, desconto, taxa);
+				tipoEndereco, totalLiquido, totalBruto, data, hora, desconto, taxa);
 
 		Pagamento pagamentoAtendimento = getFormaPagamento(atendimentoDTO, atendimento);
 
@@ -150,15 +151,16 @@ public class AtendimentoService {
 	}
 
 	private Atendimento builderAtendimento(List<ServicoItemCarrinho> servicosItemCarrinho, Cliente cliente,
-			Endereco endereco, TipoEndereco tipoEndereco, BigDecimal valorTotal, Calendar data, Time hora,
-			BigDecimal desconto, BigDecimal taxa) {
+			Endereco endereco, TipoEndereco tipoEndereco, BigDecimal totalLiquido, BigDecimal totalBruto,
+			Calendar data, Time hora, BigDecimal desconto, BigDecimal taxa) {
 
 		Atendimento atendimento = new Atendimento();
 
 		atendimento.setCliente(cliente);
 		atendimento.setEndereco(endereco);
 		atendimento.setTipoEndereco(tipoEndereco);
-		atendimento.setValorTotal(valorTotal);
+		atendimento.setTotalLiquido(totalLiquido);
+		atendimento.setTotalBruto(totalBruto);
 		atendimento.setData(data);
 		atendimento.setHora(hora);
 		atendimento.setStatus(StatusAtendimento.PENDENTE);
@@ -253,9 +255,24 @@ public class AtendimentoService {
 
 		return null;
 	}
+	
+	private BigDecimal getTotalLiquido(BigDecimal taxa, BigDecimal desconto) {
+		
+		BigDecimal valorCalculado = carrinhoService.getValorTotalCarrinho();
+		
+		if(taxa != null) {
+			valorCalculado = valorCalculado.add(taxa);
+		}
+		
+		if(desconto != null) {
+			valorCalculado = valorCalculado.subtract(desconto);
+		}
+		
+		return valorCalculado;
+	}
 
 	public Page<Atendimento> findPageAtendimento(Integer page, Integer size) {
-
+		
 		PageRequest pageRequest = PageRequest.of(page, size);
 		Page<Atendimento> pagesAtendimento = atendimentoRepositorySJPA.findAll(pageRequest);
 		return pagesAtendimento;
@@ -295,7 +312,9 @@ public class AtendimentoService {
 	
 	private Integer findRowListAtendimento(Atendimento atendimento) {
 		
-		if(rowAtendimentosList.isEmpty()) {
+		long quantidadeRegistros = atendimentoRepositorySJPA.count();
+		
+		if(rowAtendimentosList.isEmpty() || rowAtendimentosList.size() < quantidadeRegistros) {
 			loadList();
 			return retornarLineNumber(atendimento);
 		}else {
@@ -304,22 +323,29 @@ public class AtendimentoService {
 	}
 	
 	private void loadList() {
+		rowAtendimentosList.clear();
 		List<Atendimento> Atendimentos = (List<Atendimento>) atendimentoRepositorySJPA.findAll();
 		Atendimentos.stream().forEach(atendimento -> rowAtendimentosList.add(atendimento));
 	}
 	
 	private Integer retornarLineNumber(Atendimento atendimento) {
-		if(atendimento != null) {
+		
+		if(rowAtendimentosList.contains(atendimento)) {
+			return rowAtendimentosList.indexOf(atendimento);
+		}else {
+			addNewLine(atendimento);
 			return rowAtendimentosList.indexOf(atendimento);
 		}
-		
-		return null;
+	}
+	
+	private void addNewLine (Atendimento atendimento) {
+		rowAtendimentosList.add(atendimento);
 	}
 
 	public List<Atendimento> filtrarAtendimentoPorCliente(String nome) {
 		List<Atendimento> atendimentos = atendimentoRepositorySJPA.searchNome(nome.toLowerCase());
+		
 		return atendimentos;
-
 	}
 
 	public Page<Atendimento> nextPageService(Integer number) {
@@ -351,6 +377,15 @@ public class AtendimentoService {
 			
 			return paginaAterior;
 		}
+	}
+	
+	public void alterarStatusAtendimento(Integer idAtendimento) {
 		
+		Optional<Atendimento> atendimento = atendimentoRepositorySJPA.findById(idAtendimento);
+		
+		if(atendimento.isPresent()) {
+			atendimento.get().setStatus(StatusAtendimento.ATENDIDO);
+			atendimentoRepositorySJPA.save(atendimento.get());
+		}
 	}
 }

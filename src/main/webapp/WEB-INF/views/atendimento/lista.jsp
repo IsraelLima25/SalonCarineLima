@@ -66,8 +66,8 @@
 						<p id="msg-nenhum-registro-encontrado" hidden>
 							<i>Nenhum atendimento encontrado</i>
 						</p>
-
-						<c:if test="${paginas.content.size()==0}">
+		
+						<c:if test="${paginas.totalPages== '0'}">
 							<tr>
 								<p>
 									<i>Nenhum atendimento agendado</i>
@@ -94,50 +94,50 @@
 				</table>
 				
 				<!-- Paginação -->
-				
-				<div class="row pb-5">
-					<nav aria-label="..." style="margin: auto;">
-						  <ul class="pagination">
-						  <li class="page-item">
-						    
-							  <p hidden id="paginaAtual">${paginas.pageable.pageNumber}</p>
-							  
-						      <a class="page-link" type="button"
-						      	onclick="paginaAnterior(${paginas.totalPages})">
-						      		Anterior
-						      </a>
-						    </li>
-						  <c:forEach var="pageNumber" begin="0" end="${paginas.totalPages - 1}" 
-						  			varStatus="value">
-					    	<c:choose>
-					    		<c:when test="${pageNumber == 0}">
-							    	<li id="${pageNumber}" class="page-item active">
-								      <a class="page-link" type="button" 
-								      	onclick="getPage(${pageNumber})" >${pageNumber + 1}</a>
-								    </li>
-					    		</c:when>
-					    		<c:otherwise>
-					    			<li id="${pageNumber}" class="page-item">
-								      <a class="page-link" type="button"
-								      	onclick="getPage(${pageNumber})">${pageNumber + 1}</a>
-								    </li>
-					    		</c:otherwise>
-					    	</c:choose>
-						  </c:forEach>
-						    <li class="page-item">
-						    
-							  
-						      <a class="page-link" type="button"
-						      	onclick="proximaPagina(${paginas.totalPages})">
-						      		Próximo
-						      </a>
-						    </li>
-						  </ul>
-					</nav>
-				</div>
+				<c:if test="${paginas.totalPages > 0 }">
+					<div class="row pb-5">
+						<nav aria-label="..." style="margin: auto;">
+							  <ul class="pagination">
+							  <li class="page-item">
+							    
+								  <p hidden id="paginaAtual">${paginas.pageable.pageNumber}</p>
+								  
+							      <a class="page-link" type="button"
+							      	onclick="paginaAnterior(${paginas.totalPages})">
+							      		Anterior
+							      </a>
+							    </li>
+							  <c:forEach var="pageNumber" begin="0" end="${paginas.totalPages - 1}" 
+							  			varStatus="value">
+						    	<c:choose>
+						    		<c:when test="${pageNumber == 0}">
+								    	<li id="${pageNumber}" class="page-item active">
+									      <a class="page-link" type="button" 
+									      	onclick="getPage(${pageNumber})" >${pageNumber + 1}</a>
+									    </li>
+						    		</c:when>
+						    		<c:otherwise>
+						    			<li id="${pageNumber}" class="page-item">
+									      <a class="page-link" type="button"
+									      	onclick="getPage(${pageNumber})">${pageNumber + 1}</a>
+									    </li>
+						    		</c:otherwise>
+						    	</c:choose>
+							  </c:forEach>
+							    <li class="page-item">
+							    
+								  
+							      <a class="page-link" type="button"
+							      	onclick="proximaPagina(${paginas.totalPages})">
+							      		Próximo
+							      </a>
+							    </li>
+							  </ul>
+						</nav>
+					</div>
+				</c:if>
 			</div>
 			
-
 			<div class="back-to-top" href="#">
 				<i class="fas fa-chevron-up"></i>
 			</div>

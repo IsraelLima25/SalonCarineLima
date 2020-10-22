@@ -9,8 +9,17 @@
  <main>
         <section>
             <div class="container">
-                <h4 class="mt-4 color-font">Atendimento</h4>
+            
+            	<div class="row mt-4">
+            		<div class="text-left col-8 col-md-8">
+		                <h4 class="color-font">Atendimento</h4>
+            		</div>
+		            <div class="text-right col-4 col-md-4">
+						<a type="button" href="../atendimento/listar" class="btn btn-info fas fa-fast-backward"></a>
+					</div>
+            	</div>
                 <hr />
+                
                 <div class="row">
                 	<div class="col-6 col-md-6 text-left">
                 		<a	class="btn btn-success fas fa-arrow-left" 
@@ -30,7 +39,7 @@
  				
  				<div class="col-6 col-md-6 mt-3">
  					<label>Status</label>
- 					<input disabled="disabled" class="form-control" 
+ 					<input id="status" disabled="disabled" class="form-control" 
                     value="${atendimento.status.descricao}" />
  				</div>
  				
@@ -170,6 +179,13 @@
                             <td class="text-center">${itemAtendimento.getTotal(itemAtendimento.quantidade)}</td>
                         </tr>
                     </c:forEach>
+                    <tr>
+                    	<td colspan="2" class="text-center">Total cesta</td>
+                    	<td style="color: green" class="text-center">
+                    		<b>${atendimento.totalBruto}</b>
+                    	</td>
+                    </tr>
+                    
                     </tbody>
                 </table>
            		<hr/>
@@ -205,7 +221,7 @@
 	                <div class="col-4 col-md-4 mt-3">
 	                    <label style="display:block;">Total</label>
 	                    <input disabled="disabled" class="form-control" 
-                    			value="${atendimento.valorTotal}" />
+                    			value="${atendimento.totalLiquido}" />
 	                </div>
 	                
            		</div>
@@ -253,25 +269,74 @@
 				
 				<hr/>
 				
-				<div class="row">
-					<div class="col-12 col-md-12 mt-3 mb-5 text-left">
-						<button id="btn-confirmar-lancamento" 
-							class="btn btn-success">
-							Lançar
-						</button>
-						<button class="btn btn-danger ml-3">
-							Cancelar
-						</button>
+				<c:if test="${atendimento.status.descricao == 'Pendente'}">
+					<div class="row">
+						<div class="col-12 col-md-12 mt-3 mb-5 text-left">
+							<button id="btn-confirmar-lancamento" data-toggle="modal"
+								data-target="#modalLancar" 
+								class="btn btn-success">
+								Lançar
+							</button>
+							<button class="btn btn-danger ml-3">
+								Cancelar
+							</button>
+						</div>
 					</div>
+				</c:if>	
+				
+			<!-- Modais -->
+				<div class="modal modal fade" id="modalLancar" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title">Atendimento</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        <p>
+				        	Deseja realmente lançar esse atendimento nos relatórios financeiros?
+							Lembrando que os lançamentos estão programados para acontecerem ás
+							00:00 do dia seguinte.
+				        </p>
+				      </div>
+				      <div class="modal-footer">
+<%-- 				         action="${s:mvcUrl('AC#marcarAtendimento').arg(0,atendimento.id).build()}" --%>
+				      <form method="post" name="formDetalhe">
+				      		<input hidden name="idAtendimento" value="${atendimento.id}" />
+					        <button type="submit" class="btn btn-color-salon" data-dismiss="modal">
+					        	Sim
+					        </button>
+				      </form>
+				        <button type="button" class="btn btn-color-salon" data-dismiss="modal">
+				       	 Não
+				        </button>
+				      </div>
+				    </div>
+				  </div>
 				</div>
 				
+				<div class="modal modal fade" id="modalSucesso" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title">Atendimento</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        <p>
+				        	Atendimento Lançado com sucesso.
+				        </p>
+				      </div>
+				    </div>
+				  </div>
+				</div>
 				
-<!-- 				<div class="text-center alinhamento"> -->
-<!--                     <button id="btn-confirmar-lancamento" style="margin-bottom: 16px;" data-toggle="modal" -->
-<!--                         data-target="#modalConfirmarPagamento" type="button" -->
-<!--                         class="btn btn-color-salon btn-block">Lançar Pagamento</button> -->
-<!--                 </div> -->
-				
+			<!--  -->
+									
                 <div class="back-to-top" href="#"><i class="fas fa-chevron-up"></i></div>
   			</div>
         </section>
