@@ -94,7 +94,6 @@ function getPreviousPage(numeroPagina){
 	})
 }
 
-
 function getPage(numeroPagina){
 	$.get({
 		url: `/SalonCarineLima/atendimento/listar/json?page=${numeroPagina}`,
@@ -145,7 +144,7 @@ function rendererTabela (atendimentos) {
 				<td>${horaFormatada}</td>
 				<td class="text-center">
 				<a class="fas fa-search btn btn-info"
-				 href="/SalonCarineLima/atendimento/${atendimento.id}" />
+				 href="/SalonCarineLima/atendimento/${numeroPagina}" />
 				</td>
 			</tr>	
 			`

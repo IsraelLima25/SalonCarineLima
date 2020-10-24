@@ -23,6 +23,7 @@ import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.dto.FiltroDataAtendimentoDTO;
 import br.com.salon.carine.lima.dto.MarcarAtendimentoDTO;
 import br.com.salon.carine.lima.models.Atendimento;
+import br.com.salon.carine.lima.response.Message;
 import br.com.salon.carine.lima.response.ResponseMarcar;
 import br.com.salon.carine.lima.services.AtendimentoService;
 import br.com.salon.carine.lima.services.CarrinhoService;
@@ -114,30 +115,36 @@ public class AtendimentoController {
 		
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	public ModelAndView detalheAtendimento(@PathVariable("id") Integer id) {
+	@RequestMapping(method = RequestMethod.GET, value = "/{rowNumber}")
+	public ModelAndView detalheAtendimento(@PathVariable Integer rowNumber) {
 		ModelAndView modelAndView = new ModelAndView("atendimento/detalhe");
-		Page<Atendimento> atendimento = atendimentoService.buscarAtendimentoPorId(id);
+		Page<Atendimento> atendimento = atendimentoService.buscarAtendimentoRowNumber(rowNumber);
 		modelAndView.addObject("atendimento",atendimento.getContent().get(0));
 		modelAndView.addObject("page", atendimento);
 		return modelAndView;
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "next")
-	public ModelAndView nextPage (@RequestParam Integer number){
+	public ModelAndView nextPage (@RequestParam boolean isLast, @RequestParam Integer number){
 		ModelAndView modelAndView = new ModelAndView("atendimento/detalhe");
-		Page<Atendimento> pagina = atendimentoService.nextPageService(number);
+		Page<Atendimento> pagina = atendimentoService.nextPageService(isLast, number);
 		modelAndView.addObject("atendimento",pagina.getContent().get(0));
 		modelAndView.addObject("page", pagina);
 		return modelAndView;
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "previous")
-	public ModelAndView previousPage (@RequestParam Integer number){
+	public ModelAndView previousPage (@RequestParam boolean isFirst, @RequestParam Integer number){
 		ModelAndView modelAndView = new ModelAndView("atendimento/detalhe");
-		Page<Atendimento> pagina = atendimentoService.previousPageService(number);
+		Page<Atendimento> pagina = atendimentoService.previousPageService(isFirst, number);
 		modelAndView.addObject("atendimento",pagina.getContent().get(0));
 		modelAndView.addObject("page", pagina);
 		return modelAndView;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "cancelar")
+	public ResponseEntity<Message> cancelar(Integer idAtendimentoCancelado) {
+		Message message = this.atendimentoService.cancelar(idAtendimentoCancelado);
+		return ResponseEntity.ok().body(message);
 	}
 }

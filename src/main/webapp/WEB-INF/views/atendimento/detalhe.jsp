@@ -9,7 +9,7 @@
  <main>
         <section>
             <div class="container">
-            
+            	<input id="rowNumberAtual" hidden value="${page.getNumber()}" />
             	<div class="row mt-4">
             		<div class="text-left col-8 col-md-8">
 		                <h4 class="color-font">Atendimento</h4>
@@ -23,7 +23,7 @@
                 <div class="row">
                 	<div class="col-6 col-md-6 text-left">
                 		<a	class="btn btn-success fas fa-arrow-left" 
-	                	href="/SalonCarineLima/atendimento/previous?isFirst=${page.isLast()}&number=${page.getNumber()}"></a>
+	                	href="/SalonCarineLima/atendimento/previous?isFirst=${page.isFirst()}&number=${page.getNumber()}"></a>
                 	</div>
                 	<div class="col-6 col-md-6 text-right">
 	                	<a	class="btn btn-success fas fa-arrow-right" 
@@ -180,7 +180,7 @@
                         </tr>
                     </c:forEach>
                     <tr>
-                    	<td colspan="2" class="text-center">Total cesta</td>
+                    	<td colspan="2" class="text-left"><b>Total cesta</b></td>
                     	<td style="color: green" class="text-center">
                     		<b>${atendimento.totalBruto}</b>
                     	</td>
@@ -277,7 +277,8 @@
 								class="btn btn-success">
 								Lançar
 							</button>
-							<button class="btn btn-danger ml-3">
+							<button class="btn btn-danger ml-3" data-toggle="modal"
+								data-target="#modalCancelar">
 								Cancelar
 							</button>
 						</div>
@@ -303,9 +304,9 @@
 				      </div>
 				      <div class="modal-footer">
 <%-- 				         action="${s:mvcUrl('AC#marcarAtendimento').arg(0,atendimento.id).build()}" --%>
-				      <form method="post" name="formDetalhe">
-				      		<input hidden name="idAtendimento" value="${atendimento.id}" />
-					        <button type="submit" class="btn btn-color-salon" data-dismiss="modal">
+				      <form method="post" name="formLancamento">
+				      		<input hidden id="atendimentoId" name="idAtendimento" value="${atendimento.id}" />
+					        <button type="submit" id="confirmarLancamento" class="btn btn-color-salon" data-dismiss="modal">
 					        	Sim
 					        </button>
 				      </form>
@@ -334,6 +335,56 @@
 				    </div>
 				  </div>
 				</div>
+				
+			<div class="modal modal fade" id="modalCancelar" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title">Atendimento</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        <p>
+				        	Deseja realmente cancelar esse atendimento?
+							Após a confirmação este atendimento será excluido.
+				        </p>
+				      </div>
+				      <div class="modal-footer">
+<%-- 				         action="${s:mvcUrl('AC#marcarAtendimento').arg(0,atendimento.id).build()}" --%>
+				      <form method="post" name="formCancelamento">
+				      		<input hidden id="atendimentoIdCancelamento" name="idAtendimentoCancelado" value="${atendimento.id}" />
+					        <button type="submit" id="cancelarAtendimento"
+					        	 class="btn btn-color-salon" data-dismiss="modal">
+					        	Sim
+					        </button>
+				      </form>
+					        <button type="button" class="btn btn-color-salon" data-dismiss="modal">
+					       		Não
+					        </button>
+				      </div>
+				    </div>
+				  </div>
+			</div>
+			
+			<div class="modal modal fade" id="modalCancelado" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title">Atendimento</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        <p>
+				        	Atendimento cancelado com sucesso.
+				        </p>
+				      </div>
+				    </div>
+				  </div>
+			</div>
 				
 			<!--  -->
 									

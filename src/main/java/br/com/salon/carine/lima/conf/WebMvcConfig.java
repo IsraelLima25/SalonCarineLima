@@ -28,6 +28,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
+	
 
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //        registry

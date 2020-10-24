@@ -41,6 +41,7 @@ import br.com.salon.carine.lima.repositories.AtendimentoRepository;
 import br.com.salon.carine.lima.repositories.EnderecoRepository;
 import br.com.salon.carine.lima.repositories.ServicoItemCarrinhoRepository;
 import br.com.salon.carine.lima.repositoriessdp.AtendimentoRepositorySJPA;
+import br.com.salon.carine.lima.response.Message;
 import br.com.salon.carine.lima.response.ResponseMarcar;
 
 @Service
@@ -274,7 +275,8 @@ public class AtendimentoService {
 	public Page<Atendimento> findPageAtendimento(Integer page, Integer size) {
 		
 		PageRequest pageRequest = PageRequest.of(page, size);
-		Page<Atendimento> pagesAtendimento = atendimentoRepositorySJPA.findAll(pageRequest);
+		Page<Atendimento> pagesAtendimento = atendimentoRepository
+				.findAllPagingRowNumber(pageRequest);
 		return pagesAtendimento;
 	}
 
@@ -297,13 +299,13 @@ public class AtendimentoService {
 		}
 	}
 
-	public Page<Atendimento> buscarAtendimentoPorId(Integer id) {
+	public Page<Atendimento> buscarAtendimentoRowNumber(Integer rowNumber) {
 		
-		Atendimento atendimento = atendimentoRepositorySJPA.findById(id).get();
+//		Atendimento atendimento = atendimentoRepositorySJPA.findById(id).get();
 		
-		Integer lineRegister = findRowListAtendimento(atendimento);
+//		Integer lineRegister = findRowListAtendimento(atendimento);
 		
-		PageRequest pageRequest = PageRequest.of(lineRegister, 1);
+		PageRequest pageRequest = PageRequest.of(rowNumber, 1);
 		
 		Page<Atendimento> pageAtendimento = atendimentoRepositorySJPA.findAll(pageRequest);
 		
@@ -348,9 +350,9 @@ public class AtendimentoService {
 		return atendimentos;
 	}
 
-	public Page<Atendimento> nextPageService(Integer number) {
+	public Page<Atendimento> nextPageService(boolean isLast, Integer number) {
 		
-		if(number == rowAtendimentosList.size() - 1) {
+		if(isLast) {
 			PageRequest pageRequest = PageRequest.of(0, 1);
 			Page<Atendimento> paginaProxima = atendimentoRepositorySJPA.findAll(pageRequest);
 			
@@ -364,10 +366,11 @@ public class AtendimentoService {
 		}
 	}
 
-	public Page<Atendimento> previousPageService(Integer number) {
+	public Page<Atendimento> previousPageService(boolean isFirst, Integer number) {
 		
-		if(number == 0) {
-			PageRequest pageRequest = PageRequest.of(rowAtendimentosList.size() - 1, 1);
+		if(isFirst) {			
+			int lastPage = (int) atendimentoRepositorySJPA.count() - 1;
+			PageRequest pageRequest = PageRequest.of(lastPage, 1);
 			Page<Atendimento> paginaAterior = atendimentoRepositorySJPA.findAll(pageRequest);
 			return paginaAterior;
 			
@@ -387,5 +390,19 @@ public class AtendimentoService {
 			atendimento.get().setStatus(StatusAtendimento.ATENDIDO);
 			atendimentoRepositorySJPA.save(atendimento.get());
 		}
+	}
+
+	public Message cancelar(Integer idAtendimento) {
+		
+		Message message = new Message();
+		Optional<Atendimento> atendimento = atendimentoRepositorySJPA.findById(idAtendimento);
+		
+		if(atendimento.isPresent()) {
+			atendimentoRepositorySJPA.delete(atendimento.get());
+			message.setTitle("Atendimento");
+			message.setBody("Atendimento cancelado com sucesso");
+		}
+		
+		return message;
 	}
 }

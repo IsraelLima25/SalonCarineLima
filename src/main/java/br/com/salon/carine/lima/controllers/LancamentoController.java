@@ -21,7 +21,7 @@ public class LancamentoController {
 	@Autowired
 	public AtendimentoService serviceAtendimento;
 	
-	@RequestMapping(method = RequestMethod.POST, value = "lancar")
+	@RequestMapping(method = RequestMethod.POST, value = "/lancar")
 	public ResponseEntity<Message> lancar(Integer idAtendimento) {
 		Message message = this.lancamentoService.lancar(idAtendimento);
 		return ResponseEntity.ok().body(message);

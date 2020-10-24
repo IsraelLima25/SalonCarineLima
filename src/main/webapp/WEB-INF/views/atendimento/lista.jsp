@@ -86,7 +86,7 @@
 								</td>
 								<td class="text-center"><a
 									class="fas fa-search btn btn-info"
-									href="${s:mvcUrl('AC#detalheAtendimento').arg(0,atendimento.id).build()}"></a>
+									href="${s:mvcUrl('AC#detalheAtendimento').arg(0,atendimento.rowNumber).build()}"></a>
 								</td>
 							</tr>
 						</c:forEach>
@@ -125,8 +125,6 @@
 						    	</c:choose>
 							  </c:forEach>
 							    <li class="page-item">
-							    
-								  
 							      <a class="page-link" type="button"
 							      	onclick="proximaPagina(${paginas.totalPages})">
 							      		Próximo

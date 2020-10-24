@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import br.com.salon.carine.lima.enuns.StatusAtendimento;
 import br.com.salon.carine.lima.enuns.TipoEndereco;
@@ -34,6 +35,9 @@ public class Atendimento implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Transient
+	private Integer rowNumber;
+	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
@@ -46,7 +50,7 @@ public class Atendimento implements Serializable {
 	private Calendar data;
 	
 	private Time hora;
-
+	
 	@OneToOne
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
@@ -65,7 +69,8 @@ public class Atendimento implements Serializable {
 	@Enumerated(EnumType.ORDINAL)
 	private TipoEndereco tipoEndereco;
 	
-	@OneToMany(mappedBy = "atendimento", fetch = FetchType.EAGER)
+	
+	@OneToMany(mappedBy = "atendimento", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<ServicoItemCarrinho> itens = new ArrayList<>();
 
 	public Atendimento() {
@@ -173,6 +178,14 @@ public class Atendimento implements Serializable {
 
 	public void setTipoEndereco(TipoEndereco tipoEndereco) {
 		this.tipoEndereco = tipoEndereco;
+	}
+	
+	public Integer getRowNumber() {
+		return rowNumber;
+	}
+	
+	public void setRowNumber(Integer rowNumber) {
+		this.rowNumber = rowNumber;
 	}
 
 	@Override
