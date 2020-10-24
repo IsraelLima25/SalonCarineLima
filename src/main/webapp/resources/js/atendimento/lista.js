@@ -144,7 +144,7 @@ function rendererTabela (atendimentos) {
 				<td>${horaFormatada}</td>
 				<td class="text-center">
 				<a class="fas fa-search btn btn-info"
-				 href="/SalonCarineLima/atendimento/${numeroPagina}" />
+				 href="/SalonCarineLima/atendimento/${atendimento.rowNumber}" />
 				</td>
 			</tr>	
 			`
@@ -172,6 +172,7 @@ $('#cliente-atendimento-filter').keyup(function() {
 		$.get({
 			url: `/SalonCarineLima/atendimento/cliente/filter?nome=${nomeFilter}`,
 			success: function(response) {
+				console.log(response);
 				rendererTabela(response);
 			},
 			fail: function(erro) {

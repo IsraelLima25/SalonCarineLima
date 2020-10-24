@@ -2,6 +2,7 @@ package br.com.salon.carine.lima.repositories;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,6 +11,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
@@ -75,11 +78,59 @@ public class AtendimentoRepository {
 		
 		Page<Atendimento> pageAtendimentos = atendimentoRepositorySJPA.findAll(pageable);
 		
-		for (int i = 0; i < pageAtendimentos.getContent().size(); i++) {
-			pageAtendimentos.getContent().get(i).setRowNumber(i);
-		}
+		numerarLinhas(pageAtendimentos.getContent());
 		
 		return pageAtendimentos;
 	}
+	
+	public List<Atendimento> searchNomeFilterRowNumber(String nome){
+		
+		long count = atendimentoRepositorySJPA.count();
+		
+		PageRequest pageable = PageRequest.of(0, (int) count);
+		
+		Page<Atendimento> findAllPagingRowNumber = findAllPagingRowNumber(pageable);
+		
+		List<Atendimento> lista = findAllPagingRowNumber.getContent()
+			.stream()
+				.filter(atendimento -> atendimento.getCliente().getNome()
+					.toLowerCase().startsWith(nome.toLowerCase()))
+						.collect(Collectors.toList());
+		
+		return lista;
+	
+	}
+	
+	public Page<Atendimento> findByDataBetweenRowNumber(Calendar dataInicio, 
+			Calendar dataFim) {
+		
+		long count = atendimentoRepositorySJPA.count();
+		
+		PageRequest pageable = PageRequest.of(0, (int) count);
+		
+		Page<Atendimento> findAllPagingRowNumber = findAllPagingRowNumber(pageable);
+		
+		Page<Atendimento> findByDataBetween = atendimentoRepositorySJPA
+				.findByDataBetween(dataFim, dataFim, pageable);
+		
+		List<Atendimento> lista = findAllPagingRowNumber.getContent()
+			.stream()
+				.filter(atendimento -> findByDataBetween
+						.getContent()
+							.contains(atendimento))
+								.collect(Collectors.toList());
+		
+		Page<Atendimento> page = new PageImpl<Atendimento>(lista);
+		
+		return page;
+	}
+	
+	private void numerarLinhas(List<Atendimento> atendimentos) {
+		
+		for (int i = 0; i < atendimentos.size(); i++) {
+			atendimentos.get(i).setRowNumber(i);
+		}
+	}
+
 }
 

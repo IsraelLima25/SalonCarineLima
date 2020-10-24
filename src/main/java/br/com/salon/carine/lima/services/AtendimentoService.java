@@ -274,22 +274,38 @@ public class AtendimentoService {
 
 	public Page<Atendimento> findPageAtendimento(Integer page, Integer size) {
 		
-		PageRequest pageRequest = PageRequest.of(page, size);
-		Page<Atendimento> pagesAtendimento = atendimentoRepository
-				.findAllPagingRowNumber(pageRequest);
-		return pagesAtendimento;
+		if(page > 0) {
+		
+			PageRequest pageRequest = PageRequest.of(page, size);
+			Page<Atendimento> pagesAtendimento = atendimentoRepository
+					.findAllPagingRowNumber(pageRequest);
+			
+			int pointInit = page * 5;
+			
+			for (Atendimento atendimento : pagesAtendimento) {
+				atendimento.setRowNumber(pointInit);
+				pointInit++;
+			}
+			
+			return pagesAtendimento;
+			
+		}else {
+			PageRequest pageRequest = PageRequest.of(page, size);
+			Page<Atendimento> pagesAtendimento = atendimentoRepository
+					.findAllPagingRowNumber(pageRequest);
+			
+			return pagesAtendimento;
+		}
 	}
 
 	public Page<Atendimento> getAtendimentosFilterData(FiltroDataAtendimentoDTO filtro) {
-		
-		PageRequest pageRequest = PageRequest.of(0, 5);
 		
 		if(filtro.getDataInicio() != "" && filtro.getDataFim() != "") {
 			Calendar dataInicio = ConvertersDate.deStringDateParaCalendar(filtro.getDataInicio());
 			Calendar dataFim = ConvertersDate.deStringDateParaCalendar(filtro.getDataFim());
 						
-			Page<Atendimento> atendimentosDate = atendimentoRepositorySJPA.findByDataBetween(dataInicio,
-					dataFim, pageRequest);
+			Page<Atendimento> atendimentosDate = atendimentoRepository
+					.findByDataBetweenRowNumber(dataInicio, dataFim);
 			
 			return atendimentosDate;
 			
@@ -300,10 +316,6 @@ public class AtendimentoService {
 	}
 
 	public Page<Atendimento> buscarAtendimentoRowNumber(Integer rowNumber) {
-		
-//		Atendimento atendimento = atendimentoRepositorySJPA.findById(id).get();
-		
-//		Integer lineRegister = findRowListAtendimento(atendimento);
 		
 		PageRequest pageRequest = PageRequest.of(rowNumber, 1);
 		
@@ -345,9 +357,17 @@ public class AtendimentoService {
 	}
 
 	public List<Atendimento> filtrarAtendimentoPorCliente(String nome) {
-		List<Atendimento> atendimentos = atendimentoRepositorySJPA.searchNome(nome.toLowerCase());
 		
-		return atendimentos;
+		if(!nome.equals("")) {
+			List<Atendimento> atendimentos = atendimentoRepository.searchNomeFilterRowNumber(nome);
+			
+			return atendimentos;
+			
+		}else {
+			
+			Page<Atendimento> findPageAtendimento = findPageAtendimento(0, 5);
+			return findPageAtendimento.getContent();
+		}
 	}
 
 	public Page<Atendimento> nextPageService(boolean isLast, Integer number) {
