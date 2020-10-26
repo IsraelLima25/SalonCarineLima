@@ -8,6 +8,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import br.com.salon.carine.lima.validations.DateInsert;
+
 public class MarcarAtendimentoDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -32,7 +34,8 @@ public class MarcarAtendimentoDTO implements Serializable {
 
 	@NotBlank(message = "Endereco obrigatório")
 	private String tipoEndereco;
-
+	
+	@DateInsert
 	@NotBlank(message = "Data obrigatório")
 	private String data;
 
@@ -132,7 +135,7 @@ public class MarcarAtendimentoDTO implements Serializable {
 	public void setEnderecoDTOAtendimento(EnderecoDTO enderecoDTOAtendimento) {
 		this.enderecoDTOAtendimento = enderecoDTOAtendimento;
 	}
-
+	
 	public String getData() {
 		return data;
 	}

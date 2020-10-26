@@ -111,7 +111,7 @@ public class AtendimentoRepository {
 		Page<Atendimento> findAllPagingRowNumber = findAllPagingRowNumber(pageable);
 		
 		Page<Atendimento> findByDataBetween = atendimentoRepositorySJPA
-				.findByDataBetween(dataFim, dataFim, pageable);
+				.findByDataBetween(dataInicio, dataFim, pageable);
 		
 		List<Atendimento> lista = findAllPagingRowNumber.getContent()
 			.stream()

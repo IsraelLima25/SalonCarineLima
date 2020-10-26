@@ -15,7 +15,6 @@ public class ArgumentNotValidException extends RuntimeException {
 	public ArgumentNotValidException(BindingResult result, HttpServletRequest request) {
 		this.setRequest(request);
 		this.setResult(result);
-
 	}
 
 	public BindingResult getResult() {

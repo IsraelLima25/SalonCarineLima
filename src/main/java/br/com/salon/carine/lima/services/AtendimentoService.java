@@ -71,8 +71,6 @@ public class AtendimentoService {
 	@Autowired
 	private ValidationFormAtendimentoService validationFormAtendimento;
 	
-	private List<Atendimento> rowAtendimentosList = new ArrayList<>();
-
 	public ResponseMarcar marcarAtendimento(MarcarAtendimentoDTO atendimentoDTO, HttpServletRequest request,
 			BindingResult result) {
 
@@ -95,7 +93,7 @@ public class AtendimentoService {
 
 		validationFormAtendimento.isFormNotValid(null, result, atendimentoDTO, request);
 
-		atendimentoRepository.marcarAtendimento(atendimento);
+		atendimentoRepositorySJPA.save(atendimento);
 
 		for (ServicoItemCarrinho servicoItemCarrinho : itensCarrinho) {
 			servicoItemCarrinho.setAtendimento(atendimento);
@@ -322,38 +320,6 @@ public class AtendimentoService {
 		Page<Atendimento> pageAtendimento = atendimentoRepositorySJPA.findAll(pageRequest);
 		
 		return pageAtendimento;
-	}
-	
-	private Integer findRowListAtendimento(Atendimento atendimento) {
-		
-		long quantidadeRegistros = atendimentoRepositorySJPA.count();
-		
-		if(rowAtendimentosList.isEmpty() || rowAtendimentosList.size() < quantidadeRegistros) {
-			loadList();
-			return retornarLineNumber(atendimento);
-		}else {
-			return retornarLineNumber(atendimento);
-		}
-	}
-	
-	private void loadList() {
-		rowAtendimentosList.clear();
-		List<Atendimento> Atendimentos = (List<Atendimento>) atendimentoRepositorySJPA.findAll();
-		Atendimentos.stream().forEach(atendimento -> rowAtendimentosList.add(atendimento));
-	}
-	
-	private Integer retornarLineNumber(Atendimento atendimento) {
-		
-		if(rowAtendimentosList.contains(atendimento)) {
-			return rowAtendimentosList.indexOf(atendimento);
-		}else {
-			addNewLine(atendimento);
-			return rowAtendimentosList.indexOf(atendimento);
-		}
-	}
-	
-	private void addNewLine (Atendimento atendimento) {
-		rowAtendimentosList.add(atendimento);
 	}
 
 	public List<Atendimento> filtrarAtendimentoPorCliente(String nome) {

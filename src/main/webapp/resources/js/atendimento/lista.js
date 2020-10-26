@@ -6,7 +6,6 @@ $(function() {
 			data : $('form[name=formFiltro]').serialize()
 		})
 		.then(function(data, textStatus, xhr) {
-			console.log(data);
 			rendererTabela(data.content);
 		})
 		.catch(function(err) {
@@ -162,17 +161,12 @@ function redirect() {
     window.location.href = "../../modules/atendimento/manutencaoAtendimento.html";
 }
 
-function filtrar(value){
-	console.log(value);
-}
-
 $('#cliente-atendimento-filter').keyup(function() {
 	var nomeFilter = $(this).val();
 	setTimeout(() => {
 		$.get({
 			url: `/SalonCarineLima/atendimento/cliente/filter?nome=${nomeFilter}`,
 			success: function(response) {
-				console.log(response);
 				rendererTabela(response);
 			},
 			fail: function(erro) {

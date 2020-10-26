@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -101,7 +102,7 @@ public class AtendimentoController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<ResponseMarcar> marcaAtendimento(
-			MarcarAtendimentoDTO atendimentoDTO, BindingResult result, 
+			@Valid MarcarAtendimentoDTO atendimentoDTO, BindingResult result, 
 			HttpServletRequest request){
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
