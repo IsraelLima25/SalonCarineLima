@@ -28,6 +28,7 @@ import br.com.salon.carine.lima.dto.ServicoItemCarrinhoDTO;
 import br.com.salon.carine.lima.enuns.BandeiraCartao;
 import br.com.salon.carine.lima.enuns.StatusAtendimento;
 import br.com.salon.carine.lima.enuns.TipoEndereco;
+import br.com.salon.carine.lima.enuns.TipoPagamento;
 import br.com.salon.carine.lima.models.Atendimento;
 import br.com.salon.carine.lima.models.Cliente;
 import br.com.salon.carine.lima.models.Credito;
@@ -67,16 +68,13 @@ public class AtendimentoService {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-
-	@Autowired
-	private ValidationFormAtendimentoService validationFormAtendimento;
-	
+		
 	public ResponseMarcar marcarAtendimento(MarcarAtendimentoDTO atendimentoDTO, HttpServletRequest request,
 			BindingResult result) {
 
 		Cliente clienteAtendimento = getClienteAtendimento(atendimentoDTO.getCliente());
-		Endereco enderecoAtendimento = getEnderecoAtendimento(atendimentoDTO);
-		TipoEndereco tipoEndereco = getTipoEndereco(atendimentoDTO);
+		Endereco enderecoAtendimento = getEnderecoAtendimento(atendimentoDTO, clienteAtendimento);
+		TipoEndereco tipoEndereco = atendimentoDTO.getTipoEndereco();
 		Calendar data = getDataAtendimento(atendimentoDTO.getData());
 		Time hora = getHoraAtendimento(atendimentoDTO.getHora());
 		BigDecimal desconto = atendimentoDTO.getDesconto();
@@ -91,8 +89,6 @@ public class AtendimentoService {
 
 		atendimento.setPagamento(pagamentoAtendimento);
 
-		validationFormAtendimento.isFormNotValid(null, result, atendimentoDTO, request);
-
 		atendimentoRepositorySJPA.save(atendimento);
 
 		for (ServicoItemCarrinho servicoItemCarrinho : itensCarrinho) {
@@ -106,18 +102,6 @@ public class AtendimentoService {
 		response.setAtendimento(atendimentoDTO);
 
 		return response;
-	}
-
-	private TipoEndereco getTipoEndereco(MarcarAtendimentoDTO marcarAtendimentoDTO) {
-		if (marcarAtendimentoDTO.getTipoEndereco().equals("endereco-cliente")) {
-			return TipoEndereco.ENDERECO_CLIENTE;
-		} else if (marcarAtendimentoDTO.getTipoEndereco().equals("casa")) {
-			return TipoEndereco.CASA;
-		} else if (marcarAtendimentoDTO.getTipoEndereco().equals("outro-endereco")) {
-			return TipoEndereco.OUTRO_ENDERECO;
-		}
-
-		return null;
 	}
 
 	private void esvaziarCarrinho() {
@@ -170,12 +154,11 @@ public class AtendimentoService {
 
 	}
 
-	private Endereco getEnderecoAtendimento(MarcarAtendimentoDTO marcarAtendimentoDTO) {
+	private Endereco getEnderecoAtendimento(MarcarAtendimentoDTO marcarAtendimentoDTO,
+				Cliente clienteAtendimento) {
 
-		if (marcarAtendimentoDTO.getTipoEndereco().equals("endereco-cliente")) {
-			Cliente cliente = getClienteAtendimento(marcarAtendimentoDTO.getCliente());
-			Endereco endereco = enderecoRepository.buscarEnderecoPorCliente(cliente);
-			marcarAtendimentoDTO.getEnderecoDTOAtendimento().setBairro("null");
+		if (marcarAtendimentoDTO.getTipoEndereco() == TipoEndereco.ENDERECO_CLIENTE) {
+			Endereco endereco = clienteAtendimento.getEndereco();
 			return endereco;
 		} else if (marcarAtendimentoDTO.getTipoEndereco().equals("casa")) {
 			/*
@@ -188,42 +171,35 @@ public class AtendimentoService {
 					ConvertersEndereco.deEnderecoDTOParaEndereco(marcarAtendimentoDTO.getEnderecoDTOAtendimento()));
 			return enderecoSalvo;
 		} else {
-			marcarAtendimentoDTO.getEnderecoDTOAtendimento().setBairro("null");
 			return ConvertersEndereco.deEnderecoDTOParaEndereco(marcarAtendimentoDTO.getEnderecoDTOAtendimento());
 		}
 	}
 
 	private Pagamento getFormaPagamento(MarcarAtendimentoDTO atendimentoDTO, Atendimento atendimento) {
 
-		if (atendimentoDTO.getFormaPagamento().equals("especie")) {
+		if (atendimentoDTO.getTipoPagamento() == TipoPagamento.ESPECIE) {
 			Especie pagamentoEspecie = new Especie();
-			atendimentoDTO.setBandeiraCartao("1");
-			atendimentoDTO.setQuantidadeParcelas(1);
 			return pagamentoEspecie;
-		} else if (atendimentoDTO.getFormaPagamento().equals("debito")) {
+		} else if (atendimentoDTO.getTipoPagamento() == TipoPagamento.DEBITO) {
 			Debito pagamentoDebito = new Debito();
 			pagamentoDebito.setBandeiraCartao(BandeiraCartao.getBandeiraCartao(atendimentoDTO.getBandeiraCartao()));
-			atendimentoDTO.setQuantidadeParcelas(1);
 			return pagamentoDebito;
-		} else if (atendimentoDTO.getFormaPagamento().equals("credito")) {
+		} else if (atendimentoDTO.getTipoPagamento() == TipoPagamento.CREDITO) {
 			Credito pagamentoCredito = new Credito();
 			pagamentoCredito.setBandeiraCartao(BandeiraCartao.getBandeiraCartao(atendimentoDTO.getBandeiraCartao()));
 			pagamentoCredito.setQuantidadeParcelas(atendimentoDTO.getQuantidadeParcelas());
 
 			return pagamentoCredito;
 		} else {
+			
 			return null;
 		}
 	}
 
 	private Cliente getClienteAtendimento(Integer idCliente) {
-		if (idCliente > 0) {
 			ClienteDTO clienteDTO = clienteService.buscarClientePorId(idCliente);
 			Cliente cliente = ConvertersCliente.deClienteDTOParaCliente(clienteDTO);
 			return cliente;
-		}
-
-		return null;
 	}
 
 	private Time getHoraAtendimento(String hora) {

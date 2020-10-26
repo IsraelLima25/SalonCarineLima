@@ -55,7 +55,7 @@ public class Atendimento implements Serializable {
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
 
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private StatusAtendimento status;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -66,7 +66,7 @@ public class Atendimento implements Serializable {
 
 	private BigDecimal taxa;
 	
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private TipoEndereco tipoEndereco;
 	
 	

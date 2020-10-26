@@ -27,5 +27,20 @@ public enum TipoPagamento {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
+	public static TipoPagamento getTipoPagamento(String descricao) {
+		if (descricao == null || descricao.equals("")) {
+			return null;
+		}
+
+		for (TipoPagamento t : TipoPagamento.values()) {
+			if (descricao.equals(t.getDescricao())) {
+				return t;
+			}
+		}
+
+		throw new IllegalArgumentException("Tipo pagamento Inválido " + descricao);
+
+	}	
 
 }

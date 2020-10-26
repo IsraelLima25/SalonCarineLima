@@ -23,6 +23,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.dto.FiltroDataAtendimentoDTO;
 import br.com.salon.carine.lima.dto.MarcarAtendimentoDTO;
+import br.com.salon.carine.lima.enuns.BandeiraCartao;
+import br.com.salon.carine.lima.enuns.TipoEndereco;
+import br.com.salon.carine.lima.enuns.TipoPagamento;
+import br.com.salon.carine.lima.exceptions.ArgumentNotValidException;
 import br.com.salon.carine.lima.models.Atendimento;
 import br.com.salon.carine.lima.response.Message;
 import br.com.salon.carine.lima.response.ResponseMarcar;
@@ -96,6 +100,9 @@ public class AtendimentoController {
 		ModelAndView modelAndView = new ModelAndView("atendimento/formMarcar");
 		modelAndView.addObject("clientes", clientes);
 		modelAndView.addObject("valorTotalCarrinho", valorTotalCarrinho);
+		modelAndView.addObject("pagamentos", TipoPagamento.values());
+		modelAndView.addObject("bandeiras", BandeiraCartao.values());
+		modelAndView.addObject("enderecos", TipoEndereco.values());
 		
 		return modelAndView;
 	}
@@ -104,6 +111,10 @@ public class AtendimentoController {
 	public ResponseEntity<ResponseMarcar> marcaAtendimento(
 			@Valid MarcarAtendimentoDTO atendimentoDTO, BindingResult result, 
 			HttpServletRequest request){
+		
+		if(result.hasErrors()) {
+			throw new ArgumentNotValidException(result, request);
+		}
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(atendimentoDTO.getId())

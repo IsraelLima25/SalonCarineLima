@@ -49,13 +49,13 @@
 					<div class="form-group">
 						<label for="slcFormasPagamento">Forma de Pagamento
 							<span class="obrigatorio">*</span> </label> <select
-							class="form-control" id="slcFormasPagamento" name="formaPagamento">
-							<option value="">Selecionar Pagamento</option>							
-							<option value="especie">Espécie</option>
-							<option value="credito">Crédito</option>
-							<option value="debito" class="pagamento">Débito</option>
+							class="form-control" id="slcFormasPagamento" name="tipoPagamento">
+							<option value="" selected>Selecionar Pagamento</option>							
+							<option value="${pagamentos[0]}">Crédito</option>
+							<option value="${pagamentos[1]}">Débito</option>
+							<option value="${pagamentos[2]}" class="pagamento">Espécie</option>
 						</select>
-						<small hidden class="form-text obrigatorio formaPagamento"></small>
+						<small hidden class="form-text obrigatorio tipoPagamento"></small>
 					</div>
 
 					<div hidden id="groupBandeiras" class="form-group">
@@ -63,9 +63,9 @@
 						   <span class="obrigatorio">*</span></label> <select
 							class="form-control" id="slcBandeira" name="bandeiraCartao">
 							<option value="" selected>Selecionar Bandeira</option>
-							<option value="elo">Elo</option>
-							<option value="master-card">Mastercard</option>
-							<option value="visa">Visa</option>
+							<option value="${bandeiras[0]}">Elo</option>
+							<option value="${bandeiras[1]}">Mastercard</option>
+							<option value="${bandeiras[2]}">Visa</option>
 						</select>
 						<small hidden class="form-text obrigatorio bandeiraCartao"></small>
 					</div>
@@ -85,9 +85,9 @@
 						<span class="obrigatorio">*</span></label>
 						<select class="form-control" id="slcTiposEndereco" name="tipoEndereco">
 							<option value="" selected>Selecionar Endereço</option>
-							<option value="casa">Casa</option>
-							<option value="endereco-cliente">Cliente</option>
-							<option value="outro-endereco" id="outro">Outro</option>
+							<option value="${enderecos[0]}">Casa</option>
+							<option value="${enderecos[1]}">Cliente</option>
+							<option value="${enderecos[2]}" id="outro">Outro</option>
 						</select>
 						<small hidden class="form-text obrigatorio tipoEndereco"></small>
 					

@@ -28,19 +28,18 @@ public enum BandeiraCartao {
 		this.descricao = descricao;
 	}
 
-	public static BandeiraCartao getBandeiraCartao(String descricao) {
-		if (descricao == null || descricao.equals("")) {
+	public static BandeiraCartao getBandeiraCartao(BandeiraCartao bandeiraCartao) {
+		if (bandeiraCartao == null || bandeiraCartao.equals("")) {
 			return null;
 		}
 
 		for (BandeiraCartao b : BandeiraCartao.values()) {
-			if (descricao.equals(b.getDescricao())) {
+			if (bandeiraCartao.descricao.equals(b.getDescricao())) {
 				return b;
 			}
 		}
 
-		throw new IllegalArgumentException("Bandeira Inválida " + descricao);
+		throw new IllegalArgumentException("Bandeira Inválida " + bandeiraCartao);
 
-	}
-	
+	}	
 }

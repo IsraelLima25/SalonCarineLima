@@ -35,8 +35,8 @@ function limparMessagesErrors(){
 	$('.cliente').prop('hidden',true);
 	$('.cliente').text('');
 	
-	$('.formaPagamento').prop('hidden',true);
-	$('.formaPagamento').text('');
+	$('.tipoPagamento').prop('hidden',true);
+	$('.tipoPagamento').text('');
 	
 	$('.bandeiraCartao').prop('hidden',true);
 	$('.bandeiraCartao').text('');
@@ -66,7 +66,7 @@ function topPage() {
 $('#slcTiposEndereco').change(function() {
 	var tipoSelecionado = $('#slcTiposEndereco option:selected').val();
 	
-	if(tipoSelecionado === 'outro-endereco'){
+	if(tipoSelecionado === 'OUTRO_ENDERECO'){
 		$('#outroEndereco').prop('hidden', false);
 	}else{
 		$('#outroEndereco').prop('hidden', true);
@@ -77,10 +77,10 @@ $('#slcTiposEndereco').change(function() {
 $('#slcFormasPagamento').change(function() {
 	var valueSelected = $('#slcFormasPagamento option:selected').val();
 
-	if (valueSelected === 'especie') {
+	if (valueSelected === 'ESPECIE') {
 		$('#groupBandeiras').prop('hidden', true);
 		$('#groupQuantidadeParcelas').prop('hidden', true);
-	} else if (valueSelected === 'credito') {
+	} else if (valueSelected === 'CREDITO') {
 		$('#groupBandeiras').prop('hidden', false);
 		$('#groupQuantidadeParcelas').prop('hidden', false);
 	}else if(valueSelected == 0){
