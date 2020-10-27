@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.salon.carine.lima.dto.RelatorioLancamentoDTO;
 import br.com.salon.carine.lima.response.Message;
 import br.com.salon.carine.lima.services.AtendimentoService;
 import br.com.salon.carine.lima.services.LancamentoService;
@@ -30,6 +31,9 @@ public class LancamentoController {
 	@RequestMapping(method = RequestMethod.GET, value = "relatorio")
 	public ModelAndView relatorio() {
 		ModelAndView modelAndView = new ModelAndView("lancamento/relatorio");
+		RelatorioLancamentoDTO relatorio = lancamentoService.getRelatorioPeriodo();
+		modelAndView.addObject("lancamentos", relatorio.getLancamentos());
+		modelAndView.addObject("totalPeriodo", relatorio.getTotalPeriodo());
 		return modelAndView;
 	}
 	

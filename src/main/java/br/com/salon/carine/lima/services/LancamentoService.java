@@ -1,10 +1,15 @@
 package br.com.salon.carine.lima.services;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.salon.carine.lima.converters.ConvertersDate;
+import br.com.salon.carine.lima.dto.CalendarDTO;
+import br.com.salon.carine.lima.dto.RelatorioLancamentoDTO;
 import br.com.salon.carine.lima.models.Atendimento;
 import br.com.salon.carine.lima.models.Lancamento;
 import br.com.salon.carine.lima.repositoriessdp.AtendimentoRepositorySJPA;
@@ -23,6 +28,8 @@ public class LancamentoService {
 	@Autowired
 	public LancamentoRepository lancamentoRepository;
 	
+	
+	
 	public Message lancar(Integer id) {
 
 		atendimentoService.alterarStatusAtendimento(id);
@@ -39,4 +46,30 @@ public class LancamentoService {
 		return new Message("Lançamento", "Atendimento lançado com sucesso");
 	}
 
+	public RelatorioLancamentoDTO getRelatorioPeriodo() {
+
+		CalendarDTO filterMonthActual = ConvertersDate.filterMonthActual();
+		
+		List<Lancamento> lancamentos = 
+				lancamentoRepository.findByDataBetween(filterMonthActual.getDe(), 
+						filterMonthActual.getPara());
+		
+		BigDecimal valorTotalPeriodo = calcularValorPeriodo(lancamentos);
+		
+		RelatorioLancamentoDTO relatorio = new RelatorioLancamentoDTO();
+		relatorio.setLancamentos(lancamentos);
+		relatorio.setTotalPeriodo(valorTotalPeriodo);
+		
+		return relatorio;
+	}
+	
+	public BigDecimal calcularValorPeriodo(List<Lancamento> lancamentos) {
+		
+		BigDecimal valorTotal = lancamentos.stream()
+			    .map(Lancamento::getValorTotal)
+			    .reduce(BigDecimal.ZERO, BigDecimal::add);
+		
+		return valorTotal;
+	}
+	
 }

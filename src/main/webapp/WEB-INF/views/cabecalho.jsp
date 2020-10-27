@@ -19,8 +19,6 @@
 	                    <div id="divAtendimento" class="dropdown-menu" aria-labelledby="navbarDropdownAtendimento">
 	                        <a class="dropdown-item" href="../atendimento/listar"><i style="font-size: 10px;" class="fas fa-play"></i>
 	                            Agenda</a>
-	                        <a class="dropdown-item" href="../atendimento/catalogoAtendimento.html"><i style="font-size: 10px;" class="fas fa-play"></i>
-	                            Cancelar</a>
 	                    </div>
 
 	                </li>
@@ -44,15 +42,12 @@
 	                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLancamento" role="button"
 	                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	                        <i class="fas fa-hand-holding-usd"></i>
-	                        Lançamento
+	                        Lançamentos
 	                    </a>
 	                    <div id="divLancamento" class="dropdown-menu" aria-labelledby="navbarDropdownLancamento">
-	                        <a class="dropdown-item" href="../lancamento/estornarLancamento.html"><i style="font-size: 10px;" class="fas fa-play"></i>
-	                            Estornar</a>
-	                    </div>
-	                    <div id="divLancamento" class="dropdown-menu" aria-labelledby="navbarDropdownLancamento">
-	                        <a class="dropdown-item" href="../lancamento/relatorioLancamento.html"><i style="font-size: 10px;" class="fas fa-play"></i>
-	                            Relatório</a>
+	                        <a class="dropdown-item" href="../lancamento/relatorio"><i style="font-size: 10px;" class="fas fa-play"></i>
+	                            Relatório
+	                         </a>
 	                    </div>
 	                </li>
 	
