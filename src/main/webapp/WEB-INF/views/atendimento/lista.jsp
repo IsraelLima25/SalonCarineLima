@@ -30,24 +30,28 @@
 				</div>	
 				
 				<div class="form-group mt-4" id="groupFilterByClient">
-						
-							<label class="color-font-label" for="cliente-atendimento-filter">Filtrar
-								Atendimento por cliente</label> 
+					
+					<label class="color-font-label" for="cliente-atendimento-filter">Filtrar
+						Atendimento por cliente
+					</label> 
 								
-								<input type="text" id="cliente-atendimento-filter" 
-								class="form-control" />
-					</div>		
+					<input type="text" id="cliente-atendimento-filter" class="form-control" />
+					
+				</div>		
 
 				<div hidden id="groupFilterByData" class="mt-3">
 					<form name="formFiltro">
 						<div class="form-group">
-							<label class="color-font-label" for="data-inicio">Data
-								Ínicio</label> <input type="date" name="dataInicio" class="form-control"
-								id="data-inicio">
+							<label class="color-font-label" for="data-inicio">
+								Data Ínicio
+							</label> 
+							<input type="date" name="dataInicio" class="form-control" id="data-inicio">
+							<small hidden class="form-text obrigatorio dataInicio"></small>
 						</div>
 						<div class="form-group">
 							<label class="color-font-label" for="data-fim">Data Fim</label> <input
 								type="date" name="dataFim" class="form-control" id="data-fim">
+								<small hidden class="form-text obrigatorio dataFim"></small>
 							<button type="submit" class="btn btn-color-salon btn-sm">Filtrar</button>
 						</div>
 					</form>

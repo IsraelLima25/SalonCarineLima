@@ -15,27 +15,31 @@
 				<input hidden id="idLancamento" />
 
 				<div id="groupFilterByData">
+				<form name="formFiltroRelatorio">
 					<div class="form-group">
 						<label class="color-font-label" for="data-inicio">Data Ínicio</label> 
-						<input type="date" value="01/11/2020" class="form-control" id="data-inicio">
+						<input type="date" name="dataInicio" class="form-control" id="data-inicio">
+						<small hidden class="form-text obrigatorio dataInicio"></small>
 					</div>
 					<div class="form-group">
 						<label class="color-font-label" for="data-fim">Data Fim</label> 
-						<input type="date" value="31/12/2020" class="form-control" id="data-fim">
+						<input type="date" name="dataFim" class="form-control" id="data-fim">
+						<small hidden class="form-text obrigatorio dataFim"></small>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-6 col-md-6">
-						<button id="btnCadastrar"style="margin-bottom: 5px; width: 120px;"
-							 type="button" class="btn btn-color-salon btn-block">
-							<i class="fas fa-filter"></i> Filtrar </button>
+					<div class="row">
+						<div class="col-6 col-md-6">
+							<button id="btnCadastrar"style="margin-bottom: 5px; width: 120px;"
+								 type="submit" class="btn btn-color-salon btn-block">
+								<i class="fas fa-filter"></i> Filtrar </button>
+						</div>
 					</div>
+				</form>
 				</div>
 
 				<div style="margin-bottom: 100px; margin-top: 10px;">
 					<div class="mt-5">
 						<div class="text-right alert alert-success" role="alert">
-							<b>Valor Total Período: R$ 
+							<b>Faturamento: R$ 
 								<p id="valor" style="display: inline;">${totalPeriodo}</p>
 							</b>
 						</div>
@@ -68,7 +72,7 @@
 									<tr id="${lancamento.id}">
 										<td>${lancamento.valorTotal}</td>
 										<td class="text-center">
-											<fmt:formatDate pattern="dd/MM/yyyy" 
+											<fmt:formatDate pattern="dd/MM/yy" 
 											value="${lancamento.data.getTime()}"/>
 										</td>
 									

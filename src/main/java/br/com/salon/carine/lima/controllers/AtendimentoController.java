@@ -84,7 +84,12 @@ public class AtendimentoController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "filterData")
 	public ResponseEntity<Page<Atendimento>> filterDataAtendimento
-		(FiltroDataAtendimentoDTO filtro) {	
+		(@Valid FiltroDataAtendimentoDTO filtro, BindingResult result,
+				HttpServletRequest request) {	
+		
+		if(result.hasErrors()) {
+			throw new ArgumentNotValidException(result,request);
+		}
 		
 		Page<Atendimento> listaFiltrada = atendimentoService.
 				getAtendimentosFilterData(filtro);
@@ -159,8 +164,8 @@ public class AtendimentoController {
 		return ResponseEntity.ok().body(message);
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "pageId")
-	public ModelAndView buscarPaginaAtendimentoPorId(Integer idAtendimento) {
+	@RequestMapping(method = RequestMethod.GET, value = "pageId/{idAtendimento}")
+	public ModelAndView buscarPaginaAtendimentoPorId(@PathVariable Integer idAtendimento) {
 		Integer rowNumber = atendimentoService.buscarRowPorID(idAtendimento);
 		return detalheAtendimento(rowNumber);
 	}

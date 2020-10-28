@@ -6,10 +6,11 @@ $(function() {
 			data : $('form[name=formFiltro]').serialize()
 		})
 		.then(function(data, textStatus, xhr) {
+			limparMessagesErrors();
 			rendererTabela(data.content);
 		})
 		.catch(function(err) {
-			console.log(err);
+			thowErrorPage(err.responseJSON);
 		})
 
 	})
@@ -176,6 +177,21 @@ $('#cliente-atendimento-filter').keyup(function() {
 		})
 	}, 1000);
 });
+
+function limparMessagesErrors(){
+	
+	$('.dataInicio').prop('hidden',true);
+	$('.dataInicio').text('');
+	
+	$('.dataFim').prop('hidden',true);
+	$('.dataFim').text('');
+}
+
+function topPage() {
+	$("html, body").animate({
+		scrollTop : 0
+	}, 600);
+}
 
 $('#rbFilterCliente').click(function () {
     $('#groupFilterByData').prop('hidden', true);
