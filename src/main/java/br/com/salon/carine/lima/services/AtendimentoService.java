@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -353,6 +356,13 @@ public class AtendimentoService {
 			atendimentoRepositorySJPA.save(atendimento.get());
 		}
 	}
+	
+	public void alterarStatusAtendimento(StatusAtendimento statusAtendimento, Integer idAtendimento) {
+		Atendimento atendimento = buscarAtendimentoPorId(idAtendimento);
+		atendimento.setStatus(statusAtendimento);
+		
+		atendimentoRepositorySJPA.save(atendimento);
+	}
 
 	public Message cancelar(Integer idAtendimento) {
 		
@@ -366,5 +376,26 @@ public class AtendimentoService {
 		}
 		
 		return message;
+	}
+	
+	public Atendimento buscarAtendimentoPorId(Integer id) {
+		Optional<Atendimento> atendimento = atendimentoRepositorySJPA.findById(id);
+		if(atendimento.isPresent()) {
+			Atendimento atendimentoBusca = atendimento.get();
+			return atendimentoBusca;
+		}else {
+			return null;
+		}
+	}
+
+	public Integer buscarRowPorID(Integer idAtendimento) {
+		
+		List<Atendimento> findAllAtendimentos = (List<Atendimento>) atendimentoRepositorySJPA.findAll();
+		atendimentoRepository.numerarLinhas(findAllAtendimentos);
+				List<Atendimento> atendimentos = findAllAtendimentos.stream()
+				.filter(atendimento -> atendimento.getId() == idAtendimento)
+				.collect(Collectors.toList());
+				
+		return atendimentos.get(0).getRowNumber();
 	}
 }

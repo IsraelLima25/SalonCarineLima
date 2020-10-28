@@ -31,10 +31,9 @@ public class ConvertersDate {
 		
 		Calendar dataFinal = new GregorianCalendar();
 		
-		int firstDayOfMonth = dataInicial.getActualMinimum(Calendar.DAY_OF_MONTH);
 		int lastDayOfMonth = dataInicial.getActualMaximum(Calendar.DAY_OF_MONTH) - 1;
 		
-		dataInicial.set(Calendar.DAY_OF_MONTH, firstDayOfMonth);
+		dataInicial.set(Calendar.DAY_OF_MONTH, 1);
 
 		dataFinal.set(Calendar.YEAR, dataFinal.get(Calendar.YEAR));
 		dataFinal.set(Calendar.MONTH, dataFinal.get(Calendar.MONTH));

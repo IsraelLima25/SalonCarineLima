@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
 <tags:pageTemplate titulo="Relatório Lançamento">
 
@@ -10,6 +11,8 @@
 			<div class="container">
 				<h4 class="mt-4 color-font">Relatório Lançamento</h4>
 				<hr />
+				
+				<input hidden id="idLancamento" />
 
 				<div id="groupFilterByData">
 					<div class="form-group">
@@ -32,7 +35,9 @@
 				<div style="margin-bottom: 100px; margin-top: 10px;">
 					<div class="mt-5">
 						<div class="text-right alert alert-success" role="alert">
-							<b>Valor Total Período: R$ ${totalPeriodo}</b>
+							<b>Valor Total Período: R$ 
+								<p id="valor" style="display: inline;">${totalPeriodo}</p>
+							</b>
 						</div>
 						<table id="lancamento-table" class="table">
 							<thead class="text-center">
@@ -60,7 +65,7 @@
 									</tr>
 								</c:if>
 								<c:forEach items="${lancamentos}" var="lancamento">
-									<tr>
+									<tr id="${lancamento.id}">
 										<td>${lancamento.valorTotal}</td>
 										<td class="text-center">
 											<fmt:formatDate pattern="dd/MM/yyyy" 
@@ -68,12 +73,15 @@
 										</td>
 									
 										<td class="text-center">
-										<a class="fas fa-search btn btn-info"></a>
-	<%-- 										href="${s:mvcUrl('AC#detalheAtendimento').arg(0,atendimento.id).build()}" --%>
+										<a class="fas fa-search btn btn-info"
+										href="${s:mvcUrl('AC#buscarPaginaAtendimentoPorId').arg(0,lancamento.atendimento.id).build()}">
+										</a>
+											
 										</td>
 										<td class="text-center">
 											<a class="fas fa-undo btn btn-danger" type="button"
-											data-toggle="modal" data-target="#modalEstornar"></a>
+											data-toggle="modal" data-target="#modalEstornar"
+											onclick="atualizarIds(${lancamento.id})"></a>
 										</td>
 									</tr>
 								</c:forEach>
@@ -105,10 +113,9 @@
 				        </p>
 				      </div>
 				      <div class="modal-footer">
-<%-- 				         action="${s:mvcUrl('AC#marcarAtendimento').arg(0,atendimento.id).build()}" --%>
-				      <form method="post" name="formLancamento">
-				      		<input hidden id="atendimentoId" name="idAtendimento" value="${atendimento.id}" />
-					        <button type="submit" id="confirmarLancamento" class="btn btn-color-salon" data-dismiss="modal">
+					        <button type="button" id="confirmarLancamento" 
+					        	class="btn btn-color-salon" data-dismiss="modal"
+					        	onclick="estornarLancamento()">
 					        	Sim
 					        </button>
 				      </form>
@@ -122,5 +129,7 @@
 
 		</section>
 	</main>
+	
+    <script type="text/javascript" charset="UTF-8" src="../resources/js/lancamento/relatorio.js"></script>
 
 </tags:pageTemplate>

@@ -9,6 +9,10 @@ public class CalendarDTO implements Serializable {
 
 	private Calendar de;
 	private Calendar para;
+	
+	public CalendarDTO() {
+		
+	}
 
 	public CalendarDTO(Calendar de, Calendar para) {
 		super();

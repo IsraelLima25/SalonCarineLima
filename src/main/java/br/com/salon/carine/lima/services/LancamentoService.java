@@ -3,6 +3,7 @@ package br.com.salon.carine.lima.services;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,9 @@ import org.springframework.stereotype.Service;
 import br.com.salon.carine.lima.converters.ConvertersDate;
 import br.com.salon.carine.lima.dto.CalendarDTO;
 import br.com.salon.carine.lima.dto.RelatorioLancamentoDTO;
+import br.com.salon.carine.lima.enuns.StatusAtendimento;
 import br.com.salon.carine.lima.models.Atendimento;
 import br.com.salon.carine.lima.models.Lancamento;
-import br.com.salon.carine.lima.repositoriessdp.AtendimentoRepositorySJPA;
 import br.com.salon.carine.lima.repositoriessdp.LancamentoRepository;
 import br.com.salon.carine.lima.response.Message;
 
@@ -21,20 +22,17 @@ public class LancamentoService {
 
 	@Autowired
 	public AtendimentoService atendimentoService;
-	
-	@Autowired
-	public AtendimentoRepositorySJPA atendimentoRepository;
 
 	@Autowired
 	public LancamentoRepository lancamentoRepository;
 	
-	
+	private CalendarDTO filtroActualFind = new CalendarDTO();
 	
 	public Message lancar(Integer id) {
 
 		atendimentoService.alterarStatusAtendimento(id);
 		
-		Atendimento atendimento = atendimentoRepository.findById(id).get();
+		Atendimento atendimento = atendimentoService.buscarAtendimentoPorId(id);
 		
 		Lancamento lancamento = new Lancamento();
 		lancamento.setAtendimento(atendimento);
@@ -48,11 +46,18 @@ public class LancamentoService {
 
 	public RelatorioLancamentoDTO getRelatorioPeriodo() {
 
-		CalendarDTO filterMonthActual = ConvertersDate.filterMonthActual();
+		filtroActualFind = ConvertersDate.filterMonthActual();
+		
+		RelatorioLancamentoDTO relatorio = gerarRelatorio();
+		
+		return relatorio;
+	}
+
+	private RelatorioLancamentoDTO gerarRelatorio() {
 		
 		List<Lancamento> lancamentos = 
-				lancamentoRepository.findByDataBetween(filterMonthActual.getDe(), 
-						filterMonthActual.getPara());
+				lancamentoRepository.findByDataBetween(filtroActualFind.getDe(), 
+						filtroActualFind.getPara());
 		
 		BigDecimal valorTotalPeriodo = calcularValorPeriodo(lancamentos);
 		
@@ -71,5 +76,24 @@ public class LancamentoService {
 		
 		return valorTotal;
 	}
-	
+
+	public RelatorioLancamentoDTO estornarLancamento(Integer idLancamento) {
+		
+		Optional<Lancamento> optionalLancamento = lancamentoRepository
+				.findById(idLancamento);
+		
+		if(optionalLancamento.isPresent()) {
+			Lancamento lancamento = optionalLancamento.get();
+			lancamentoRepository.delete(lancamento);
+			atendimentoService.alterarStatusAtendimento
+				(StatusAtendimento.PENDENTE, lancamento.getAtendimento().getId());
+			
+			RelatorioLancamentoDTO relatorioAtualizado = gerarRelatorio();
+			
+			return relatorioAtualizado;
+			
+		}else {
+			return null;
+		}
+	}
 }

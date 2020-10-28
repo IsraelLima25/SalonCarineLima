@@ -124,7 +124,6 @@ public class AtendimentoController {
 				request, result);
 
 		return ResponseEntity.created(uri).body(response);
-		
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/{rowNumber}")
@@ -158,5 +157,11 @@ public class AtendimentoController {
 	public ResponseEntity<Message> cancelar(Integer idAtendimentoCancelado) {
 		Message message = this.atendimentoService.cancelar(idAtendimentoCancelado);
 		return ResponseEntity.ok().body(message);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "pageId")
+	public ModelAndView buscarPaginaAtendimentoPorId(Integer idAtendimento) {
+		Integer rowNumber = atendimentoService.buscarRowPorID(idAtendimento);
+		return detalheAtendimento(rowNumber);
 	}
 }
