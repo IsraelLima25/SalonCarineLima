@@ -1,6 +1,7 @@
 package br.com.salon.carine.lima.repositoriessdp;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,4 +15,5 @@ public interface AtendimentoRepositorySJPA extends PagingAndSortingRepository<At
 	
 	Page<Atendimento> findByDataBetween(Calendar from, Calendar to, Pageable pageable);
 	
+	List<Atendimento> findByDataBetween(Calendar from, Calendar de);
 }

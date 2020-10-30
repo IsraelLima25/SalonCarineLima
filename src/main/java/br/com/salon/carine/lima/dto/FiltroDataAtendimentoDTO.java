@@ -2,6 +2,9 @@ package br.com.salon.carine.lima.dto;
 
 import java.io.Serializable;
 
+import br.com.salon.carine.lima.validations.DateFilterValidator;
+
+@DateFilterValidator
 public class FiltroDataAtendimentoDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -14,7 +17,6 @@ public class FiltroDataAtendimentoDTO implements Serializable {
 	}
 
 	public FiltroDataAtendimentoDTO(String dataInicio, String dataFim) {
-		super();
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
 	}

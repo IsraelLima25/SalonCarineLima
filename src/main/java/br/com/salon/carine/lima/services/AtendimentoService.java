@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -160,13 +161,13 @@ public class AtendimentoService {
 		if (marcarAtendimentoDTO.getTipoEndereco() == TipoEndereco.ENDERECO_CLIENTE) {
 			Endereco endereco = clienteAtendimento.getEndereco();
 			return endereco;
-		} else if (marcarAtendimentoDTO.getTipoEndereco().equals("casa")) {
+		} else if (marcarAtendimentoDTO.getTipoEndereco() == TipoEndereco.CASA) {
 			/*
 			 * Este endereço virá do cadastro do usuário no módulo controle de acesso em
 			 * fase de desenvolvimento
 			 */
 			return null;
-		} else if (marcarAtendimentoDTO.getTipoEndereco().equals("outro-endereco")) {
+		} else if (marcarAtendimentoDTO.getTipoEndereco() == TipoEndereco.OUTRO_ENDERECO) {
 			Endereco enderecoSalvo = enderecoRepository.salvarEndereco(
 					ConvertersEndereco.deEnderecoDTOParaEndereco(marcarAtendimentoDTO.getEnderecoDTOAtendimento()));
 			return enderecoSalvo;
@@ -251,8 +252,7 @@ public class AtendimentoService {
 		if(page > 0) {
 		
 			PageRequest pageRequest = PageRequest.of(page, size);
-			Page<Atendimento> pagesAtendimento = atendimentoRepository
-					.findAllPagingRowNumber(pageRequest);
+			Page<Atendimento> pagesAtendimento = atendimentoRepositorySJPA.findAll(pageRequest);
 			
 			int pointInit = page * 5;
 			
@@ -265,8 +265,7 @@ public class AtendimentoService {
 			
 		}else {
 			PageRequest pageRequest = PageRequest.of(page, size);
-			Page<Atendimento> pagesAtendimento = atendimentoRepository
-					.findAllPagingRowNumber(pageRequest);
+			Page<Atendimento> pagesAtendimento = atendimentoRepositorySJPA.findAll(pageRequest);
 			
 			return pagesAtendimento;
 		}
@@ -353,6 +352,13 @@ public class AtendimentoService {
 			atendimentoRepositorySJPA.save(atendimento.get());
 		}
 	}
+	
+	public void alterarStatusAtendimento(StatusAtendimento statusAtendimento, Integer idAtendimento) {
+		Atendimento atendimento = buscarAtendimentoPorId(idAtendimento);
+		atendimento.setStatus(statusAtendimento);
+		
+		atendimentoRepositorySJPA.save(atendimento);
+	}
 
 	public Message cancelar(Integer idAtendimento) {
 		
@@ -366,5 +372,30 @@ public class AtendimentoService {
 		}
 		
 		return message;
+	}
+	
+	public Atendimento buscarAtendimentoPorId(Integer id) {
+		Optional<Atendimento> atendimento = atendimentoRepositorySJPA.findById(id);
+		if(atendimento.isPresent()) {
+			Atendimento atendimentoBusca = atendimento.get();
+			return atendimentoBusca;
+		}else {
+			return null;
+		}
+	}
+
+	public Integer buscarRowPorID(Integer idAtendimento) {
+		
+		List<Atendimento> findAllAtendimentos = (List<Atendimento>) atendimentoRepositorySJPA.findAll();
+		atendimentoRepository.numerarLinhas(findAllAtendimentos);
+				List<Atendimento> atendimentos = findAllAtendimentos.stream()
+				.filter(atendimento -> atendimento.getId() == idAtendimento)
+				.collect(Collectors.toList());
+				
+		return atendimentos.get(0).getRowNumber();
+	}
+	
+	public List<Atendimento> findAllAtendimentosList(Calendar de, Calendar para) {
+		return atendimentoRepositorySJPA.findByDataBetween(de, para);
 	}
 }
