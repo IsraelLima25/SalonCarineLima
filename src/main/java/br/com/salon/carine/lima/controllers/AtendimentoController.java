@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -133,7 +134,7 @@ public class AtendimentoController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/{rowNumber}")
 	public ModelAndView detalheAtendimento(@PathVariable Integer rowNumber) {
-		ModelAndView modelAndView = new ModelAndView("atendimento/detalhe");
+		ModelAndView modelAndView = new ModelAndView("atendimento/formDetalhar");
 		Page<Atendimento> atendimento = atendimentoService.buscarAtendimentoRowNumber(rowNumber);
 		modelAndView.addObject("atendimento",atendimento.getContent().get(0));
 		modelAndView.addObject("page", atendimento);
@@ -142,7 +143,7 @@ public class AtendimentoController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "next")
 	public ModelAndView nextPage (@RequestParam boolean isLast, @RequestParam Integer number){
-		ModelAndView modelAndView = new ModelAndView("atendimento/detalhe");
+		ModelAndView modelAndView = new ModelAndView("atendimento/formDetalhar");
 		Page<Atendimento> pagina = atendimentoService.nextPageService(isLast, number);
 		modelAndView.addObject("atendimento",pagina.getContent().get(0));
 		modelAndView.addObject("page", pagina);
@@ -151,7 +152,7 @@ public class AtendimentoController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "previous")
 	public ModelAndView previousPage (@RequestParam boolean isFirst, @RequestParam Integer number){
-		ModelAndView modelAndView = new ModelAndView("atendimento/detalhe");
+		ModelAndView modelAndView = new ModelAndView("atendimento/formDetalhar");
 		Page<Atendimento> pagina = atendimentoService.previousPageService(isFirst, number);
 		modelAndView.addObject("atendimento",pagina.getContent().get(0));
 		modelAndView.addObject("page", pagina);

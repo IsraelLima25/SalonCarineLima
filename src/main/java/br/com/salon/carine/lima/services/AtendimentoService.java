@@ -161,13 +161,13 @@ public class AtendimentoService {
 		if (marcarAtendimentoDTO.getTipoEndereco() == TipoEndereco.ENDERECO_CLIENTE) {
 			Endereco endereco = clienteAtendimento.getEndereco();
 			return endereco;
-		} else if (marcarAtendimentoDTO.getTipoEndereco().equals("casa")) {
+		} else if (marcarAtendimentoDTO.getTipoEndereco() == TipoEndereco.CASA) {
 			/*
 			 * Este endereço virá do cadastro do usuário no módulo controle de acesso em
 			 * fase de desenvolvimento
 			 */
 			return null;
-		} else if (marcarAtendimentoDTO.getTipoEndereco().equals("outro-endereco")) {
+		} else if (marcarAtendimentoDTO.getTipoEndereco() == TipoEndereco.OUTRO_ENDERECO) {
 			Endereco enderecoSalvo = enderecoRepository.salvarEndereco(
 					ConvertersEndereco.deEnderecoDTOParaEndereco(marcarAtendimentoDTO.getEnderecoDTOAtendimento()));
 			return enderecoSalvo;
@@ -395,5 +395,9 @@ public class AtendimentoService {
 				.collect(Collectors.toList());
 				
 		return atendimentos.get(0).getRowNumber();
+	}
+	
+	public List<Atendimento> findAllAtendimentosList(Calendar de, Calendar para) {
+		return atendimentoRepositorySJPA.findByDataBetween(de, para);
 	}
 }
