@@ -84,7 +84,12 @@ public class AtendimentoController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "filterData")
 	public ResponseEntity<Page<Atendimento>> filterDataAtendimento
-		(FiltroDataAtendimentoDTO filtro) {	
+		(@Valid FiltroDataAtendimentoDTO filtro, BindingResult result,
+				HttpServletRequest request) {	
+		
+		if(result.hasErrors()) {
+			throw new ArgumentNotValidException(result,request);
+		}
 		
 		Page<Atendimento> listaFiltrada = atendimentoService.
 				getAtendimentosFilterData(filtro);
@@ -124,12 +129,12 @@ public class AtendimentoController {
 				request, result);
 
 		return ResponseEntity.created(uri).body(response);
-		
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/{rowNumber}")
-	public ModelAndView detalheAtendimento(@PathVariable Integer rowNumber) {
-		ModelAndView modelAndView = new ModelAndView("atendimento/detalhe");
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
+	public ModelAndView detalheAtendimento(@PathVariable Integer id) {
+		ModelAndView modelAndView = new ModelAndView("atendimento/formDetalhar");
+		Integer rowNumber = atendimentoService.buscarRowPorID(id);
 		Page<Atendimento> atendimento = atendimentoService.buscarAtendimentoRowNumber(rowNumber);
 		modelAndView.addObject("atendimento",atendimento.getContent().get(0));
 		modelAndView.addObject("page", atendimento);
@@ -138,7 +143,7 @@ public class AtendimentoController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "next")
 	public ModelAndView nextPage (@RequestParam boolean isLast, @RequestParam Integer number){
-		ModelAndView modelAndView = new ModelAndView("atendimento/detalhe");
+		ModelAndView modelAndView = new ModelAndView("atendimento/formDetalhar");
 		Page<Atendimento> pagina = atendimentoService.nextPageService(isLast, number);
 		modelAndView.addObject("atendimento",pagina.getContent().get(0));
 		modelAndView.addObject("page", pagina);
@@ -147,7 +152,7 @@ public class AtendimentoController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "previous")
 	public ModelAndView previousPage (@RequestParam boolean isFirst, @RequestParam Integer number){
-		ModelAndView modelAndView = new ModelAndView("atendimento/detalhe");
+		ModelAndView modelAndView = new ModelAndView("atendimento/formDetalhar");
 		Page<Atendimento> pagina = atendimentoService.previousPageService(isFirst, number);
 		modelAndView.addObject("atendimento",pagina.getContent().get(0));
 		modelAndView.addObject("page", pagina);

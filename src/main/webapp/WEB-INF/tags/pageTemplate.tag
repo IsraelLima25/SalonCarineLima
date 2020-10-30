@@ -26,7 +26,7 @@
 </head>
 
 <body>
-	<%@ include file="/WEB-INF/views/cabecalho.jsp"%>
+	<%@ include file="/WEB-INF/views/header.jsp"%>
 
 	<!-- Conteudo da pagina -->
 
