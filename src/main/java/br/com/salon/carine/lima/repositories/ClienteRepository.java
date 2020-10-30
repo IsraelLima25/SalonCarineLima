@@ -1,15 +1,21 @@
 package br.com.salon.carine.lima.repositories;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.salon.carine.lima.models.Cliente;
+import br.com.salon.carine.lima.repositoriessdp.ClienteRepositorySJPA;
 
 @Repository
 @Transactional
@@ -17,6 +23,9 @@ public class ClienteRepository {
 
 	@PersistenceContext
 	public EntityManager manager;
+	
+	@Autowired
+	public ClienteRepositorySJPA clienteRepositorySJPA;
 
 	public void cadastrar(Cliente cliente) {
 
@@ -107,5 +116,38 @@ public class ClienteRepository {
 		Cliente cliente = typedQuery.getSingleResult();
 		
 		return cliente;
+	}
+	
+	public void numerarLinhas(List<Cliente> clientes) {
+		
+		for (int i = 0; i < clientes.size(); i++) {
+			clientes.get(i).setRowNumber(i);
+		}
+	}
+	
+	public List<Cliente> searchNomeFilterRowNumber(String nome){
+		
+		long count = clienteRepositorySJPA.count();
+		
+		PageRequest pageable = PageRequest.of(0, (int) count);
+		
+		Page<Cliente> findAllPagingRowNumber = findAllPagingRowNumber(pageable);
+		
+		List<Cliente> lista = findAllPagingRowNumber.getContent()
+			.stream()
+				.filter(cliente -> cliente.getNome()
+					.toLowerCase().startsWith(nome.toLowerCase()))
+						.collect(Collectors.toList());
+		
+		return lista;
+	}
+	
+	public Page<Cliente> findAllPagingRowNumber(Pageable pageable){
+		
+		Page<Cliente> pageAtendimentos = clienteRepositorySJPA.findAll(pageable);
+		
+		numerarLinhas(pageAtendimentos.getContent());
+		
+		return pageAtendimentos;
 	}
 }

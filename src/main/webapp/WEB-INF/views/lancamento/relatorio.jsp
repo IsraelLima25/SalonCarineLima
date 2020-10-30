@@ -78,7 +78,7 @@
 									
 										<td class="text-center">
 										<a class="fas fa-search btn btn-info"
-										href="${s:mvcUrl('AC#buscarPaginaAtendimentoPorId').arg(0,lancamento.atendimento.id).build()}">
+										href="${s:mvcUrl('AC#detalheAtendimento').arg(0,lancamento.atendimento.id).build()}">
 										</a>
 											
 										</td>

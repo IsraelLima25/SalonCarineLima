@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import br.com.salon.carine.lima.models.Lancamento;
 
 @Repository
-public interface LancamentoRepository extends JpaRepository<Lancamento, Integer> {
+public interface LancamentoRepositorySJPA extends JpaRepository<Lancamento, Integer> {
 
 	List<Lancamento> findByDataBetween(Calendar from, Calendar to);
 	

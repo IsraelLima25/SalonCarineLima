@@ -144,7 +144,7 @@ function rendererTabela (atendimentos) {
 				<td>${horaFormatada}</td>
 				<td class="text-center">
 				<a class="fas fa-search btn btn-info"
-				 href="/SalonCarineLima/atendimento/${atendimento.rowNumber}" />
+				 href="/SalonCarineLima/atendimento/${atendimento.id}" />
 				</td>
 			</tr>	
 			`
@@ -152,11 +152,12 @@ function rendererTabela (atendimentos) {
 	})
 }
 
-/**************************************************************************************/
-
 function limparTabela(){
 	$('#atendimento-table tr td').remove();
 }
+
+/**************************************************************************************/
+
 
 function redirect() {
     window.location.href = "../../modules/atendimento/manutencaoAtendimento.html";

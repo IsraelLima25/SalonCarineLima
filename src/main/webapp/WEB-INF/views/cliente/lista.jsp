@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"	pageEncoding="UTF-8"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 <tags:pageTemplate titulo="Lista Cliente">
 
@@ -11,7 +11,7 @@
 
 		<div class="form-group">
 			<label class="mt-3 color-font-label" for="nome-filter">Filtrar por nome</label> 
-			<input type="text" onkeyup="filtrar()" class="form-control" id="nome-filter">
+			<input type="text" class="form-control" id="nome-filter">
 			<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
 		</div>
 
@@ -33,7 +33,7 @@
 					</td>
 				</tr>
 
-				<c:if test="${lista.size()==0}">
+				<c:if test="${paginas.content.size()==0}">
 					<tr>
 						<p>
 							<i>Nenhum cliente cadastrado</i>
@@ -41,20 +41,62 @@
 					</tr>
 				</c:if>
 
-				<c:forEach items="${lista}" var="cliente">
+				<c:forEach items="${paginas.content}" var="cliente">
 					<tr>
 						<td>${cliente.id}</td>
 						<td> 
 							${cliente.nome}
 						</td>
-						<td class="text-center">
-							<a type="button" class="fas fa-search btn btn-info" 
-								onclick="detalharCliente(${cliente.id});"></a>
+						<td class="text-center"><a
+							class="fas fa-search btn btn-info"
+							href="${s:mvcUrl('detalharCliente').arg(0,cliente.id).build()}"></a>
 						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+		
+		<!-- Paginação -->
+		<c:if test="${paginas.totalPages > 0 }">
+				<div class="row pb-5">
+						<nav aria-label="..." style="margin: auto;">
+							  <ul class="pagination">
+							  <li class="page-item">
+							    
+								  <p hidden id="paginaAtual">${paginas.pageable.pageNumber}</p>
+								  
+							      <a class="page-link" type="button"
+							      	onclick="paginaAnterior(${paginas.totalPages})">
+							      		Anterior
+							      </a>
+							    </li>
+							  <c:forEach var="pageNumber" begin="0" end="${paginas.totalPages - 1}" 
+							  			varStatus="value">
+						    	<c:choose>
+						    		<c:when test="${pageNumber == 0}">
+								    	<li id="${pageNumber}" class="page-item active">
+									      <a class="page-link" type="button" 
+									      	onclick="getPage(${pageNumber})" >${pageNumber + 1}</a>
+									    </li>
+						    		</c:when>
+						    		<c:otherwise>
+						    			<li id="${pageNumber}" class="page-item">
+									      <a class="page-link" type="button"
+									      	onclick="getPage(${pageNumber})">${pageNumber + 1}</a>
+									    </li>
+						    		</c:otherwise>
+						    	</c:choose>
+							  </c:forEach>
+							    <li class="page-item">
+							      <a class="page-link" type="button"
+							      	onclick="proximaPagina(${paginas.totalPages})">
+							      		Próximo
+							      </a>
+							    </li>
+							  </ul>
+						</nav>
+					</div>
+				</c:if>
 	</div>
 	
 	<script src="../resources/js/cliente/catalogo.js"></script>

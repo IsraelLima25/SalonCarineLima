@@ -17,7 +17,7 @@ import br.com.salon.carine.lima.dto.RelatorioLancamentoDTO;
 import br.com.salon.carine.lima.enuns.StatusAtendimento;
 import br.com.salon.carine.lima.models.Atendimento;
 import br.com.salon.carine.lima.models.Lancamento;
-import br.com.salon.carine.lima.repositoriessdp.LancamentoRepository;
+import br.com.salon.carine.lima.repositoriessdp.LancamentoRepositorySJPA;
 import br.com.salon.carine.lima.response.Message;
 
 @Service
@@ -27,7 +27,7 @@ public class LancamentoService {
 	public AtendimentoService atendimentoService;
 
 	@Autowired
-	public LancamentoRepository lancamentoRepository;
+	public LancamentoRepositorySJPA lancamentoRepository;
 
 	private CalendarDTO filtroActualFind = new CalendarDTO();
 

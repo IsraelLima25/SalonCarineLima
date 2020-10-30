@@ -20,12 +20,13 @@
 		<div class="mt-2 row">
 			<div class="text-left col-6 col-md-6">
 				<span>
-					<button onclick="clienteAnterior(${cliente.id});"  class="btn btn-success fas fa-arrow-left"></button>
+					<a	class="btn btn-success fas fa-arrow-left" 
+	               	href="/SalonCarineLima/cliente/previous?isFirst=${page.isFirst()}&number=${page.getNumber()}"></a>
 				</span>
 			</div>
 			<div class="text-right col-6 col-md-6">
-				<button onclick="clienteProximo(${cliente.id});" 
-				class="btn btn-success fas fa-arrow-right"></button>
+				<a	class="btn btn-success fas fa-arrow-right" 
+	                	href="/SalonCarineLima/cliente/next?isLast=${page.isLast()}&number=${page.getNumber()}"></a>
 			</div>
 		</div>
 		
@@ -65,7 +66,7 @@
 
 			<div class="form-group">
 				<label class="color-font-label" hidden for="idEndereco">Id Endereco</label> 
-				<input type="number" hidden value="${cliente.endereco.idEndereco}" 
+				<input type="number" hidden value="${cliente.endereco.id}" 
 					class="form-control" Id="idEndereco" name="endereco.idEndereco">
 			</div>
 
