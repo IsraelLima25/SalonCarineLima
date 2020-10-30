@@ -21,7 +21,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.exceptions.ArgumentNotValidException;
-import br.com.salon.carine.lima.models.Atendimento;
 import br.com.salon.carine.lima.models.Cliente;
 import br.com.salon.carine.lima.response.ResponseCliente;
 import br.com.salon.carine.lima.services.ClienteService;
@@ -105,13 +104,13 @@ public class ClienteController {
 		return ResponseEntity.ok().body(pageCliente);
 	}
 
-//	@RequestMapping(method = RequestMethod.DELETE, value = "/remover/{id}")
-//	public ResponseEntity<ResponseCliente> removerCliente(@PathVariable("id") Integer id) {
-//		//ClienteDTO clienteProximo = this.serviceCliente.remover(id);
-//		ResponseCliente response = new ResponseCliente();
-//		response.setCliente(clienteProximo);
-//		return ResponseEntity.ok().body(response);
-//	}
+	@RequestMapping(method = RequestMethod.DELETE, value = "/remover/{id}")
+	public ResponseEntity<Void> removerCliente(@PathVariable("id") Integer id) {
+		
+		serviceCliente.remover(id);
+		
+		return ResponseEntity.ok().build();
+	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "next")
 	public ModelAndView nextPage (@RequestParam boolean isLast, @RequestParam Integer number){

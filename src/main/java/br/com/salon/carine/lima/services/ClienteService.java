@@ -5,6 +5,7 @@ import static br.com.salon.carine.lima.converters.ConvertersCliente.deClientePar
 import static br.com.salon.carine.lima.converters.ConvertersCliente.deListClienteParaListClienteDTO;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,19 +73,15 @@ public class ClienteService {
 		return listClienteDTO;
 	}
 
-//	public ClienteDTO remover(Integer id) {
-//
-//		if (id != null) {
-//			Cliente cliente = this.clienteRepository.buscarClientePorID(id);
-//			ClienteDTO clienteProximo = buscarClienteProximoParaAtual(cliente);
-//			this.clienteRepository.remover(cliente.getId());
-//			if (clienteProximo != null) {
-//				return clienteProximo;
-//			}
-//		}
-//
-//		return null;
-//	}
+	public void remover(Integer id) {
+		
+		Optional<Cliente> cliente = this.clienteRepositorySJPA.findById(id);
+		
+		if (cliente.isPresent()) {
+			Cliente clienteBusca = cliente.get();
+			clienteRepositorySJPA.delete(clienteBusca);
+		}
+	}
 	
 	public Page<Cliente> nextPageService(boolean isLast, Integer number) {
 		

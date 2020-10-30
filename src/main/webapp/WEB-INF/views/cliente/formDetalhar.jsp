@@ -137,7 +137,9 @@
 				<div class="modal-footer">
 					<button type="button" data-dismiss="modal" style="width: 100px;"
 						class="btn btn-color-salon"
-						onclick="removerCliente(${cliente.id});">Sim</button>
+						onclick="removerCliente(${cliente.id});">
+							Sim
+						</button>
 				</div>
 			</div>
 		</div>
