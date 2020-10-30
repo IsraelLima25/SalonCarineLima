@@ -252,8 +252,7 @@ public class AtendimentoService {
 		if(page > 0) {
 		
 			PageRequest pageRequest = PageRequest.of(page, size);
-			Page<Atendimento> pagesAtendimento = atendimentoRepository
-					.findAllPagingRowNumber(pageRequest);
+			Page<Atendimento> pagesAtendimento = atendimentoRepositorySJPA.findAll(pageRequest);
 			
 			int pointInit = page * 5;
 			
@@ -266,8 +265,7 @@ public class AtendimentoService {
 			
 		}else {
 			PageRequest pageRequest = PageRequest.of(page, size);
-			Page<Atendimento> pagesAtendimento = atendimentoRepository
-					.findAllPagingRowNumber(pageRequest);
+			Page<Atendimento> pagesAtendimento = atendimentoRepositorySJPA.findAll(pageRequest);
 			
 			return pagesAtendimento;
 		}

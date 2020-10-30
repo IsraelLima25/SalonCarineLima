@@ -43,7 +43,7 @@
 			
 			                        <a id="btnCadastrar" style="margin-bottom: 16px; width:120px;" 
 			                        	type="button" class="btn btn-color-salon btn-block"
-			                        	href="${s:mvcUrl('AC#buscarPaginaAtendimentoPorId')
+			                        	href="${s:mvcUrl('AC#detalheAtendimento')
 			                        			.arg(0,atendimento.id).build()}">
 			                        			
 			                        		Detalhes

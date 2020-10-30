@@ -98,7 +98,6 @@ public class AtendimentoRepository {
 						.collect(Collectors.toList());
 		
 		return lista;
-	
 	}
 	
 	public Page<Atendimento> findByDataBetweenRowNumber(Calendar dataInicio, 
@@ -131,6 +130,5 @@ public class AtendimentoRepository {
 			atendimentos.get(i).setRowNumber(i);
 		}
 	}
-
 }
 

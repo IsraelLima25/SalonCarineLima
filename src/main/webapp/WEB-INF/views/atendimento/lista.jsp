@@ -90,7 +90,7 @@
 								</td>
 								<td class="text-center"><a
 									class="fas fa-search btn btn-info"
-									href="${s:mvcUrl('AC#detalheAtendimento').arg(0,atendimento.rowNumber).build()}"></a>
+									href="${s:mvcUrl('AC#detalheAtendimento').arg(0,atendimento.id).build()}"></a>
 								</td>
 							</tr>
 						</c:forEach>

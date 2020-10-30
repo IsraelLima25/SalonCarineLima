@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -132,9 +131,10 @@ public class AtendimentoController {
 		return ResponseEntity.created(uri).body(response);
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/{rowNumber}")
-	public ModelAndView detalheAtendimento(@PathVariable Integer rowNumber) {
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
+	public ModelAndView detalheAtendimento(@PathVariable Integer id) {
 		ModelAndView modelAndView = new ModelAndView("atendimento/formDetalhar");
+		Integer rowNumber = atendimentoService.buscarRowPorID(id);
 		Page<Atendimento> atendimento = atendimentoService.buscarAtendimentoRowNumber(rowNumber);
 		modelAndView.addObject("atendimento",atendimento.getContent().get(0));
 		modelAndView.addObject("page", atendimento);
@@ -163,11 +163,5 @@ public class AtendimentoController {
 	public ResponseEntity<Message> cancelar(Integer idAtendimentoCancelado) {
 		Message message = this.atendimentoService.cancelar(idAtendimentoCancelado);
 		return ResponseEntity.ok().body(message);
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "pageId/{idAtendimento}")
-	public ModelAndView buscarPaginaAtendimentoPorId(@PathVariable Integer idAtendimento) {
-		Integer rowNumber = atendimentoService.buscarRowPorID(idAtendimento);
-		return detalheAtendimento(rowNumber);
 	}
 }
