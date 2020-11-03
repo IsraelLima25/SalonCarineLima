@@ -17,11 +17,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
-import br.com.salon.carine.lima.converters.ConvertersCliente;
 import br.com.salon.carine.lima.converters.ConvertersDate;
 import br.com.salon.carine.lima.converters.ConvertersEndereco;
 import br.com.salon.carine.lima.converters.ConvertersServico;
-import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.dto.FiltroDataAtendimentoDTO;
 import br.com.salon.carine.lima.dto.MarcarAtendimentoDTO;
 import br.com.salon.carine.lima.dto.ServicoDTO;
@@ -198,8 +196,7 @@ public class AtendimentoService {
 	}
 
 	private Cliente getClienteAtendimento(Integer idCliente) {
-			ClienteDTO clienteDTO = clienteService.buscarClientePorId(idCliente);
-			Cliente cliente = ConvertersCliente.deClienteDTOParaCliente(clienteDTO);
+			Cliente cliente = clienteService.buscarClientePorId(idCliente);
 			return cliente;
 	}
 

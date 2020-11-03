@@ -4,14 +4,16 @@
 
 <tags:pageTemplate titulo="Detalhar Cliente">
 
-	<div class="container">
+	<div class="container page">
 
 		<div class="row mt-4">
 			<div class="text-left col-8 col-md-8">
-				<h4 class="text-left color-font">Dados Cliente</h4>
+				<h4 class="text-left color-font">Dados do Cliente</h4>
 			</div>
 			<div class="text-right col-4 col-md-4">
-				<a type="button" href="../cliente/listar" class="btn btn-info fas fa-fast-backward"></a>
+				<a type="button" href="../cliente/listar" class="btn btn-info fas fa-fast-backward">
+					voltar
+				</a>
 			</div>
 		</div>
 
@@ -20,23 +22,20 @@
 		<div class="mt-2 row">
 			<div class="text-left col-6 col-md-6">
 				<span>
-					<a	class="btn btn-success fas fa-arrow-left" 
-	               	href="/SalonCarineLima/cliente/previous?isFirst=${page.isFirst()}&number=${page.getNumber()}"></a>
+					<a	class="btn-sm btn-success" 
+	               	href="/SalonCarineLima/cliente/previous?idClienteAtual=${cliente.id}">
+	               		anterior
+	               	</a>
 				</span>
 			</div>
 			<div class="text-right col-6 col-md-6">
-				<a	class="btn btn-success fas fa-arrow-right" 
-	                	href="/SalonCarineLima/cliente/next?isLast=${page.isLast()}&number=${page.getNumber()}"></a>
+				<a	class="btn-sm btn-success" 
+	                	href="/SalonCarineLima/cliente/next?idClienteAtual=${cliente.id}">
+	            		próximo    	
+	            </a>
 			</div>
 		</div>
 		
-		<div class="row mt-4">
-			<div class="col-12 col-md-12 text-right">
-				<a type="button" data-toggle="modal" data-target="#modalExcluir"
-					 class="btn btn-danger fas fa-trash-alt"></a>
-			</div>
-		</div>
-
 		<form name="formDetalhar">
 
 			<div class="form-group">
@@ -113,11 +112,16 @@
 				<small hidden class="form-text obrigatorio complemento"></small>
 			</div>
 
-			<div class="text-center alinhamento">
-				<button id="btn-confirmar-alteracao" type="submit" class="btn btn-color-salon btn-block">
-					Confirmar Alteração
+			<div class="text-center alinhamento mb-4">
+				<button id="btn-confirmar-alteracao" type="submit" 
+					class="btn btn-color-salon btn-block fas fa-check">
+					Alterar Cliente
 				</button>
-				<hr />
+				<a type="button" data-toggle="modal" data-target="#modalExcluir"
+					 class="btn btn-danger btn-block fas fa-trash-alt">
+							Excluir Cliente	 
+				</a>
+			</div>
 			</div>
 		</form>
 	</div>

@@ -1,12 +1,10 @@
 package br.com.salon.carine.lima.services;
 
 import static br.com.salon.carine.lima.converters.ConvertersCliente.deClienteDTOParaCliente;
-import static br.com.salon.carine.lima.converters.ConvertersCliente.deClienteParaClienteDTO;
 import static br.com.salon.carine.lima.converters.ConvertersCliente.deListClienteParaListClienteDTO;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,12 +26,12 @@ public class ClienteService {
 	
 	@Autowired
 	private ClienteRepositorySJPA clienteRepositorySJPA;
-
+	
 	public ResponseCliente cadastrar(ClienteDTO clienteDTO) {
 
 		Cliente cliente = deClienteDTOParaCliente(clienteDTO);
 
-		this.clienteRepository.cadastrar(cliente);
+		this.clienteRepositorySJPA.save(cliente);
 
 		ResponseCliente response = new ResponseCliente();
 		response.setCliente(clienteDTO);
@@ -48,19 +46,14 @@ public class ClienteService {
 		if(page > 0) {
 		
 			PageRequest pageRequest = PageRequest.of(page, size);
+			
 			Page<Cliente> pagesCliente = clienteRepositorySJPA.findAll(pageRequest);
-			
-			int pointInit = page * 5;
-			
-			for (Cliente cliente : pagesCliente) {
-				cliente.setRowNumber(pointInit);
-				pointInit++;
-			}
 			
 			return pagesCliente;
 			
 		}else {
 			PageRequest pageRequest = PageRequest.of(page, size);
+			
 			Page<Cliente> pagesCliente = clienteRepositorySJPA.findAll(pageRequest);
 			
 			return pagesCliente;
@@ -83,20 +76,67 @@ public class ClienteService {
 		}
 	}
 	
-	public Page<Cliente> nextPageService(boolean isLast, Integer number) {
+	public Cliente nextCliente(Integer idClienteAtual) {
 		
-		if(isLast) {
-			PageRequest pageRequest = PageRequest.of(0, 1);
-			Page<Cliente> paginaProxima = clienteRepositorySJPA.findAll(pageRequest);
-			
-			return paginaProxima;
-			
+		if(isLastCliente(idClienteAtual)) {
+			return firstCliente();
 		}else {
-			PageRequest pageRequest = PageRequest.of(number + 1, 1);
-			Page<Cliente> paginaProxima = clienteRepositorySJPA.findAll(pageRequest);
-			
-			return paginaProxima;
+			Integer idClienteProximo = clienteRepositorySJPA.idClienteProximo(idClienteAtual);
+			return clienteRepositorySJPA.findById(idClienteProximo).get();
 		}
+	}
+	
+	public Cliente previousCliente(Integer idClienteAtual) {
+		
+		if(isFirstCliente(idClienteAtual)) {
+			return lastCliente();
+		}else {
+			Integer idClienteProximo = clienteRepositorySJPA.idClienteProximo(idClienteAtual);
+			return clienteRepositorySJPA.findById(idClienteProximo).get();
+		}
+	}
+	
+	public boolean isLastCliente(Integer idClienteAtual) {
+		
+		Integer idlastCliente = clienteRepositorySJPA.IdlastCliente();
+	
+		if(idlastCliente == idClienteAtual) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean isFirstCliente(Integer idClienteAtual) {
+		
+		Integer idFirstCliente = clienteRepositorySJPA.firstCliente();
+	
+		if(idFirstCliente == idClienteAtual) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public Cliente firstCliente() {
+		
+		Integer idFirstCliente = clienteRepositorySJPA.firstCliente();
+		Optional<Cliente> optionalCliente = clienteRepositorySJPA.findById(idFirstCliente);
+		if(optionalCliente.isPresent()) {
+			return optionalCliente.get();
+		}
+		
+		return null;
+	}
+	
+	public Cliente lastCliente() {
+		Integer idlastCliente = clienteRepositorySJPA.IdlastCliente();
+		Optional<Cliente> optionalCliente = clienteRepositorySJPA.findById(idlastCliente);
+		if(optionalCliente.isPresent()) {
+			return optionalCliente.get();
+		}
+		
+		return null;
 	}
 	
 	public Page<Cliente> previousPageService(boolean isFirst, Integer number) {
@@ -115,11 +155,12 @@ public class ClienteService {
 		}
 	}
 
-
-	public ClienteDTO buscarClientePorId(Integer id) {
-		Cliente cliente = this.clienteRepository.buscarClientePorID(id);
-		ClienteDTO clienteDTO = deClienteParaClienteDTO(cliente);
-		return clienteDTO;
+	public Cliente buscarClientePorId(Integer id) {
+		if(clienteRepositorySJPA.findById(id).isPresent()) {
+			return clienteRepositorySJPA.findById(id).get();
+		}else {
+			return null;
+		}
 	}
 
 	public ResponseCliente alterarCliente(ClienteDTO clienteDTO) {
@@ -134,18 +175,18 @@ public class ClienteService {
 		return response;
 	}
 	
-	public Integer buscarRowPorID(Integer idCliente) {
-		
-		List<Cliente> findAllClientes = (List<Cliente>) clienteRepositorySJPA.findAll();
-		clienteRepository.numerarLinhas(findAllClientes);
-				List<Cliente> clientes = findAllClientes.stream()
-				.filter(atendimento -> atendimento.getId() == idCliente)
-				.collect(Collectors.toList());
-				
-		return clientes.get(0).getRowNumber();
-	}
+//	public Integer buscarRowPorID(Integer idCliente) {
+//		
+//		List<Cliente> findAllClientes = (List<Cliente>) clienteRepositorySJPA.findAll();
+//		clienteRepository.numerarLinhas(findAllClientes);
+//				List<Cliente> clientes = findAllClientes.stream()
+//				.filter(atendimento -> atendimento.getId() == idCliente)
+//				.collect(Collectors.toList());
+//				
+//		return clientes.get(0).getRowNumber();
+//	}
 	
-	public Page<Cliente> buscarAtendimentoRowNumber(Integer rowNumber) {
+	public Page<Cliente> buscarClienteRowNumber(Integer rowNumber) {
 		
 		PageRequest pageRequest = PageRequest.of(rowNumber, 1);
 		

@@ -46,8 +46,9 @@ $(function() {
 });
 
 $('#modalSucesso').on('hidden.bs.modal', function (e) {
-	var rowAtual = $('#rowNumberAtual').val();
-	window.location.href = `/SalonCarineLima/atendimento/${rowAtual}`; 
+	var idAtendimento = $('#atendimentoId').val();
+	/*Corrigir para passar o id do atendimento e não a linha*/
+	window.location.href = `/SalonCarineLima/atendimento/${idAtendimento}`; 
 });
 
 $('#modalCancelado').on('hidden.bs.modal', function (e) {

@@ -11,13 +11,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@NamedEntityGraph(name = "Cliente.endereco", 
+attributeNodes = @NamedAttributeNode("endereco"))
 public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -29,17 +32,14 @@ public class Cliente implements Serializable {
 	private String nome;
 	private String email;
 	private String telefone;
-	
-	@Transient
-	private Integer rowNumber;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
 	
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
 	private List<Atendimento> atendimentos = new ArrayList<>();
 
 	public Cliente() {
@@ -75,14 +75,6 @@ public class Cliente implements Serializable {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}
-	
-	public Integer getRowNumber() {
-		return rowNumber;
-	}
-
-	public void setRowNumber(Integer rowNumber) {
-		this.rowNumber = rowNumber;
 	}
 
 	public Endereco getEndereco() {

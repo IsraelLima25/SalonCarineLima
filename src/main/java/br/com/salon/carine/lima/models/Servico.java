@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,6 +26,9 @@ public class Servico implements Serializable {
 	private String descricao;
 	private BigDecimal preco;
 	
+	@Transient
+	private Integer rowNumber;
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "servico")
 	private List<ServicoItemCarrinho> itens = new ArrayList<>();
@@ -61,6 +65,14 @@ public class Servico implements Serializable {
 
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
+	}
+	
+	public Integer getRowNumber() {
+		return rowNumber;
+	}
+
+	public void setRowNumber(Integer rowNumber) {
+		this.rowNumber = rowNumber;
 	}
 
 	public List<ServicoItemCarrinho> getItens() {

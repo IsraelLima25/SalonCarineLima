@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -39,7 +41,8 @@ public class ClienteController {
 		ModelAndView modelAndView = new ModelAndView("cliente/formCadastro");
 		return modelAndView;
 	}
-
+	
+	@CacheEvict(value = "listarClientesHTML", allEntries = true)
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<ResponseCliente> cadastrarCliente(@Valid ClienteDTO clienteDTO,			
 			BindingResult result, HttpServletRequest request) {
@@ -58,7 +61,7 @@ public class ClienteController {
 
 		return ResponseEntity.created(uri).body(response);
 	}
-
+	
 	@RequestMapping(method = RequestMethod.POST, value = "alterar")
 	public ResponseEntity<ResponseCliente> alterarCliente(@Valid ClienteDTO clienteDTO,
 			BindingResult result, HttpServletRequest request) {
@@ -74,15 +77,15 @@ public class ClienteController {
 		ResponseCliente response = this.serviceCliente.alterarCliente(clienteDTO);
 
 		return ResponseEntity.ok().body(response);
-
 	}
-
+	
+	@Cacheable(value = "listarClientesHTML")
 	@RequestMapping(method = RequestMethod.GET, value = "listar")
 	public ModelAndView buscaPaginadaCliente(
 			@RequestParam(defaultValue = "0") Integer page,
 			@RequestParam(defaultValue = "5") Integer size) {
 		
-		this.logger.info("Iniciando busca paginada model");
+		this.logger.info("Iniciando busca paginada HTML");
 		
 		ModelAndView modelAndView = new ModelAndView("cliente/lista");
 		Page<Cliente> pageAtendimento = serviceCliente.findPageCliente(page, size);
@@ -92,10 +95,9 @@ public class ClienteController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "listar/json")
-	public ResponseEntity<Page<Cliente>> formDetalheAtendimentoJSON(
+	public ResponseEntity<Page<Cliente>> detalheClienteJSON(
 			@RequestParam(defaultValue = "0") Integer page,
-			@RequestParam(defaultValue = "5") Integer size,
-			HttpServletRequest request) {
+			@RequestParam(defaultValue = "5") Integer size) {
 		
 		this.logger.info("Iniciando busca paginada JSON");
 		
@@ -103,7 +105,8 @@ public class ClienteController {
 		
 		return ResponseEntity.ok().body(pageCliente);
 	}
-
+	
+	@CacheEvict(value = "listarClientesHTML", allEntries = true)
 	@RequestMapping(method = RequestMethod.DELETE, value = "/remover/{id}")
 	public ResponseEntity<Void> removerCliente(@PathVariable("id") Integer id) {
 		
@@ -113,20 +116,18 @@ public class ClienteController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "next")
-	public ModelAndView nextPage (@RequestParam boolean isLast, @RequestParam Integer number){
+	public ModelAndView nextCliente (@RequestParam Integer idClienteAtual){
 		ModelAndView modelAndView = new ModelAndView("cliente/formDetalhar");
-		Page<Cliente> pagina = serviceCliente.nextPageService(isLast, number);
-		modelAndView.addObject("cliente",pagina.getContent().get(0));
-		modelAndView.addObject("page", pagina);
+		Cliente cliente = serviceCliente.nextCliente(idClienteAtual);
+		modelAndView.addObject("cliente", cliente);
 		return modelAndView;
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "previous")
-	public ModelAndView previousPage (@RequestParam boolean isFirst, @RequestParam Integer number){
+	public ModelAndView previousCliente (@RequestParam Integer idClienteAtual){
 		ModelAndView modelAndView = new ModelAndView("cliente/formDetalhar");
-		Page<Cliente> pagina = serviceCliente.previousPageService(isFirst, number);
-		modelAndView.addObject("cliente",pagina.getContent().get(0));
-		modelAndView.addObject("page", pagina);
+		Cliente cliente = serviceCliente.previousCliente(idClienteAtual);
+		modelAndView.addObject("cliente",cliente);
 		return modelAndView;
 	}
 
@@ -134,10 +135,8 @@ public class ClienteController {
 					name = "detalharCliente")
 	public ModelAndView detalheCliente(@PathVariable Integer id) {
 		ModelAndView modelAndView = new ModelAndView("cliente/formDetalhar");
-		Integer rowNumber = serviceCliente.buscarRowPorID(id);
-		Page<Cliente> cliente = serviceCliente.buscarAtendimentoRowNumber(rowNumber);
-		modelAndView.addObject("cliente",cliente.getContent().get(0));
-		modelAndView.addObject("page", cliente);
+		Cliente cliente = serviceCliente.buscarClientePorId(id);
+		modelAndView.addObject("cliente",cliente);
 		return modelAndView;
 	}
 	

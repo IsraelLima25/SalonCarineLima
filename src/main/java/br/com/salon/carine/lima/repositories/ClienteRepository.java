@@ -120,9 +120,9 @@ public class ClienteRepository {
 	
 	public void numerarLinhas(List<Cliente> clientes) {
 		
-		for (int i = 0; i < clientes.size(); i++) {
-			clientes.get(i).setRowNumber(i);
-		}
+//		for (int i = 0; i < clientes.size(); i++) {
+//			clientes.get(i).setRowNumber(i);
+//		}
 	}
 	
 	public List<Cliente> searchNomeFilterRowNumber(String nome){

@@ -53,38 +53,7 @@ function removerServico(idServico) {
 		method : 'DELETE'
 	})
 	.then(
-		function(proximoServico) {
-			console.log(proximoServico.servico);
-			if (proximoServico.servico === null) {
-				window.location = "/SalonCarineLima/servico/listar";
-				} else {
-					window.location = `/SalonCarineLima/servico/${proximoServico.servico.id}`;
-				}
+		function() {
+			window.location.href = "/SalonCarineLima/servico/listar";
 		});	
-}
-
-function servicoProximo(idServico) {
-	$.get({
-		url : `/SalonCarineLima/servico/proximo/${idServico}`,
-		method : 'GET',
-		success : function(data, textStatus, xhr) {
-			if (xhr.status === 200) {
-				console.log(data);
-				window.location = `/SalonCarineLima/servico/${data.servico.id}`
-			}
-		}
-	});
-}
-
-function servicoAnterior(idServico) {
-	$.get({
-		url : `/SalonCarineLima/servico/anterior/${idServico}`,
-		method : 'GET',
-		success : function(data, textStatus, xhr) {
-			if (xhr.status === 200) {
-				console.log(data);
-				window.location = `/SalonCarineLima/servico/${data.servico.id}`
-			}
-		}
-	});
 }

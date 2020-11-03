@@ -12,7 +12,9 @@
 			</div>
 			<div class="text-right col-4 col-md-4">
 				<a type="button" href="../servico/listar"
-					class="btn btn-info fas fa-fast-backward"></a>
+					class="btn btn-info fas fa-fast-backward">
+					Voltar	
+				</a>
 			</div>
 		</div>
 
@@ -21,20 +23,24 @@
 		<div class="mt-2 row">
 			<div class="text-left col-6 col-md-6">
 				<span>
-					<button onclick="servicoAnterior(${servico.id});"
-						class="btn btn-success fas fa-arrow-left"></button>
+					<a class="btn btn-success" 
+	                	href="/SalonCarineLima/servico/previous?isFirst=${page.isFirst()}&number=${page.getNumber()}">
+	                		Anterior
+	                </a>
 				</span>
 			</div>
 			<div class="text-right col-6 col-md-6">
-				<button onclick="servicoProximo(${servico.id});"
-					class="btn btn-success fas fa-arrow-right"></button>
+				<a	class="btn btn-success" 
+	                	href="/SalonCarineLima/servico/next?isLast=${page.isLast()}&number=${page.getNumber()}">
+	                		Próximo	
+	            </a>
 			</div>
 		</div>
 
 		<div class="row mt-4">
 			<div class="col-12 col-md-12 text-right">
 				<a type="button" data-toggle="modal" data-target="#modalExcluir"
-					class="btn btn-danger fas fa-trash-alt"></a>
+					class="btn btn-danger fas fa-trash-alt"> Excluir</a>
 			</div>
 		</div>
 
