@@ -22,16 +22,15 @@
 		<div class="mt-2 row">
 			<div class="text-left col-6 col-md-6">
 				<span>
-					<a	class="btn-sm btn-success" 
+					<a	class="btn btn-success fas fa-chevron-left" 
 	               	href="/SalonCarineLima/cliente/previous?idClienteAtual=${cliente.id}">
-	               		anterior
 	               	</a>
 				</span>
 			</div>
 			<div class="text-right col-6 col-md-6">
-				<a	class="btn-sm btn-success" 
+				<a	class="btn btn-success fas fa-chevron-right" 
 	                	href="/SalonCarineLima/cliente/next?idClienteAtual=${cliente.id}">
-	            		próximo    	
+	            		    	
 	            </a>
 			</div>
 		</div>
@@ -145,6 +144,44 @@
 							Sim
 						</button>
 				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Modal Message exclusão inválida -->
+	<div class="modal fade" id="modalMessageExlusaoInvalida" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+						<h5 class="modal-title" id="title">Atenção!!</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+				</div>
+				<div id="body" class="modal-body">
+					Exclusão inválida. Este cliente possuí atendimentos vinculados.
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Modal Message exclusão válida -->
+	<div class="modal fade" id="modalMessageExclusaoValida" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+						<h5 class="modal-title" id="title">Cliente</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+				</div>
+				<div id="body" class="modal-body">
+					Cliente excluído com sucesso
+				</div>
+				<div class="modal-footer"></div>
 			</div>
 		</div>
 	</div>

@@ -67,9 +67,26 @@ function removerCliente(idCliente) {
 		method : 'DELETE'
 	})
 	.then(function() {
-		window.location.href = `/SalonCarineLima/cliente/listar`;
+		showModalMessageExcluir();
+	})
+	.catch(function(err) {
+		showModalExclusaoInvalida();
 	});
 }
+
+function showModalMessageExcluir(){
+	$('#title').text('Cliente');
+	$('#body').text('cliente excluido com sucesso.');
+	$('#modalMessageExclusaoValida').modal('show');
+}
+
+function showModalExclusaoInvalida(){
+	$('#modalMessageExlusaoInvalida').modal('show');
+}
+
+$('#modalMessageExclusaoValida').on('hidden.bs.modal', function(e) {
+	window.location.href = `/SalonCarineLima/cliente/listar`;
+})
 
 function topPage() {
 	$("html, body").animate({

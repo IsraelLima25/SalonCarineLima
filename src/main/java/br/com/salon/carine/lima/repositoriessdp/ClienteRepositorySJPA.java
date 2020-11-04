@@ -21,17 +21,17 @@ public interface ClienteRepositorySJPA extends JpaRepository<Cliente, Integer>  
 	@EntityGraph(value = "Cliente.endereco")
 	Optional<Cliente> findById(Integer id);
 	
-	/* recupera id próximo cliente a partir do cliente atual */
 	@Query("SELECT MIN(c.id) FROM Cliente c WHERE c.id > :idClienteAtual")
 	Integer idClienteProximo (@Param("idClienteAtual") Integer idClienteAtual);
 	
-	/* recupera id do último cliente */
-	@Query("SELECT MAX(c.id) FROM Cliente c")
-	Integer IdlastCliente ();
+	@Query("SELECT MAX(c.id) FROM Cliente c WHERE c.id < :idClienteAtual")
+	Integer idClienteAnterior (@Param("idClienteAtual") Integer idClienteAtual);
 	
-	/* recupera id do primeiro cliente */
+	@Query("SELECT MAX(c.id) FROM Cliente c")
+	Integer idlastCliente ();
+	
 	@Query("SELECT MIN(c.id) FROM Cliente c")
-	Integer firstCliente();
+	Integer idFirstCliente();
 	
 	
 	

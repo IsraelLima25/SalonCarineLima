@@ -27,6 +27,10 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepositorySJPA clienteRepositorySJPA;
 	
+	private Integer idLastCliente = 0;
+	
+	private Integer idFirstCliente = 0;
+	
 	public ResponseCliente cadastrar(ClienteDTO clienteDTO) {
 
 		Cliente cliente = deClienteDTOParaCliente(clienteDTO);
@@ -91,16 +95,16 @@ public class ClienteService {
 		if(isFirstCliente(idClienteAtual)) {
 			return lastCliente();
 		}else {
-			Integer idClienteProximo = clienteRepositorySJPA.idClienteProximo(idClienteAtual);
-			return clienteRepositorySJPA.findById(idClienteProximo).get();
+			Integer idClienteAnterior = clienteRepositorySJPA.idClienteAnterior(idClienteAtual);
+			return clienteRepositorySJPA.findById(idClienteAnterior).get();
 		}
 	}
 	
 	public boolean isLastCliente(Integer idClienteAtual) {
 		
-		Integer idlastCliente = clienteRepositorySJPA.IdlastCliente();
+		//Integer idlastCliente = clienteRepositorySJPA.IdlastCliente();
 	
-		if(idlastCliente == idClienteAtual) {
+		if(idLastCliente == idClienteAtual) {
 			return true;
 		}else {
 			return false;
@@ -109,7 +113,7 @@ public class ClienteService {
 	
 	public boolean isFirstCliente(Integer idClienteAtual) {
 		
-		Integer idFirstCliente = clienteRepositorySJPA.firstCliente();
+		//Integer idFirstCliente = clienteRepositorySJPA.idFirstCliente();
 	
 		if(idFirstCliente == idClienteAtual) {
 			return true;
@@ -120,7 +124,7 @@ public class ClienteService {
 	
 	public Cliente firstCliente() {
 		
-		Integer idFirstCliente = clienteRepositorySJPA.firstCliente();
+		Integer idFirstCliente = clienteRepositorySJPA.idFirstCliente();
 		Optional<Cliente> optionalCliente = clienteRepositorySJPA.findById(idFirstCliente);
 		if(optionalCliente.isPresent()) {
 			return optionalCliente.get();
@@ -130,13 +134,21 @@ public class ClienteService {
 	}
 	
 	public Cliente lastCliente() {
-		Integer idlastCliente = clienteRepositorySJPA.IdlastCliente();
+		Integer idlastCliente = clienteRepositorySJPA.idlastCliente();
 		Optional<Cliente> optionalCliente = clienteRepositorySJPA.findById(idlastCliente);
 		if(optionalCliente.isPresent()) {
 			return optionalCliente.get();
 		}
 		
 		return null;
+	}
+	
+	public Integer idLastCliente() {
+		return clienteRepositorySJPA.idlastCliente();
+	}
+	
+	public Integer idFirstCliente() {
+		return clienteRepositorySJPA.idFirstCliente();
 	}
 	
 	public Page<Cliente> previousPageService(boolean isFirst, Integer number) {
@@ -208,4 +220,11 @@ public class ClienteService {
 		}
 	}
 
+	public void atualizarLastId(Integer id) {
+		idLastCliente = id;
+	}
+
+	public void atualizarFirstId(Integer id) {
+		idFirstCliente = id;
+	}
 }

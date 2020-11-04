@@ -53,7 +53,7 @@ public class ClienteController {
 			this.logger.info("Formulario cliente inválido");
 			throw new ArgumentNotValidException(result,request);
 		}
-
+		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(clienteDTO.getId())
 				.toUri();
 
@@ -87,6 +87,9 @@ public class ClienteController {
 		
 		this.logger.info("Iniciando busca paginada HTML");
 		
+		serviceCliente.atualizarFirstId(serviceCliente.idFirstCliente());
+		serviceCliente.atualizarLastId(serviceCliente.idLastCliente());
+		
 		ModelAndView modelAndView = new ModelAndView("cliente/lista");
 		Page<Cliente> pageAtendimento = serviceCliente.findPageCliente(page, size);
 		modelAndView.addObject("paginas", pageAtendimento);
@@ -110,9 +113,13 @@ public class ClienteController {
 	@RequestMapping(method = RequestMethod.DELETE, value = "/remover/{id}")
 	public ResponseEntity<Void> removerCliente(@PathVariable("id") Integer id) {
 		
-		serviceCliente.remover(id);
+		try {
+			serviceCliente.remover(id);
+			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
 		
-		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "next")
