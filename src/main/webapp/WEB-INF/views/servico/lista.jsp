@@ -6,12 +6,12 @@
 <tags:pageTemplate titulo="Lista Serviços">
 
 	<div class="container">
-		<h4 class="mt-4 color-font">Lista de Servicos</h4>
+		<h4 class="mt-4 color-font">Lista de Serviços</h4>
 		<hr />
 
 		<div class="form-group">
 			<label class="mt-3 color-font-label" for="nome-filter">
-				Filtrar por descricao
+				Filtrar por descrição
 			</label> 
 			<input type="text"class="form-control" id="servico-filter">
 		</div>
@@ -19,7 +19,7 @@
 		<table id="servico-table" class="mt-5 table table-striped">
 			<thead>
 				<tr>
-					<th scope="col">Descricao</th>
+					<th scope="col">Descrição</th>
 					<th scope="col">Preço</th>
 					<th class="text-center" scope="col">Detalhe</th>
 				</tr>

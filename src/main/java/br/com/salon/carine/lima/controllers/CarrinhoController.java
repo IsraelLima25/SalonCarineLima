@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.salon.carine.lima.converters.ConvertersServico;
 import br.com.salon.carine.lima.dto.ServicoDTO;
 import br.com.salon.carine.lima.dto.ServicoItemCarrinhoDTO;
 import br.com.salon.carine.lima.services.CarrinhoService;
@@ -45,7 +46,8 @@ public class CarrinhoController {
 	@RequestMapping(method = RequestMethod.GET, value = "add/{id}")
 	public ResponseEntity<ServicoItemCarrinhoDTO> addItemServicoCarrinho(@PathVariable Integer id) {
 
-		ServicoDTO servicoDTO = serviceServico.buscarServicoPorId(id);
+		ServicoDTO servicoDTO = ConvertersServico
+				.deServicoParaServicoDTO(serviceServico.buscarServicoPorId(id));
 		ServicoItemCarrinhoDTO itemAdicionado = carrinhoService.addServicoCarrinho(servicoDTO);
 
 		return ResponseEntity.ok().body(itemAdicionado);
@@ -54,7 +56,8 @@ public class CarrinhoController {
 	@RequestMapping(method = RequestMethod.GET, value = "remover/{id}")
 	public ResponseEntity<ServicoItemCarrinhoDTO> removerItemServicoCarrinho(@PathVariable Integer id) {
 
-		ServicoDTO servicoDTO = serviceServico.buscarServicoPorId(id);
+		ServicoDTO servicoDTO = ConvertersServico
+				.deServicoParaServicoDTO(serviceServico.buscarServicoPorId(id));
 		ServicoItemCarrinhoDTO itemRemovido;
 		itemRemovido = carrinhoService.removerItemCarrinho(servicoDTO);
 		return ResponseEntity.ok().body(itemRemovido);
@@ -63,7 +66,8 @@ public class CarrinhoController {
 	@RequestMapping(method = RequestMethod.DELETE, value = "remover/servico/{id}")
 	public ResponseEntity<Void> removerServicoCarrinho(@PathVariable Integer id) {
 
-		ServicoDTO servicoDTO = serviceServico.buscarServicoPorId(id);
+		ServicoDTO servicoDTO = ConvertersServico
+				.deServicoParaServicoDTO(serviceServico.buscarServicoPorId(id));
 		boolean removido = carrinhoService.removerServicoCarrinho(servicoDTO);
 
 		if (removido) {

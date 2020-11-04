@@ -2,17 +2,12 @@ package br.com.salon.carine.lima.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Servico implements Serializable {
@@ -28,10 +23,6 @@ public class Servico implements Serializable {
 	
 	@Transient
 	private Integer rowNumber;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "servico")
-	private List<ServicoItemCarrinho> itens = new ArrayList<>();
 
 	public Servico() {
 
@@ -73,14 +64,6 @@ public class Servico implements Serializable {
 
 	public void setRowNumber(Integer rowNumber) {
 		this.rowNumber = rowNumber;
-	}
-
-	public List<ServicoItemCarrinho> getItens() {
-		return itens;
-	}
-
-	public void setItens(List<ServicoItemCarrinho> itens) {
-		this.itens = itens;
 	}
 
 	@Override

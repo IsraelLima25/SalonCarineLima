@@ -1,5 +1,6 @@
 package br.com.salon.carine.lima.repositoriessdp;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -32,6 +33,10 @@ public interface ClienteRepositorySJPA extends JpaRepository<Cliente, Integer>  
 	
 	@Query("SELECT MIN(c.id) FROM Cliente c")
 	Integer idFirstCliente();
+	
+	@EntityGraph(value = "Cliente.endereco")
+	@Query("FROM Cliente c WHERE c.nome LIKE :nome%")
+	List<Cliente> searchNomeFilter(@Param("nome") String nome);
 	
 	
 	

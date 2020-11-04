@@ -3,7 +3,6 @@ package br.com.salon.carine.lima.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,15 +22,19 @@ public class ServicoService {
 
 	@Autowired
 	public ServicoRepository servicoRepository;
-	
+
 	@Autowired
 	public ServicoRepositorySJPA servicoRepositorySJPA;
+	
+	private Integer idLastServico = 0;
+	
+	private Integer idFirstServico = 0;
 
 	public ResponseServico cadastrar(ServicoDTO servicoDTO) {
 
 		Servico servico = ConvertersServico.deServicoDTOparaServico(servicoDTO);
 
-		this.servicoRepository.cadastrar(servico);
+		servicoRepositorySJPA.save(servico);
 
 		ResponseServico response = new ResponseServico();
 		response.setServico(servicoDTO);
@@ -43,7 +46,7 @@ public class ServicoService {
 
 	public List<ServicoDTO> listarTodos() {
 
-		List<Servico> servicos = this.servicoRepository.listarTodos();
+		List<Servico> servicos = servicoRepositorySJPA.findAll();
 
 		List<ServicoDTO> servicosDTO = new ArrayList<ServicoDTO>();
 
@@ -55,59 +58,60 @@ public class ServicoService {
 		return servicosDTO;
 	}
 
-	public ServicoDTO buscarServicoPorId(Integer id) {
-		Servico servico = this.servicoRepository.buscarServicoPorId(id);
-		ServicoDTO servicoDTO = ConvertersServico.deServicoParaServicoDTO(servico);
-
-		return servicoDTO;
+	public Servico buscarServicoPorId(Integer id) {
+		Optional<Servico> servicoOptional = servicoRepositorySJPA.findById(id);
+		if (servicoOptional.isPresent()) {
+			return servicoOptional.get();
+		}
+		return null;
 	}
 
 	public void remover(Integer id) {
 
 		Optional<Servico> optionalServico = this.servicoRepositorySJPA.findById(id);
-		
+
 		if (optionalServico.isPresent()) {
 			Servico servico = optionalServico.get();
 			servicoRepositorySJPA.delete(servico);
 		}
 	}
-	
+
 	public Page<Servico> previousPageService(boolean isFirst, Integer number) {
-		
-		if(isFirst) {			
+
+		if (isFirst) {
 			int lastPage = (int) servicoRepositorySJPA.count() - 1;
 			PageRequest pageRequest = PageRequest.of(lastPage, 1);
 			Page<Servico> paginaAterior = servicoRepositorySJPA.findAll(pageRequest);
 			return paginaAterior;
-			
-		}else {
+
+		} else {
 			PageRequest pageRequest = PageRequest.of(number - 1, 1);
 			Page<Servico> paginaAterior = servicoRepositorySJPA.findAll(pageRequest);
-			
+
 			return paginaAterior;
 		}
 	}
-	
+
 	public Page<Servico> nextPageService(boolean isLast, Integer number) {
-		
-		if(isLast) {
+
+		if (isLast) {
 			PageRequest pageRequest = PageRequest.of(0, 1);
 			Page<Servico> paginaProxima = servicoRepositorySJPA.findAll(pageRequest);
-			
+
 			return paginaProxima;
-			
-		}else {
+
+		} else {
 			PageRequest pageRequest = PageRequest.of(number + 1, 1);
 			Page<Servico> paginaProxima = servicoRepositorySJPA.findAll(pageRequest);
-			
+
 			return paginaProxima;
 		}
 	}
 
 	public ResponseServico alterarServico(ServicoDTO servicoDTO) {
-		
+
 		Servico servico = ConvertersServico.deServicoDTOparaServico(servicoDTO);
-		this.servicoRepository.alterarCliente(servico);
+		servicoRepositorySJPA.save(servico);
 
 		ResponseServico response = new ResponseServico();
 		response.setServico(servicoDTO);
@@ -116,62 +120,126 @@ public class ServicoService {
 
 		return response;
 	}
-	
+
 	public Page<Servico> findPageServico(Integer page, Integer size) {
-		
-		if(page > 0) {
-		
+
+		if (page > 0) {
+
 			PageRequest pageRequest = PageRequest.of(page, size);
 			Page<Servico> pagesServico = servicoRepositorySJPA.findAll(pageRequest);
-			
+
 			int pointInit = page * 5;
-			
+
 			for (Servico servico : pagesServico) {
 				servico.setRowNumber(pointInit);
 				pointInit++;
 			}
-			
+
 			return pagesServico;
-			
-		}else {
+
+		} else {
 			PageRequest pageRequest = PageRequest.of(page, size);
 			Page<Servico> pagesServico = servicoRepositorySJPA.findAll(pageRequest);
-			
+
 			return pagesServico;
 		}
 	}
-	
-	public Integer buscarRowPorID(Integer idServico) {
-		
-		List<Servico> findAllServicos = (List<Servico>) servicoRepositorySJPA.findAll();
-		servicoRepository.numerarLinhas(findAllServicos);
-				List<Servico> servicos = findAllServicos.stream()
-				.filter(servico -> servico.getId() == idServico)
-				.collect(Collectors.toList());
-				
-		return servicos.get(0).getRowNumber();
-	}
-	
+
 	public Page<Servico> buscarServicoRowNumber(Integer rowNumber) {
-		
+
 		PageRequest pageRequest = PageRequest.of(rowNumber, 1);
-		
+
 		Page<Servico> pageServico = servicoRepositorySJPA.findAll(pageRequest);
-		
+
 		return pageServico;
 	}
 
-	public List<Servico> filtrarServicoPorDescricao(String nome) {
-		
-		if(!nome.equals("")) {
-			List<Servico> servicos = servicoRepository.searchDescricaoFilterRowNumber(nome);
-			
+	public List<Servico> filtrarServicoPorDescricao(String descricao) {
+
+		if (!descricao.equals("")) {
+			List<Servico> servicos = servicoRepositorySJPA.searchDescricaoFilter(descricao);
+
 			return servicos;
-			
-		}else {
-			
+
+		} else {
+
 			Page<Servico> findPageServicos = findPageServico(0, 5);
 			return findPageServicos.getContent();
 		}
 	}
+
+	public Servico nextServico(Integer idServicoAtual) {
+
+		if (isLastServico(idServicoAtual)) {
+			return firstServico();
+		} else {
+			Integer idServicoProximo = servicoRepositorySJPA.idServicoProximo(idServicoAtual);
+			return servicoRepositorySJPA.findById(idServicoProximo).get();
+		}
+	}
+	
+	public boolean isLastServico(Integer idServicoAtual) {
+		
+		if(idLastServico == idServicoAtual) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public Servico firstServico() {
+		
+		Integer idFirstServico = servicoRepositorySJPA.idFirstServico();
+		Optional<Servico> optionalServico = servicoRepositorySJPA.findById(idFirstServico);
+		if(optionalServico.isPresent()) {
+			return optionalServico.get();
+		}
+		
+		return null;
+	}
+	
+	public void atualizarLastId(Integer id) {
+		idLastServico = id;
+	}
+
+	public void atualizarFirstId(Integer id) {
+		idFirstServico = id;
+	}
+	
+	public Integer idLastServico() {
+		return servicoRepositorySJPA.idlastServico();
+	}
+	
+	public Integer idFirstServico() {
+		return servicoRepositorySJPA.idFirstServico();
+	}
+
+	public Servico previousServico(Integer idServicoAtual) {
+		if(isFirstServico(idServicoAtual)) {
+			return lastServico();
+		}else {
+			Integer idClienteAnterior = servicoRepositorySJPA.idServicoAnterior(idServicoAtual);
+			return servicoRepositorySJPA.findById(idClienteAnterior).get();
+		}
+	}
+	
+	public boolean isFirstServico(Integer idServicoAtual) {
+		
+		if(idFirstServico == idServicoAtual) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public Servico lastServico() {
+		Integer idlastServico = servicoRepositorySJPA.idlastServico();
+		Optional<Servico> optionalServico = servicoRepositorySJPA.findById(idlastServico);
+		if(optionalServico.isPresent()) {
+			return optionalServico.get();
+		}
+		
+		return null;
+	}
+
 }

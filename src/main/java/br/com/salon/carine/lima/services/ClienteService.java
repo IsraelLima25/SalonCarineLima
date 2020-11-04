@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.models.Cliente;
-import br.com.salon.carine.lima.repositories.ClienteRepository;
 import br.com.salon.carine.lima.repositoriessdp.ClienteRepositorySJPA;
 import br.com.salon.carine.lima.response.Message;
 import br.com.salon.carine.lima.response.ResponseCliente;
@@ -21,9 +20,6 @@ import br.com.salon.carine.lima.response.ResponseCliente;
 @Service
 public class ClienteService {
 
-	@Autowired
-	private ClienteRepository clienteRepository;
-	
 	@Autowired
 	private ClienteRepositorySJPA clienteRepositorySJPA;
 	
@@ -65,7 +61,7 @@ public class ClienteService {
 	}
 
 	public List<ClienteDTO> listarTodos() {
-		List<Cliente> listaCliente = this.clienteRepository.listarTodos();
+		List<Cliente> listaCliente = clienteRepositorySJPA.findAll();
 		List<ClienteDTO> listClienteDTO = deListClienteParaListClienteDTO(listaCliente);
 		return listClienteDTO;
 	}
@@ -102,8 +98,6 @@ public class ClienteService {
 	
 	public boolean isLastCliente(Integer idClienteAtual) {
 		
-		//Integer idlastCliente = clienteRepositorySJPA.IdlastCliente();
-	
 		if(idLastCliente == idClienteAtual) {
 			return true;
 		}else {
@@ -113,8 +107,6 @@ public class ClienteService {
 	
 	public boolean isFirstCliente(Integer idClienteAtual) {
 		
-		//Integer idFirstCliente = clienteRepositorySJPA.idFirstCliente();
-	
 		if(idFirstCliente == idClienteAtual) {
 			return true;
 		}else {
@@ -150,22 +142,6 @@ public class ClienteService {
 	public Integer idFirstCliente() {
 		return clienteRepositorySJPA.idFirstCliente();
 	}
-	
-	public Page<Cliente> previousPageService(boolean isFirst, Integer number) {
-		
-		if(isFirst) {			
-			int lastPage = (int) clienteRepositorySJPA.count() - 1;
-			PageRequest pageRequest = PageRequest.of(lastPage, 1);
-			Page<Cliente> paginaAterior = clienteRepositorySJPA.findAll(pageRequest);
-			return paginaAterior;
-			
-		}else {
-			PageRequest pageRequest = PageRequest.of(number - 1, 1);
-			Page<Cliente> paginaAterior = clienteRepositorySJPA.findAll(pageRequest);
-			
-			return paginaAterior;
-		}
-	}
 
 	public Cliente buscarClientePorId(Integer id) {
 		if(clienteRepositorySJPA.findById(id).isPresent()) {
@@ -177,7 +153,7 @@ public class ClienteService {
 
 	public ResponseCliente alterarCliente(ClienteDTO clienteDTO) {
 		Cliente cliente = deClienteDTOParaCliente(clienteDTO);
-		this.clienteRepository.alterarCliente(cliente);
+		clienteRepositorySJPA.save(cliente);
 
 		ResponseCliente response = new ResponseCliente();
 		response.setCliente(clienteDTO);
@@ -186,32 +162,12 @@ public class ClienteService {
 
 		return response;
 	}
-	
-//	public Integer buscarRowPorID(Integer idCliente) {
-//		
-//		List<Cliente> findAllClientes = (List<Cliente>) clienteRepositorySJPA.findAll();
-//		clienteRepository.numerarLinhas(findAllClientes);
-//				List<Cliente> clientes = findAllClientes.stream()
-//				.filter(atendimento -> atendimento.getId() == idCliente)
-//				.collect(Collectors.toList());
-//				
-//		return clientes.get(0).getRowNumber();
-//	}
-	
-	public Page<Cliente> buscarClienteRowNumber(Integer rowNumber) {
-		
-		PageRequest pageRequest = PageRequest.of(rowNumber, 1);
-		
-		Page<Cliente> pageCliente = clienteRepositorySJPA.findAll(pageRequest);
-		
-		return pageCliente;
-	}
 
 	public List<Cliente> filtrarAtendimentoPorNome(String nome) {
 		if(!nome.equals("")) {
-			List<Cliente> atendimentos = clienteRepository.searchNomeFilterRowNumber(nome);
+			List<Cliente> clientes = clienteRepositorySJPA.searchNomeFilter(nome);
 			
-			return atendimentos;
+			return clientes;
 			
 		}else {
 			

@@ -117,7 +117,9 @@ public class AtendimentoService {
 
 			ServicoItemCarrinho servicoItemCarrinho = new ServicoItemCarrinho();
 
-			ServicoDTO servicoDTO = servicoService.buscarServicoPorId(servicoItemCarrinhoDTO.getServicoDTO().getId());
+			ServicoDTO servicoDTO = ConvertersServico
+					.deServicoParaServicoDTO(servicoService.buscarServicoPorId(servicoItemCarrinhoDTO
+							.getServicoDTO().getId()));
 
 			Servico servico = ConvertersServico.deServicoDTOparaServico(servicoDTO);
 

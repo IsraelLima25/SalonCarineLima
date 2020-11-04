@@ -62,6 +62,7 @@ public class ClienteController {
 		return ResponseEntity.created(uri).body(response);
 	}
 	
+	@CacheEvict(value = "listarClientesHTML", allEntries = true)
 	@RequestMapping(method = RequestMethod.POST, value = "alterar")
 	public ResponseEntity<ResponseCliente> alterarCliente(@Valid ClienteDTO clienteDTO,
 			BindingResult result, HttpServletRequest request) {
@@ -87,7 +88,9 @@ public class ClienteController {
 		
 		this.logger.info("Iniciando busca paginada HTML");
 		
+		/* Atualizar First Cliente*/
 		serviceCliente.atualizarFirstId(serviceCliente.idFirstCliente());
+		/* Atualizar Last Cliente*/
 		serviceCliente.atualizarLastId(serviceCliente.idLastCliente());
 		
 		ModelAndView modelAndView = new ModelAndView("cliente/lista");

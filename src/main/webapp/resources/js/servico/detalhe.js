@@ -54,6 +54,25 @@ function removerServico(idServico) {
 	})
 	.then(
 		function() {
-			window.location.href = "/SalonCarineLima/servico/listar";
-		});	
+			showModalMessageExcluir();
+		})
+	.catch(function(err) {
+		showModalExclusaoInvalida();
+	});	
 }
+
+function showModalMessageExcluir(){
+	$('#modalMessageExclusaoValida').modal('show');
+}
+
+$('#modalMessageExclusaoValida').on('hidden.bs.modal', function(e) {
+	window.location.href = "/SalonCarineLima/servico/listar";
+});
+
+function showModalExclusaoInvalida(){
+	$('#modalMessageExlusaoInvalida').modal('show');
+}
+
+
+
+
