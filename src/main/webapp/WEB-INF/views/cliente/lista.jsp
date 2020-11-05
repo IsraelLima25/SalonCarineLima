@@ -60,14 +60,12 @@
 		<c:if test="${paginas.totalPages > 0 }">
 				<div class="row pb-5">
 						<nav aria-label="..." style="margin: auto;">
-							  <ul class="pagination">
+							  <ul class="pagination flex-wrap ">
 							  <li class="page-item">
-							    
 								  <p hidden id="paginaAtual">${paginas.pageable.pageNumber}</p>
 								  
-							      <a class="page-link" type="button"
+							      <a class="page-link fas fa-chevron-left" type="button"
 							      	onclick="paginaAnterior(${paginas.totalPages})">
-							      		Anterior
 							      </a>
 							    </li>
 							  <c:forEach var="pageNumber" begin="0" end="${paginas.totalPages - 1}" 
@@ -88,9 +86,8 @@
 						    	</c:choose>
 							  </c:forEach>
 							    <li class="page-item">
-							      <a class="page-link" type="button"
+							      <a class="page-link fas fa-chevron-right" type="button"
 							      	onclick="proximaPagina(${paginas.totalPages})">
-							      		Próximo
 							      </a>
 							    </li>
 							  </ul>
