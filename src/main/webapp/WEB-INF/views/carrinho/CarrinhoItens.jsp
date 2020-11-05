@@ -1,5 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java"
-	pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" language="java"	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
@@ -9,7 +8,17 @@
 		<section>
 			<div class="container">
 
-				<h4 class="mt-4 color-font">Carrinho de Serviços</h4>
+				<div class="row">
+					<div class="col-6 col-lg-6">
+						<h4 class="mt-4 color-font">Carrinho de Serviços</h4>
+					</div>
+					<div class="col-6 col-lg-6 text-right">
+						<a class="btn btn-color-salon fas fa-store"
+						href="../loja/itensLoja"> 
+						</a>
+					</div>
+				</div>
+				
 				<hr />
 
 				<div class="total-carrinho mt-3">

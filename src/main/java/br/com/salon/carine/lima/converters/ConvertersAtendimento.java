@@ -68,5 +68,4 @@ public class ConvertersAtendimento {
 
 		return atendimentoDTO;
 	}
-
 }

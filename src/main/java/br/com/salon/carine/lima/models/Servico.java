@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 
 @Entity
 public class Servico implements Serializable {
@@ -20,9 +19,6 @@ public class Servico implements Serializable {
 
 	private String descricao;
 	private BigDecimal preco;
-	
-	@Transient
-	private Integer rowNumber;
 
 	public Servico() {
 
@@ -58,14 +54,6 @@ public class Servico implements Serializable {
 		this.preco = preco;
 	}
 	
-	public Integer getRowNumber() {
-		return rowNumber;
-	}
-
-	public void setRowNumber(Integer rowNumber) {
-		this.rowNumber = rowNumber;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

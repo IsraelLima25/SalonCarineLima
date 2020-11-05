@@ -11,7 +11,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,6 +21,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.salon.carine.lima.enuns.StatusAtendimento;
 import br.com.salon.carine.lima.enuns.TipoEndereco;
@@ -69,8 +70,8 @@ public class Atendimento implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TipoEndereco tipoEndereco;
 	
-	
-	@OneToMany(mappedBy = "atendimento", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@JsonIgnore
+	@OneToMany(mappedBy = "atendimento", cascade = CascadeType.REMOVE)
 	private List<ServicoItemCarrinho> itens = new ArrayList<>();
 
 	public Atendimento() {

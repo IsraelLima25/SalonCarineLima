@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,7 +36,6 @@ import br.com.salon.carine.lima.models.Especie;
 import br.com.salon.carine.lima.models.Pagamento;
 import br.com.salon.carine.lima.models.Servico;
 import br.com.salon.carine.lima.models.ServicoItemCarrinho;
-import br.com.salon.carine.lima.repositories.AtendimentoRepository;
 import br.com.salon.carine.lima.repositories.EnderecoRepository;
 import br.com.salon.carine.lima.repositories.ServicoItemCarrinhoRepository;
 import br.com.salon.carine.lima.repositoriessdp.AtendimentoRepositorySJPA;
@@ -49,9 +47,6 @@ public class AtendimentoService {
 
 	@Autowired
 	private ClienteService clienteService;
-
-	@Autowired
-	private AtendimentoRepository atendimentoRepository;
 
 	@Autowired
 	private AtendimentoRepositorySJPA atendimentoRepositorySJPA;
@@ -248,26 +243,12 @@ public class AtendimentoService {
 
 	public Page<Atendimento> findPageAtendimento(Integer page, Integer size) {
 		
-		if(page > 0) {
+		PageRequest pageRequest = PageRequest.of(page, size);
+		Page<Atendimento> pagesAtendimento = atendimentoRepositorySJPA
+				.findAllAtendimentoFetchEnderecoCliente(pageRequest);
 		
-			PageRequest pageRequest = PageRequest.of(page, size);
-			Page<Atendimento> pagesAtendimento = atendimentoRepositorySJPA.findAll(pageRequest);
-			
-			int pointInit = page * 5;
-			
-			for (Atendimento atendimento : pagesAtendimento) {
-				atendimento.setRowNumber(pointInit);
-				pointInit++;
-			}
-			
-			return pagesAtendimento;
-			
-		}else {
-			PageRequest pageRequest = PageRequest.of(page, size);
-			Page<Atendimento> pagesAtendimento = atendimentoRepositorySJPA.findAll(pageRequest);
-			
-			return pagesAtendimento;
-		}
+		return pagesAtendimento;
+		
 	}
 
 	public Page<Atendimento> getAtendimentosFilterData(FiltroDataAtendimentoDTO filtro) {
@@ -275,9 +256,9 @@ public class AtendimentoService {
 		if(filtro.getDataInicio() != "" && filtro.getDataFim() != "") {
 			Calendar dataInicio = ConvertersDate.deStringDateParaCalendar(filtro.getDataInicio());
 			Calendar dataFim = ConvertersDate.deStringDateParaCalendar(filtro.getDataFim());
-						
-			Page<Atendimento> atendimentosDate = atendimentoRepository
-					.findByDataBetweenRowNumber(dataInicio, dataFim);
+							
+			Page<Atendimento> atendimentosDate = atendimentoRepositorySJPA
+					.findByDataBetween(dataInicio, dataFim, null);
 			
 			return atendimentosDate;
 			
@@ -296,17 +277,17 @@ public class AtendimentoService {
 		return pageAtendimento;
 	}
 
-	public List<Atendimento> filtrarAtendimentoPorCliente(String nome) {
+	public Page<Atendimento> filtrarAtendimentoPorCliente(String nome) {
 		
 		if(!nome.equals("")) {
-			List<Atendimento> atendimentos = atendimentoRepository.searchNomeFilterRowNumber(nome);
+			Page<Atendimento> atendimentos = atendimentoRepositorySJPA.searchNomeFilter(nome, null);
 			
 			return atendimentos;
 			
 		}else {
 			
 			Page<Atendimento> findPageAtendimento = findPageAtendimento(0, 5);
-			return findPageAtendimento.getContent();
+			return findPageAtendimento;
 		}
 	}
 
@@ -381,17 +362,6 @@ public class AtendimentoService {
 		}else {
 			return null;
 		}
-	}
-
-	public Integer buscarRowPorID(Integer idAtendimento) {
-		
-		List<Atendimento> findAllAtendimentos = (List<Atendimento>) atendimentoRepositorySJPA.findAll();
-		atendimentoRepository.numerarLinhas(findAllAtendimentos);
-				List<Atendimento> atendimentos = findAllAtendimentos.stream()
-				.filter(atendimento -> atendimento.getId() == idAtendimento)
-				.collect(Collectors.toList());
-				
-		return atendimentos.get(0).getRowNumber();
 	}
 	
 	public List<Atendimento> findAllAtendimentosList(Calendar de, Calendar para) {

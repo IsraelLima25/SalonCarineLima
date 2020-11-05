@@ -1,7 +1,6 @@
 package br.com.salon.carine.lima.services;
 
 import static br.com.salon.carine.lima.converters.ConvertersCliente.deClienteDTOParaCliente;
-import static br.com.salon.carine.lima.converters.ConvertersCliente.deListClienteParaListClienteDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,28 +41,16 @@ public class ClienteService {
 	}
 	
 	public Page<Cliente> findPageCliente(Integer page, Integer size) {
-		
-		if(page > 0) {
-		
-			PageRequest pageRequest = PageRequest.of(page, size);
+
+		PageRequest pageRequest = PageRequest.of(page, size);			
+		Page<Cliente> pagesCliente = clienteRepositorySJPA.findAll(pageRequest);
 			
-			Page<Cliente> pagesCliente = clienteRepositorySJPA.findAll(pageRequest);
-			
-			return pagesCliente;
-			
-		}else {
-			PageRequest pageRequest = PageRequest.of(page, size);
-			
-			Page<Cliente> pagesCliente = clienteRepositorySJPA.findAll(pageRequest);
-			
-			return pagesCliente;
-		}
+		return pagesCliente;
 	}
 
-	public List<ClienteDTO> listarTodos() {
+	public List<Cliente> listarTodos() {
 		List<Cliente> listaCliente = clienteRepositorySJPA.findAll();
-		List<ClienteDTO> listClienteDTO = deListClienteParaListClienteDTO(listaCliente);
-		return listClienteDTO;
+		return listaCliente;
 	}
 
 	public void remover(Integer id) {

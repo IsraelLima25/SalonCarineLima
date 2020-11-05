@@ -123,26 +123,10 @@ public class ServicoService {
 
 	public Page<Servico> findPageServico(Integer page, Integer size) {
 
-		if (page > 0) {
-
-			PageRequest pageRequest = PageRequest.of(page, size);
-			Page<Servico> pagesServico = servicoRepositorySJPA.findAll(pageRequest);
-
-			int pointInit = page * 5;
-
-			for (Servico servico : pagesServico) {
-				servico.setRowNumber(pointInit);
-				pointInit++;
-			}
-
-			return pagesServico;
-
-		} else {
 			PageRequest pageRequest = PageRequest.of(page, size);
 			Page<Servico> pagesServico = servicoRepositorySJPA.findAll(pageRequest);
 
 			return pagesServico;
-		}
 	}
 
 	public Page<Servico> buscarServicoRowNumber(Integer rowNumber) {
