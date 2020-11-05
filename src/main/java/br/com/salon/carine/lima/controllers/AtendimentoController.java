@@ -59,6 +59,11 @@ public class AtendimentoController {
 		
 		this.logger.info("Iniciando busca paginada model");
 		
+		/* Atualizar First Atendimento*/
+		atendimentoService.atualizarFirstId(atendimentoService.idFirstAtendimento());
+		/* Atualizar Last Atendimento*/
+		atendimentoService.atualizarLastId(atendimentoService.idLastAtendimento());
+		
 		ModelAndView modelAndView = new ModelAndView("atendimento/lista");
 		Page<Atendimento> pageAtendimento = atendimentoService.findPageAtendimento(page, size);
 		
@@ -83,7 +88,6 @@ public class AtendimentoController {
 		this.logger.info("Iniciando busca paginada JSON");
 		
 		Page<Atendimento> pageAtendimento = atendimentoService.findPageAtendimento(page, size);
-		
 		
 		return ResponseEntity.ok().body(pageAtendimento);
 	}
@@ -134,6 +138,11 @@ public class AtendimentoController {
 
 		ResponseMarcar response = atendimentoService.marcarAtendimento(atendimentoDTO,
 				request, result);
+		
+		/* Atualizar First Atendimento*/
+		atendimentoService.atualizarFirstId(atendimentoService.idFirstAtendimento());
+		/* Atualizar Last Atendimento*/
+		atendimentoService.atualizarLastId(atendimentoService.idLastAtendimento());
 
 		return ResponseEntity.created(uri).body(response);
 	}
@@ -141,26 +150,24 @@ public class AtendimentoController {
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	public ModelAndView detalheAtendimento(@PathVariable Integer id) {
 		ModelAndView modelAndView = new ModelAndView("atendimento/formDetalhar");
-		//Page<Atendimento> atendimento = atendimentoService.buscarAtendimentoRowNumber(rowNumber);
-		//modelAndView.addObject("atendimento",atendimento.getContent().get(0));
+		Atendimento atendimento = atendimentoService.buscarAtendimentoPorId(id);
+		modelAndView.addObject("atendimento",atendimento);
 		return modelAndView;
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "next")
-	public ModelAndView nextPage (@RequestParam boolean isLast, @RequestParam Integer number){
+	public ModelAndView nextAtendimento (@RequestParam Integer idAtendimentoAtual){
 		ModelAndView modelAndView = new ModelAndView("atendimento/formDetalhar");
-		Page<Atendimento> pagina = atendimentoService.nextPageService(isLast, number);
-		modelAndView.addObject("atendimento",pagina.getContent().get(0));
-		modelAndView.addObject("page", pagina);
+		Atendimento atendimento = atendimentoService.nextAtendimento(idAtendimentoAtual);
+		modelAndView.addObject("atendimento", atendimento);
 		return modelAndView;
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "previous")
-	public ModelAndView previousPage (@RequestParam boolean isFirst, @RequestParam Integer number){
+	public ModelAndView previousAtendimento (@RequestParam Integer idAtendimentoAtual){
 		ModelAndView modelAndView = new ModelAndView("atendimento/formDetalhar");
-		Page<Atendimento> pagina = atendimentoService.previousPageService(isFirst, number);
-		modelAndView.addObject("atendimento",pagina.getContent().get(0));
-		modelAndView.addObject("page", pagina);
+		Atendimento atendimento = atendimentoService.previousAtendimento(idAtendimentoAtual);
+		modelAndView.addObject("atendimento",atendimento);
 		return modelAndView;
 	}
 	
@@ -168,6 +175,12 @@ public class AtendimentoController {
 	@RequestMapping(method = RequestMethod.POST, value = "cancelar")
 	public ResponseEntity<Message> cancelar(Integer idAtendimentoCancelado) {
 		Message message = this.atendimentoService.cancelar(idAtendimentoCancelado);
+		
+		/* Atualizar First Atendimento*/
+		atendimentoService.atualizarFirstId(atendimentoService.idFirstAtendimento());
+		/* Atualizar Last Atendimento*/
+		atendimentoService.atualizarLastId(atendimentoService.idLastAtendimento());
+		
 		return ResponseEntity.ok().body(message);
 	}
 }

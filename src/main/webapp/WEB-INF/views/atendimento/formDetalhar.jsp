@@ -15,19 +15,21 @@
 		                <h4 class="color-font">Atendimento</h4>
             		</div>
 		            <div class="text-right col-4 col-md-4">
-						<a type="button" href="../atendimento/listar" class="btn btn-info fas fa-fast-backward"></a>
+						<a type="button" href="../atendimento/listar" class="btn btn-info fas fa-fast-backward">
+							voltar
+						</a>
 					</div>
             	</div>
                 <hr />
                 
                 <div class="row">
                 	<div class="col-6 col-md-6 text-left">
-                		<a	class="btn btn-success fas fa-arrow-left" 
-	                	href="/SalonCarineLima/atendimento/previous?isFirst=${page.isFirst()}&number=${page.getNumber()}"></a>
+                		<a	class="btn btn-success fas fa-chevron-left" 
+	                	href="/SalonCarineLima/atendimento/previous?idAtendimentoAtual=${atendimento.id}"></a>
                 	</div>
                 	<div class="col-6 col-md-6 text-right">
-	                	<a	class="btn btn-success fas fa-arrow-right" 
-	                	href="/SalonCarineLima/atendimento/next?isLast=${page.isLast()}&number=${page.getNumber()}"></a>
+	                	<a	class="btn btn-success fas fa-chevron-right" 
+	                	href="/SalonCarineLima/atendimento/next?idAtendimentoAtual=${atendimento.id}"></a>
                 	</div>
                 </div>
  				<div class="row">

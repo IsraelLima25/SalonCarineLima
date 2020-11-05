@@ -16,6 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -28,6 +30,8 @@ import br.com.salon.carine.lima.enuns.StatusAtendimento;
 import br.com.salon.carine.lima.enuns.TipoEndereco;
 
 @Entity
+@NamedEntityGraph(name = "Atendimento.itens", 
+attributeNodes = @NamedAttributeNode("itens"))
 public class Atendimento implements Serializable {
 
 	private static final long serialVersionUID = 1L;

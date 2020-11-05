@@ -2,6 +2,7 @@ package br.com.salon.carine.lima.repositoriessdp;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,5 +30,20 @@ public interface AtendimentoRepositorySJPA extends JpaRepository<Atendimento, In
 	@EntityGraph(value = "Cliente.endereco")
 	@Query("SELECT a FROM Atendimento a")
 	Page<Atendimento> findAllAtendimentoFetchEnderecoCliente(PageRequest pageRequest);
+	
+	@EntityGraph(value = "Atendimento.itens")
+	Optional<Atendimento> findById(Integer id);
+	
+	@Query("SELECT MIN(a.id) FROM Atendimento a")
+	Integer idFirstAtendimento();
+	
+	@Query("SELECT MAX(a.id) FROM Atendimento a")
+	Integer idLastAtendimento();
+	
+	@Query("SELECT MIN(a.id) FROM Atendimento a WHERE a.id > :idAtendimentoAtual")
+	Integer idAtendimentoProximo (@Param("idAtendimentoAtual") Integer idAtendimentoAtual);
+	
+	@Query("SELECT MAX(a.id) FROM Atendimento a WHERE a.id < :idAtendimentoAtual")
+	Integer idAtendimentoAnterior (@Param("idAtendimentoAtual") Integer idAtendimentoAtual);
 	
 }

@@ -9,7 +9,7 @@
 		<section>
 			<div class="container">
 			  <p hidden id="paginaAtual">${paginas.pageable.pageNumber}</p>
-				<h4 class="mt-2 color-font">Atendimentos Marcado</h4>
+				<h4 class="mt-2 color-font">Atendimentos Marcados</h4>
 				<hr />
 				<div class="row">
 					<div class="col-xs-3 ml-3">

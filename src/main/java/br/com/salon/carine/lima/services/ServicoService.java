@@ -12,16 +12,12 @@ import org.springframework.stereotype.Service;
 import br.com.salon.carine.lima.converters.ConvertersServico;
 import br.com.salon.carine.lima.dto.ServicoDTO;
 import br.com.salon.carine.lima.models.Servico;
-import br.com.salon.carine.lima.repositories.ServicoRepository;
 import br.com.salon.carine.lima.repositoriessdp.ServicoRepositorySJPA;
 import br.com.salon.carine.lima.response.Message;
 import br.com.salon.carine.lima.response.ResponseServico;
 
 @Service
 public class ServicoService {
-
-	@Autowired
-	public ServicoRepository servicoRepository;
 
 	@Autowired
 	public ServicoRepositorySJPA servicoRepositorySJPA;

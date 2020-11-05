@@ -62,6 +62,10 @@ public class AtendimentoService {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	private Integer idLastAtendimento;
+	
+	private Integer idFirstAtendimento;
 		
 	public ResponseMarcar marcarAtendimento(MarcarAtendimentoDTO atendimentoDTO, HttpServletRequest request,
 			BindingResult result) {
@@ -291,36 +295,63 @@ public class AtendimentoService {
 		}
 	}
 
-	public Page<Atendimento> nextPageService(boolean isLast, Integer number) {
+	public Atendimento nextAtendimento(Integer idAtendimentoAtual) {
 		
-		if(isLast) {
-			PageRequest pageRequest = PageRequest.of(0, 1);
-			Page<Atendimento> paginaProxima = atendimentoRepositorySJPA.findAll(pageRequest);
-			
-			return paginaProxima;
-			
+		if(isLastAtendimento(idAtendimentoAtual)) {
+			return firstAtendimento();
 		}else {
-			PageRequest pageRequest = PageRequest.of(number + 1, 1);
-			Page<Atendimento> paginaProxima = atendimentoRepositorySJPA.findAll(pageRequest);
-			
-			return paginaProxima;
+			Integer idAtendimentoProximo = atendimentoRepositorySJPA.idAtendimentoProximo(idAtendimentoAtual);
+			return atendimentoRepositorySJPA.findById(idAtendimentoProximo).get();
 		}
 	}
-
-	public Page<Atendimento> previousPageService(boolean isFirst, Integer number) {
+	
+	public Atendimento previousAtendimento(Integer idAtendimentoAtual) {
 		
-		if(isFirst) {			
-			int lastPage = (int) atendimentoRepositorySJPA.count() - 1;
-			PageRequest pageRequest = PageRequest.of(lastPage, 1);
-			Page<Atendimento> paginaAterior = atendimentoRepositorySJPA.findAll(pageRequest);
-			return paginaAterior;
-			
+		if(isFirstAtendimento(idAtendimentoAtual)) {
+			return lastAtendimento();
 		}else {
-			PageRequest pageRequest = PageRequest.of(number - 1, 1);
-			Page<Atendimento> paginaAterior = atendimentoRepositorySJPA.findAll(pageRequest);
-			
-			return paginaAterior;
+			Integer idAtendimentoAnterior = atendimentoRepositorySJPA.idAtendimentoAnterior(idAtendimentoAtual);
+			return atendimentoRepositorySJPA.findById(idAtendimentoAnterior).get();
 		}
+	}
+	
+	public Atendimento lastAtendimento() {
+		Integer idlastAtendimento = atendimentoRepositorySJPA.idLastAtendimento();
+		Optional<Atendimento> optionalAtendimento = atendimentoRepositorySJPA.findById(idlastAtendimento);
+		if(optionalAtendimento.isPresent()) {
+			return optionalAtendimento.get();
+		}
+		
+		return null;
+	}
+	
+	public boolean isFirstAtendimento(Integer idAtendimentoAtual) {
+		
+		if(idFirstAtendimento == idAtendimentoAtual) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean isLastAtendimento(Integer idAtendimentoAtual) {
+		
+		if(idLastAtendimento == idAtendimentoAtual) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public Atendimento firstAtendimento() {
+		
+		Integer idFirstAtendimento = atendimentoRepositorySJPA.idFirstAtendimento();
+		Optional<Atendimento> optionalAtendimento = atendimentoRepositorySJPA.findById(idFirstAtendimento);
+		if(optionalAtendimento.isPresent()) {
+			return optionalAtendimento.get();
+		}
+		
+		return null;
 	}
 	
 	public void alterarStatusAtendimento(Integer idAtendimento) {
@@ -366,5 +397,21 @@ public class AtendimentoService {
 	
 	public List<Atendimento> findAllAtendimentosList(Calendar de, Calendar para) {
 		return atendimentoRepositorySJPA.findByDataBetween(de, para);
+	}
+	
+	public void atualizarLastId(Integer id) {
+		idLastAtendimento = id;
+	}
+
+	public void atualizarFirstId(Integer id) {
+		idFirstAtendimento = id;
+	}
+	
+	public Integer idLastAtendimento() {
+		return atendimentoRepositorySJPA.idLastAtendimento();
+	}
+	
+	public Integer idFirstAtendimento() {
+		return atendimentoRepositorySJPA.idFirstAtendimento();
 	}
 }
