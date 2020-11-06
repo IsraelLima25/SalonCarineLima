@@ -1,7 +1,8 @@
 	 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
 	 
-	        <a class="navbar-brand" href="../dashboard/home">
-	       		SAG 
+	        <a class="navbar-brand far fa-calendar-alt loader" href="../dashboard/home" 
+	        	style="margin-left: 15px;">
+	       		SAG - Agendamentos 
 	        </a>
 	
 	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -21,7 +22,6 @@
 	                        <a class="dropdown-item" href="../atendimento/listar"><i style="font-size: 10px;" class="fas fa-play"></i>
 	                            Agenda</a>
 	                    </div>
-
 	                </li>
 	
 	                <li class="nav-item dropdown dpdwCliente">
@@ -35,7 +35,6 @@
 	                                class="fas fa-play"></i> Cadastrar</a>
 	                        <a class="dropdown-item" href="../cliente/listar"><i style="font-size: 10px;"
 	                                class="fas fa-play"></i> Listar</a>
-	                                
 	                    </div>
 	                </li>
 	
@@ -43,7 +42,7 @@
 	                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLancamento" role="button"
 	                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	                        <i class="fas fa-hand-holding-usd"></i>
-	                        Lançamentos
+	                        	Lançamentos
 	                    </a>
 	                    <div id="divLancamento" class="dropdown-menu" aria-labelledby="navbarDropdownLancamento">
 	                        <a class="dropdown-item" href="../lancamento/relatorio"><i style="font-size: 10px;" class="fas fa-play"></i>

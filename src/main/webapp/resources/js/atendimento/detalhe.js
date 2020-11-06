@@ -7,7 +7,7 @@ if($('#status').val() === 'Atendido'){
 
 $(function() {
 	$('button[type=submit][id=confirmarLancamento]').click(function(e) {
-
+		showLoader();
 		e.preventDefault();
 
 		$.post({
@@ -16,18 +16,21 @@ $(function() {
 			data : $('form[name=formLancamento]').serialize(),
 		})
 		.then(function(data, textStatus, xhr) {
+			hideLoader();
 			//chama modal de sucesso
 			$('#modalSucesso').modal('show');
+			
 		})
 		.catch(function(err) {
 			thowErrorPage(err.responseJSON);
+			hideLoader();
 		})
 	})
 });
 
 $(function() {
 	$('button[type=submit][id=cancelarAtendimento]').click(function(e) {
-
+		showLoader();
 		e.preventDefault();
 
 		$.post({
@@ -36,18 +39,19 @@ $(function() {
 			data : $('form[name=formCancelamento]').serialize(),
 		})
 		.then(function(data, textStatus, xhr) {
+			hideLoader();
 			//chama modal de cancelamento
 			$('#modalCancelado').modal('show');
 		})
 		.catch(function(err) {
 			thowErrorPage(err.responseJSON);
+			hideLoader();
 		})
 	})
 });
 
 $('#modalSucesso').on('hidden.bs.modal', function (e) {
 	var idAtendimento = $('#atendimentoId').val();
-	/*Corrigir para passar o id do atendimento e não a linha*/
 	window.location.href = `/SalonCarineLima/atendimento/${idAtendimento}`; 
 });
 

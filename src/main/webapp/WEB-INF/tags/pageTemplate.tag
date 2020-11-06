@@ -29,7 +29,7 @@
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 
 	<!-- Conteudo da pagina -->
-
+	
 	<!--Botão voltar para o topo -->
 	<div class="back-to-top" hidden href="#">
 		<i class="fas fa-chevron-up"></i>
@@ -50,6 +50,21 @@
 				<div class="modal-footer"></div>
 			</div>
 		</div>
+	</div>
+	
+	<div class="modal" id="modalLoading" tabindex="-1" data-backdrop="static">
+		  <div class="modal-dialog modal-loading">
+		    <div class="modal-content">
+		      <div class="modal-body text-center">
+		        <div class="modal-body text-center">
+					 Carregando..
+					 <div class="spinner-border text-success" role="status">
+		  				<span class="sr-only">Loading...</span>
+					 </div>
+		       </div>
+		      </div>
+		    </div>
+		  </div>
 	</div>
 
 	<jsp:doBody />

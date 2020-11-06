@@ -1,5 +1,6 @@
 $(function() {
 	$('button[type=submit]').click(function(e) {
+		showLoader();
 		e.preventDefault();
 		$.post({
 			url : '/SalonCarineLima/atendimento',
@@ -10,6 +11,7 @@ $(function() {
 			 if (xhr.status === 201) {
 		     limparMessagesErrors();
 			 showModal(data);
+			 hideLoader();
 			}
 		})
 		.catch(function(err) {
@@ -17,6 +19,7 @@ $(function() {
 			thowErrorPage(err.responseJSON);
 			console.log("Fail request");
 			console.log(err);
+			hideLoader();
 		})
 
 	})

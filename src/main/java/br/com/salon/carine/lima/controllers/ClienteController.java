@@ -42,7 +42,7 @@ public class ClienteController {
 		return modelAndView;
 	}
 	
-	@CacheEvict(value = "listarClientesHTML", allEntries = true)
+	@CacheEvict(value = {"listarClientesHTML","listarClientesJSON"}, allEntries = true)
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<ResponseCliente> cadastrarCliente(@Valid ClienteDTO clienteDTO,			
 			BindingResult result, HttpServletRequest request) {
@@ -62,7 +62,7 @@ public class ClienteController {
 		return ResponseEntity.created(uri).body(response);
 	}
 	
-	@CacheEvict(value = "listarClientesHTML", allEntries = true)
+	@CacheEvict(value = {"listarClientesHTML","listarClientesJSON"}, allEntries = true)
 	@RequestMapping(method = RequestMethod.POST, value = "alterar")
 	public ResponseEntity<ResponseCliente> alterarCliente(@Valid ClienteDTO clienteDTO,
 			BindingResult result, HttpServletRequest request) {
@@ -100,6 +100,7 @@ public class ClienteController {
 		return modelAndView;
 	}
 	
+	@Cacheable(value = "listarClientesJSON")
 	@RequestMapping(method = RequestMethod.GET, value = "listar/json")
 	public ResponseEntity<Page<Cliente>> detalheClienteJSON(
 			@RequestParam(defaultValue = "0") Integer page,
@@ -112,7 +113,7 @@ public class ClienteController {
 		return ResponseEntity.ok().body(pageCliente);
 	}
 	
-	@CacheEvict(value = "listarClientesHTML", allEntries = true)
+	@CacheEvict(value = {"listarClientesHTML","listarClienteJSON"}, allEntries = true)
 	@RequestMapping(method = RequestMethod.DELETE, value = "/remover/{id}")
 	public ResponseEntity<Void> removerCliente(@PathVariable("id") Integer id) {
 		

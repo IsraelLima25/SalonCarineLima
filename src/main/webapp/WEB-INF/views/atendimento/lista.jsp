@@ -7,9 +7,9 @@
 <tags:pageTemplate titulo="Lista Atendimentos">
 	<main>
 		<section>
-			<div class="container">
+			<div class="container container-space-default">
 			  <p hidden id="paginaAtual">${paginas.pageable.pageNumber}</p>
-				<h4 class="mt-2 color-font">Atendimentos Marcados</h4>
+				<h4 class="color-font">Atendimentos Marcados</h4>
 				<hr />
 				<div class="row">
 					<div class="col-xs-3 ml-3">
@@ -56,7 +56,7 @@
 						</div>
 					</form>
 				</div>
-				<table id="atendimento-table" class="table mt-2">
+				<table id="atendimento-table" class="table table-striped mt-5">
 					<thead>
 						<tr>
 							<th scope="col">Cliente</th>
@@ -89,7 +89,7 @@
 									<fmt:formatDate pattern="HH:mm" value="${atendimento.hora}" />
 								</td>
 								<td class="text-center"><a
-									class="fas fa-search btn btn-info"
+									class="fas fa-search btn btn-info loader"
 									href="${s:mvcUrl('AC#detalheAtendimento').arg(0,atendimento.id).build()}"></a>
 								</td>
 							</tr>

@@ -1,5 +1,6 @@
 $(function() {
 	$('button[type=submit]').click(function(e) {
+		showLoader();
 		e.preventDefault();
 		$.post({
 			url : '/SalonCarineLima/atendimento/filterData',
@@ -8,9 +9,11 @@ $(function() {
 		.then(function(data, textStatus, xhr) {
 			limparMessagesErrors();
 			rendererTabela(data.content);
+			hideLoader();
 		})
 		.catch(function(err) {
 			thowErrorPage(err.responseJSON);
+			hideLoader();
 		})
 
 	})

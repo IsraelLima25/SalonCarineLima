@@ -1,6 +1,5 @@
 /****************** Scripts de paginação ***********************************/
 
-
 function removerActiveButton(){
 	$("nav ul li").removeClass("active");
 }
@@ -135,4 +134,3 @@ function limparTabela(){
 }
 
 /**************************************************************************************/
-

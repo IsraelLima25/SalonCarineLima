@@ -1,6 +1,6 @@
 $(function() {
 	$('button[type=submit]').click(function(e) {
-
+		showLoader();
 		e.preventDefault();
 
 		$.post({
@@ -13,10 +13,12 @@ $(function() {
 			if (xhr.status === 200) {
 			showMessage(data);
 			atualizarPagina();
+			hideLoader();
 		}
 		})
 		.catch(function(err) {
 			thowErrorPage(err.responseJSON);
+			hideLoader();
 		})
 	})
 });
@@ -48,6 +50,7 @@ function topPage() {
 }
 
 function removerServico(idServico) {
+	showLoader();
 	$.post({
 		url : `/SalonCarineLima/servico/remover/${idServico}`,
 		method : 'DELETE'
@@ -55,9 +58,11 @@ function removerServico(idServico) {
 	.then(
 		function() {
 			showModalMessageExcluir();
+			hideLoader();
 		})
 	.catch(function(err) {
 		showModalExclusaoInvalida();
+		hideLoader();
 	});	
 }
 

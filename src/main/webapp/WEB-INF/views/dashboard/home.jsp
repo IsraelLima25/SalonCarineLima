@@ -8,12 +8,12 @@
 	
 	<main>
 		<section>
-			<div class="container" style="margin-top:100px;">
+			<div class="container container-space-default" style="margin-top:100px;">
                 <div class="pb-4">
                     <h4 class="text-center"><i class="fas fa-clock"></i> Hoje ${dataAtual}</h4>
                 </div>
 
-                <h3 class="color-font mt-4">Atendimentos</h3>
+                <h3 class="color-font">Atendimentos</h3>
                 <hr />
                 
                 <c:choose>
@@ -28,12 +28,10 @@
 			                    <div class="card-body">
 			                        <ul>
 			                    		<li>
-			                        		<b>Cliente</b>:
-			                        		<p>${atendimento.cliente.nome}</p>
+			                        		<p><b>Cliente</b>: ${atendimento.cliente.nome}</p>
 			                        	</li>
 			                        	<li>
-			                        		<b>Bairro</b>:
-			                        		<p>${atendimento.endereco.bairro}</p>
+			                        		<p><b>Bairro</b>: ${atendimento.endereco.bairro}</p>
 			                        	</li>
 			                            <li>
 			                                <b>Hora</b>:
@@ -41,12 +39,11 @@
 			                            </li>
 			                        </ul>
 			
-			                        <a id="btnCadastrar" style="margin-bottom: 16px; width:120px;" 
+			                        <a id="btnCadastrar" style="margin-bottom: 16px;" 
 			                        	type="button" class="btn btn-color-salon btn-block"
 			                        	href="${s:mvcUrl('AC#detalheAtendimento')
 			                        			.arg(0,atendimento.id).build()}">
-			                        			
-			                        		Detalhes
+			                        		Detalhar Atendimento
 			                        </a>
 			                    </div>
 			

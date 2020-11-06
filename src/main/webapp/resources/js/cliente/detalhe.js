@@ -1,8 +1,7 @@
 $(function() {
 	$('button[type=submit]').click(function(e) {
-
 		e.preventDefault();
-
+		showLoader();
 		$.post({
 			url : '/SalonCarineLima/cliente/alterar',
 			method : 'POST',
@@ -13,10 +12,12 @@ $(function() {
 			if (xhr.status === 200) {
 			showMessage(data);
 			atualizarPagina();
+			hideLoader();
 		}
 		})
 		.catch(function(err) {
 			thowErrorPage(err.responseJSON);
+			hideLoader();
 		})
 	})
 });
@@ -62,15 +63,18 @@ function limparMessagesErrors(){
 }
 
 function removerCliente(idCliente) {
+	showLoader();
 	$.post({
 		url : `/SalonCarineLima/cliente/remover/${idCliente}`,
 		method : 'DELETE'
 	})
 	.then(function() {
 		showModalMessageExcluir();
+		hideLoader();
 	})
 	.catch(function(err) {
 		showModalExclusaoInvalida();
+		hideLoader();
 	});
 }
 

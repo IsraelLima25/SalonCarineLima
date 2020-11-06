@@ -8,8 +8,8 @@
 
 	<main>
 		<section>
-			<div class="container">
-				<h4 class="mt-4 color-font">Relatório Lançamento</h4>
+			<div class="container container-space-default">
+				<h4 class="color-font">Relatório Lançamento</h4>
 				<hr />
 				
 				<input hidden id="idLancamento" />
@@ -43,7 +43,7 @@
 								<p id="valor" style="display: inline;">${totalPeriodo}</p>
 							</b>
 						</div>
-						<table id="lancamento-table" class="table">
+						<table id="lancamento-table" class="table table-striped mt-3">
 							<thead class="text-center">
 								<tr>
 									<th scope="col" class="text-left">Valor</th>
@@ -77,7 +77,7 @@
 										</td>
 									
 										<td class="text-center">
-										<a class="fas fa-search btn btn-info"
+										<a class="fas fa-search btn btn-info loader"
 										href="${s:mvcUrl('AC#detalheAtendimento').arg(0,lancamento.atendimento.id).build()}">
 										</a>
 											

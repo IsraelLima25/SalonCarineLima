@@ -1,5 +1,6 @@
 $(function() {
 	$('button[type=submit]').click(function(e) {
+		showLoader();
 		e.preventDefault();
 		$.post({
 			url : '/SalonCarineLima/lancamento/filterData',
@@ -8,9 +9,11 @@ $(function() {
 		.then(function(data, textStatus, xhr) {
 			limparMessagesErrors();
 			rendererTabela(data);
+			hideLoader();
 		})
 		.catch(function(err) {
 			thowErrorPage(err.responseJSON);
+			hideLoader();
 		})
 
 	})
@@ -89,16 +92,19 @@ function updateIdOpenModal(lancamentoId){
 
 function estornarLancamento(){
 	var idLancamentoAtual = $('#idLancamento').text();
+	showLoader();
 	$.get({
 		url : `/SalonCarineLima/lancamento/estornar/${idLancamentoAtual}`
 	})
 	.then(function(data, textStatus, xhr) {
 		removeElement(idLancamentoAtual);
 		updateValues(data.totalPeriodo);
+		hideLoader();
 	})
 	.catch(function(err) {
 		console.log("Request fail");
 		console.log(err);
+		hideLoader();
 	})
 }
 

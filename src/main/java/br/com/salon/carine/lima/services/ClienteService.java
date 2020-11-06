@@ -49,7 +49,7 @@ public class ClienteService {
 	}
 
 	public List<Cliente> listarTodos() {
-		List<Cliente> listaCliente = clienteRepositorySJPA.findAll();
+		List<Cliente> listaCliente = clienteRepositorySJPA.findByOrderByNomeAsc();
 		return listaCliente;
 	}
 

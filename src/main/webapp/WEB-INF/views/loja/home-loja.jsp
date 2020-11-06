@@ -15,7 +15,7 @@
 						<h4 class="mt-4 color-font">Loja de Serviços</h4>
 					</div>
 					<div class="col-6 col-lg-6 text-right">
-						<a class="btn btn-color-salon fas fa-cart-plus"
+						<a class="btn btn-color-salon fas fa-cart-plus loader"
 						href="../carrinho/itensCarrinho"> 
 						</a>
 					</div>

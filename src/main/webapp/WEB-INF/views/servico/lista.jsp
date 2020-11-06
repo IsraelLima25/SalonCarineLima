@@ -5,8 +5,8 @@
 
 <tags:pageTemplate titulo="Lista Serviços">
 
-	<div class="container">
-		<h4 class="mt-4 color-font">Lista de Serviços</h4>
+	<div class="container container-space-default">
+		<h4 class="color-font">Lista de Serviços</h4>
 		<hr />
 
 		<div class="form-group">
@@ -47,7 +47,7 @@
 						<td>${servico.descricao}</td>
 						<td>${servico.preco}</td>
 						<td class="text-center">
-							<a class="fas fa-search btn btn-info" 
+							<a class="fas fa-search btn btn-info loader" 
 							href="${s:mvcUrl('SC#detalheServico').arg(0,servico.id).build()}"></a>
 						</td>
 					</tr>

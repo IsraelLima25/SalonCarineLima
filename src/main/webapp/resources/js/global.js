@@ -21,6 +21,20 @@ $('section').click(function() {
 	$('.navbar-collapse').collapse('hide');
 })
 
+/*Modal Loading*/
+function showLoader() {
+	$('#modalLoading').modal('show');
+}
+
+function hideLoader() {
+	console.log('sumiu');
+	$('#modalLoading').modal('hide');
+}
+
+$('.loader').on('click', function(e) {
+	showLoader();
+})
+
 /*Lançar mensagens Erro Pagina*/
 function thowErrorPage(errors){
 	limparMessagesErrors();

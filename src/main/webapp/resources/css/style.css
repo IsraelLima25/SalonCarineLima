@@ -129,4 +129,34 @@ body {
   	border-color: #D3D3D3;
   	border-radius: 10px;
   	padding: 10px;
+ }
+ 
+#navbarNav{
+    padding:10px;
+    width:100%;
+}
+#navbarNav ul{
+  	padding:0;
+  	list-style:none;
+	margin:0 auto;
+}
+.container-space-default{
+	margin-top: 100px;
+}
+
+#modalLoading {
+  text-align: center;
+}
+@media screen and (min-width: 375px) {
+  #modalLoading:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
   }
+}
+.modal-loading {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}

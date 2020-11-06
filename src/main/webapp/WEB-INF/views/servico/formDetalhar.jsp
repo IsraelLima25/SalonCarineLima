@@ -5,14 +5,14 @@
 
 <tags:pageTemplate titulo="Detalhar Serviço">
 
-	<div class="container">
-		<div class="row mt-4">
+	<div class="container container-space-default">
+		<div class="row">
 			<div class="text-left col-8 col-md-8">
 				<h4 class="text-left color-font">Dados Serviço</h4>
 			</div>
 			<div class="text-right col-4 col-md-4">
 				<a type="button" href="../servico/listar"
-					class="btn btn-info fas fa-fast-backward">
+					class="btn btn-info fas fa-fast-backward loader">
 					Voltar	
 				</a>
 			</div>

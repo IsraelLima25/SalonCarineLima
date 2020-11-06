@@ -9,8 +9,8 @@
 
 	<main>
 		<section>
-			<div class="container">
-				<h4 class="mt-4 color-font">Marcar Atendimento</h4>
+			<div class="container container-space-default">
+				<h4 class="color-font">Marcar Atendimento</h4>
 				<hr />
 				<form name="formMarcar">
 					<div class="form-group">
@@ -147,7 +147,7 @@
 
 					<div class="text-center alinhamento">
 						<button id="btnMarcar" style="margin-bottom: 16px;" type="submit"
-							class="btn btn-color-salon btn-block">Finalizar</button>
+							class="btn btn-color-salon btn-block">Marcar</button>
 					</div>
 
 				</form>

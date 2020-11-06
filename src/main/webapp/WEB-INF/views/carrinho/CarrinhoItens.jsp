@@ -10,10 +10,10 @@
 
 				<div class="row">
 					<div class="col-6 col-lg-6">
-						<h4 class="mt-4 color-font">Carrinho de Serviços</h4>
+						<h4 class="color-font mt-4">Carrinho de Serviços</h4>
 					</div>
 					<div class="col-6 col-lg-6 text-right">
-						<a class="btn btn-color-salon fas fa-store"
+						<a class="btn btn-color-salon fas fa-store loader"
 						href="../loja/itensLoja"> 
 						</a>
 					</div>

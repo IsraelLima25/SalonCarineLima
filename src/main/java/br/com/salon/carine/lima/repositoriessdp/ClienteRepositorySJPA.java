@@ -38,6 +38,6 @@ public interface ClienteRepositorySJPA extends JpaRepository<Cliente, Integer>  
 	@Query("FROM Cliente c WHERE c.nome LIKE :nome%")
 	List<Cliente> searchNomeFilter(@Param("nome") String nome);
 	
-	
+	List<Cliente> findByOrderByNomeAsc();
 	
 }

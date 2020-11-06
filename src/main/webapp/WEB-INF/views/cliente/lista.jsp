@@ -5,12 +5,12 @@
 
 <tags:pageTemplate titulo="Lista Cliente">
 
-	<div class="container">
+	<div class="container container-space-default">
 		<h4 class="mt-4 color-font">Lista de Clientes</h4>
 		<hr />
 
 		<div class="form-group">
-			<label class="mt-3 color-font-label" for="nome-filter">Filtrar por nome</label> 
+			<label class="color-font-label" for="nome-filter">Filtrar por nome</label> 
 			<input type="text" class="form-control" id="nome-filter">
 			<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
 		</div>
@@ -48,7 +48,7 @@
 							${cliente.nome}
 						</td>
 						<td class="text-center"><a
-							class="fas fa-search btn btn-info"
+							class="fas fa-search btn btn-info loader"
 							href="${s:mvcUrl('detalharCliente').arg(0,cliente.id).build()}"></a>
 						</td>
 					</tr>

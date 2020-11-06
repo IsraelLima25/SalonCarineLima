@@ -4,14 +4,14 @@
 
 <tags:pageTemplate titulo="Detalhar Cliente">
 
-	<div class="container page">
+	<div class="container page container-space-default">
 
-		<div class="row mt-4">
+		<div class="row">
 			<div class="text-left col-8 col-md-8">
 				<h4 class="text-left color-font">Dados do Cliente</h4>
 			</div>
 			<div class="text-right col-4 col-md-4">
-				<a type="button" href="../cliente/listar" class="btn btn-info fas fa-fast-backward">
+				<a type="button" href="../cliente/listar" class="btn btn-info fas fa-fast-backward loader">
 					voltar
 				</a>
 			</div>

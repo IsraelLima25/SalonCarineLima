@@ -1,5 +1,6 @@
 $(function() {
 	$('button[type=submit]').click(function(e) {
+		showLoader();
 		e.preventDefault();
 		$.post({
 			url : '/SalonCarineLima/servico',
@@ -10,10 +11,12 @@ $(function() {
 			if (xhr.status === 201) {
 				showMessage(data);
 				atualizarPagina();
+				hideLoader();
 			}
 		})
 		.catch(function(err) {
 			thowErrorPage(err.responseJSON);
+			hideLoader();
 		})
 
 	})

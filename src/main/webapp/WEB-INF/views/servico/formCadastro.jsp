@@ -6,8 +6,8 @@
 <tags:pageTemplate titulo="Cadastro Servico">
 	<main>
 		<section>
-			<div class="container">
-				<h4 class="mt-4 color-font">Cadastrar Serviço</h4>
+			<div class="container container-space-default">
+				<h4 class="color-font">Cadastrar Serviço</h4>
 				<hr />
 				<form name="formCadastro">
 					<div class="form-group">

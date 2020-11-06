@@ -106,7 +106,7 @@ public class AtendimentoController {
 		
 		return ResponseEntity.ok().body(listaFiltrada);
 	}
-
+	
 	@RequestMapping(method = RequestMethod.GET, value = "formMarcar")
 	public ModelAndView formMarcarAtendimento() {		
 		

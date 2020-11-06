@@ -67,6 +67,7 @@ function atualizaCardsServicos(idServico){
 }
 
 function marcarAtendimento(){
+	showLoader();
 	$.ajax({
 		url: "/SalonCarineLima/carrinho/totalCarrinho",
 		method: 'GET',
@@ -74,12 +75,15 @@ function marcarAtendimento(){
 	}).then(function(valorTotalCarrinho) {
 		if(valorTotalCarrinho > 0){
 			window.location.href = "/SalonCarineLima/atendimento/formMarcar";
+			hideLoader();
 		}else{
 			showMessageClient("Carrinho Vazio","Nenhum serviço foi adicionado ao carrinho");
+			hideLoader();
 		}
 	}).catch(function(err) {
 		console.log('fail request');
 		console.log(err);
+		hideLoader();
 	})
 }
 

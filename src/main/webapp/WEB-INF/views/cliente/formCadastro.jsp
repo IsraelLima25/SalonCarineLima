@@ -6,10 +6,9 @@
 <tags:pageTemplate titulo="Cadastro Cliente">
 	<main>
 		<section>
-			<div class="container">
-				<h4 class="mt-4 color-font">Cadastrar Cliente</h4>
+			<div class="container container-space-default">
+				<h4 class="color-font">Cadastrar Cliente</h4>
 				<hr />
-				
 				<form name="formCadastro">
 					<div class="form-group">
 						<label class="color-font-label" for="nome">Nome <span class="obrigatorio">*</span></label> <input
@@ -77,7 +76,6 @@
 
 				</form>
 			</div>
-
 		</section>
 		
 	</main>

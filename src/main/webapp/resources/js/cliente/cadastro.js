@@ -1,6 +1,7 @@
 $(function() {
 	$('button[type=submit]').click(function(e) {
 		e.preventDefault();
+		showLoader();
 		$.post({
 			url : '/SalonCarineLima/cliente',
 			method : 'POST',
@@ -10,12 +11,13 @@ $(function() {
 			if (xhr.status === 201) {
 				showMessage(data);
 				atualizarPagina();
+				hideLoader();
 			}
 		})
 		.catch(function(err) {
 			thowErrorPage(err.responseJSON);
+			hideLoader();
 		})
-
 	})
 });
 

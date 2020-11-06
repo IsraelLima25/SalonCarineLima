@@ -8,14 +8,15 @@
 
  <main>
         <section>
-            <div class="container">
+            <div class="container container-space-default">
             	<input id="rowNumberAtual" hidden value="${page.getNumber()}" />
-            	<div class="row mt-4">
+            	<div class="row">
             		<div class="text-left col-8 col-md-8">
 		                <h4 class="color-font">Atendimento</h4>
             		</div>
 		            <div class="text-right col-4 col-md-4">
-						<a type="button" href="../atendimento/listar" class="btn btn-info fas fa-fast-backward">
+						<a type="button" href="../atendimento/listar" 
+							class="btn btn-info fas fa-fast-backward loader">
 							voltar
 						</a>
 					</div>
@@ -308,7 +309,8 @@
 <%-- 				         action="${s:mvcUrl('AC#marcarAtendimento').arg(0,atendimento.id).build()}" --%>
 				      <form method="post" name="formLancamento">
 				      		<input hidden id="atendimentoId" name="idAtendimento" value="${atendimento.id}" />
-					        <button type="submit" id="confirmarLancamento" class="btn btn-color-salon" data-dismiss="modal">
+					        <button type="submit" id="confirmarLancamento" 
+					        	class="btn btn-color-salon" data-dismiss="modal">
 					        	Sim
 					        </button>
 				      </form>
