@@ -66,7 +66,7 @@ public class Atendimento implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pagamento_id")
 	private Pagamento pagamento;
-
+	
 	private BigDecimal desconto;
 
 	private BigDecimal taxa;

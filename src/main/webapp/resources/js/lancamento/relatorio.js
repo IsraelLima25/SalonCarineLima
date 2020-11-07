@@ -25,31 +25,35 @@ function rendererTabela(data) {
 	
 	if(data.lancamentos.length === 0){
 		$('#msg-nenhum-registro-encontrado').prop("hidden", false);
+		$('#valor').text(parseFloat(0).toFixed(2));
 	}else{
 		$('#msg-nenhum-registro-encontrado').prop("hidden", true);
-	}
-	data.lancamentos.forEach(function(lancamento) {
-		
-		var dataFormatada = formatData(lancamento.data);
-		var valorLancamento = parseFloat(lancamento.valorTotal).toFixed(2);
-				
-		$('#lancamento-table').append(
-			`
-			<tr id = ${lancamento.id}>
-				<td>${valorLancamento}</td>
-				<td class="text-center">${dataFormatada}</td>
-				<td class="text-center">
-					<a class="fas fa-search btn btn-info"
-					 href="/SalonCarineLima/atendimento/pageId/${lancamento.atendimento.id}" />
-				</td>
-				 <td class="text-center">
-					<a class="fas fa-undo btn btn-danger" onClick="updateIdOpenModal(${lancamento.id})" />
-				</td>
-			</tr>	
-			`
-		);
-		$('#valor').text(parseFloat(data.totalPeriodo).toFixed(2));
-	})
+	
+		data.lancamentos.forEach(function(lancamento) {
+			
+			var dataFormatada = formatData(lancamento.data);
+			var valorLancamento = lancamento.valorTotal.toLocaleString('pt-BR', 
+					{ style: 'currency', currency: 'BRL' });
+					
+			$('#lancamento-table').append(
+				`
+				<tr id = ${lancamento.id}>
+					<td>${valorLancamento}</td>
+					<td class="text-center">${dataFormatada}</td>
+					<td class="text-center">
+						<a class="fas fa-search btn btn-info"
+						 href="/SalonCarineLima/atendimento/${lancamento.atendimento.id}" />
+					</td>
+					 <td class="text-center">
+						<a class="fas fa-undo btn btn-danger" onClick="updateIdOpenModal(${lancamento.id})" />
+					</td>
+				</tr>	
+				`
+			);
+			$('#valor').text(data.totalPeriodo.toLocaleString('pt-BR', 
+					{ style: 'currency', currency: 'BRL' }));
+		})
+}
 }
 
 function formatData(milessegundo){

@@ -22,8 +22,8 @@
 							
 					</div>
 					<div class="form-group">
-						<label class="color-font-label" for="telefone">Telefone</label> <input
-							type="number" placeholder="(ddd) 9 9999-9999" class="form-control" 
+						<label class="color-font-label" for="telefone">Telefone</label> 
+						<input type="text" placeholder="(ddd)99999-9999" class="form-control tel" 
 							id="telefone" name="telefone">
 							<small hidden class="form-text obrigatorio telefone"></small>
 					</div>

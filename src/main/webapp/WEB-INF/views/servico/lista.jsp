@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 <tags:pageTemplate titulo="Lista Serviços">
@@ -45,7 +46,9 @@
 				<c:forEach items="${paginas.content}" var="servico">
 					<tr>
 						<td>${servico.descricao}</td>
-						<td>${servico.preco}</td>
+						<td>
+							<fmt:formatNumber pattern="#,##0.00" type="currency" value="${servico.preco}"/>
+						</td>
 						<td class="text-center">
 							<a class="fas fa-search btn btn-info loader" 
 							href="${s:mvcUrl('SC#detalheServico').arg(0,servico.id).build()}"></a>

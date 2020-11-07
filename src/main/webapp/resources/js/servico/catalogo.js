@@ -143,8 +143,8 @@ function rendererTabela (servicos) {
 	}
 	servicos.forEach(function(servico) {
 		
-		var preco = parseFloat(servico.preco).toFixed(2);
-		
+		//var preco = parseFloat(servico.preco).toFixed(2);
+		var preco = servico.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 		$('#servico-table').append(
 			`
 			<tr>

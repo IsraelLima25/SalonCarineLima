@@ -69,3 +69,6 @@ function showMessageClient(title, body) {
 	$('#modalPage').modal('show');
 }
 
+/*mask*/
+$('.moeda').mask('#.##0,00', {reverse: true});
+$('.tel').mask('###########', {reverse: true});

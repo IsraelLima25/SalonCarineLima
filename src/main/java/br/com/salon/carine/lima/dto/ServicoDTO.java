@@ -3,10 +3,10 @@ package br.com.salon.carine.lima.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.NumberFormat;
 
 public class ServicoDTO implements Serializable {
 
@@ -18,7 +18,7 @@ public class ServicoDTO implements Serializable {
 	private String descricao;
 	
 	@NotNull(message = "Preço Obrigatório")
-	@Digits(integer = 3, fraction = 2, message = "Preço inválido")
+	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal preco;
 
 	public ServicoDTO() {

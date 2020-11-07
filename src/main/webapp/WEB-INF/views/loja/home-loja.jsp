@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
@@ -30,7 +31,11 @@
 									<article class="card card-imagem">
 										<div class="card-body">
 											<h5 class="card-title">${servico.descricao}</h5>
-											<p class="card-text">Preço: R$ ${servico.preco}</p>
+											<p class="card-text">
+												Preço: R$
+												<fmt:formatNumber type="currency" 
+												pattern="#,##0.00" value="${servico.preco}"/> 
+											</p>
 											<a type="button" onclick="adicionarItemCarrinho(${servico.id})"
 												class="btn btn-color-salon-card
 										fas fa-cart-plus">

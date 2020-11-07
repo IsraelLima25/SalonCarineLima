@@ -35,12 +35,17 @@
 					</div>
 				</form>
 				</div>
-
+				<div id="msg-nenhum-registro-encontrado" class="mt-4" hidden>
+					<p>Nenhum lançamento neste período</p>
+				</div>
 				<div style="margin-bottom: 100px; margin-top: 10px;">
 					<div class="mt-5">
 						<div class="text-right alert alert-success" role="alert">
 							<b>Faturamento: R$ 
-								<p id="valor" style="display: inline;">${totalPeriodo}</p>
+								<p id="valor" style="display: inline;">
+									<fmt:formatNumber type="currency" pattern="#,##0.00"
+										value="${totalPeriodo}" />
+								</p>
 							</b>
 						</div>
 						<table id="lancamento-table" class="table table-striped mt-3">
@@ -53,24 +58,12 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr id="msg-nenhum-registro-encontrado" hidden>
-									<td>
-										<p>
-											<i>Nenhum Lançamento encontrado</i>
-										</p>
-									</td>
-								</tr>
-								
-								<c:if test="${lancamentos.size()==0}">
-									<tr>
-										<p>
-											<i>Nenhum lançamento neste período</i>
-										</p>
-									</tr>
-								</c:if>
 								<c:forEach items="${lancamentos}" var="lancamento">
 									<tr id="${lancamento.id}">
-										<td>${lancamento.valorTotal}</td>
+										<td>R$
+										<fmt:formatNumber type="currency" pattern="#,##0.00"
+											value="${lancamento.valorTotal}" />
+										</td>
 										<td class="text-center">
 											<fmt:formatDate pattern="dd/MM/yy" 
 											value="${lancamento.data.getTime()}"/>

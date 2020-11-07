@@ -54,11 +54,12 @@ function atualizarTotalCarrinho(){
 
 function atualizarValoresServico(servicoAtualizado){
 	$("#quantidade-"+servicoAtualizado.servicoDTO.id).text(servicoAtualizado.quantidade);
-	$("#total-"+servicoAtualizado.servicoDTO.id).text("R$ "+ servicoAtualizado.precoTotal.toFixed(2));
+	$("#total-"+servicoAtualizado.servicoDTO.id).text
+	(servicoAtualizado.precoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
 }
 
 function atualizarValorTotalCarrinho(valorTotal){
-	$("#total").text("R$ " + valorTotal.toFixed(2));
+	$("#total").text(valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
 }
 
 function atualizaCardsServicos(idServico){

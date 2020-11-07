@@ -49,6 +49,9 @@ public class AtendimentoController {
 	@Autowired
 	private AtendimentoService atendimentoService;
 	
+	@Autowired
+	private LojaController controllerLoja;
+	
 	private Logger logger = Logger.getLogger("br.com.salon.carine.lima.Atendimento");
 	
 	@Cacheable(value = "listarHTML")
@@ -110,16 +113,20 @@ public class AtendimentoController {
 	@RequestMapping(method = RequestMethod.GET, value = "formMarcar")
 	public ModelAndView formMarcarAtendimento() {		
 		
-		List<Cliente> clientes = serviceCliente.listarTodos();
-		BigDecimal valorTotalCarrinho = carrinhoService.getValorTotalCarrinho();
-		ModelAndView modelAndView = new ModelAndView("atendimento/formMarcar");
-		modelAndView.addObject("clientes", clientes);
-		modelAndView.addObject("valorTotalCarrinho", valorTotalCarrinho);
-		modelAndView.addObject("pagamentos", TipoPagamento.values());
-		modelAndView.addObject("bandeiras", BandeiraCartao.values());
-		modelAndView.addObject("enderecos", TipoEndereco.values());
-		
-		return modelAndView;
+		if(carrinhoService.getQuantidadeTotalItensCarrinho() > 0) {
+			List<Cliente> clientes = serviceCliente.listarTodos();
+			BigDecimal valorTotalCarrinho = carrinhoService.getValorTotalCarrinho();
+			ModelAndView modelAndView = new ModelAndView("atendimento/formMarcar");
+			modelAndView.addObject("clientes", clientes);
+			modelAndView.addObject("valorTotalCarrinho", valorTotalCarrinho);
+			modelAndView.addObject("pagamentos", TipoPagamento.values());
+			modelAndView.addObject("bandeiras", BandeiraCartao.values());
+			modelAndView.addObject("enderecos", TipoEndereco.values());
+			
+			return modelAndView;
+		}else {
+			return controllerLoja.getLoja();
+		}
 	}
 	
 	@CacheEvict(value = {"listarJSON","listarHTML"}, allEntries = true)

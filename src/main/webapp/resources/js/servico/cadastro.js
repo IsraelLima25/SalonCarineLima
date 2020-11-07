@@ -47,4 +47,3 @@ function topPage() {
 		scrollTop : 0
 	}, 600);
 }
-

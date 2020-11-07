@@ -24,7 +24,7 @@
 						Preço
 						<span class="obrigatorio">*</span>
 						</label> 
-						<input type="text" name="preco" class="form-control" id="preco">
+						<input type="text" name="preco" class="form-control moeda" id="preco">
 						<small hidden class="form-text obrigatorio preco"></small>
 					</div>
 

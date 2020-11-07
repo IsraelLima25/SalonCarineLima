@@ -3,6 +3,8 @@ package br.com.salon.carine.lima.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import br.com.salon.carine.lima.enuns.BandeiraCartao;
 import br.com.salon.carine.lima.enuns.TipoEndereco;
 import br.com.salon.carine.lima.enuns.TipoPagamento;
@@ -16,8 +18,11 @@ public class MarcarAtendimentoDTO implements Serializable {
 	private Integer id;
 
 	private Integer cliente;
-
+	
+	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal desconto;
+	
+	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal taxa;
 
 	private TipoPagamento tipoPagamento;

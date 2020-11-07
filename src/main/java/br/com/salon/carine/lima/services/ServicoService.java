@@ -119,10 +119,10 @@ public class ServicoService {
 
 	public Page<Servico> findPageServico(Integer page, Integer size) {
 
-			PageRequest pageRequest = PageRequest.of(page, size);
-			Page<Servico> pagesServico = servicoRepositorySJPA.findAll(pageRequest);
-
-			return pagesServico;
+		PageRequest pageRequest = PageRequest.of(page, size);
+		Page<Servico> pagesServico = servicoRepositorySJPA.findAll(pageRequest);
+		
+		return pagesServico;
 	}
 
 	public Page<Servico> buscarServicoRowNumber(Integer rowNumber) {

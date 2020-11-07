@@ -22,6 +22,7 @@
 	crossorigin="anonymous">
 
 <script src="${rsc}/jquery-3.5.1/jquery-3.5.1.js"></script>
+<script src="${rsc}/jquery-3.5.1/jquery.mask.min.js"></script>
 
 </head>
 

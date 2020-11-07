@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
 <tags:pageTemplate titulo="Carrinho">
@@ -29,7 +30,9 @@
 								<b>Total Carrinho</b>
 							</p>
 							<p>
-								<b id="total">R$ ${total}</b>
+								<fmt:formatNumber var="fmtTotal" value="${total}" 
+	                    		 pattern="#,##0.00"/>
+								<b id="total">R$ ${fmtTotal}</b>
 							</p>
 						</div>
 					</div>
@@ -51,14 +54,18 @@
 									<div class="row">
 										<div class="col-4 col-md-4 text-center">
 											<p>Preço</p>
-											<p>R$ ${item.servicoDTO.preco}</p>
+											R$
+											<fmt:formatNumber type="currency" pattern="#,##0.00"
+											 value="${item.servicoDTO.preco}"/>
 										</div>
 										<div class="col-4 col-md-4 text-center">
 											<p>${item.servicoDTO.descricao}</p>
 										</div>
 										<div class="col-4 col-md-4 text-center">
 											<p>Total</p>
-											<p id="total-${item.servicoDTO.id}">R$ ${item.precoTotal}</p>
+											<fmt:formatNumber var="fmtPrecoTotal" value="${item.precoTotal}" 
+	                    						pattern="#,##0.00"/>
+											<p id="total-${item.servicoDTO.id}">R$ ${fmtPrecoTotal}</p>
 										</div>
 									</div>
 									<div class="mt-2 row">

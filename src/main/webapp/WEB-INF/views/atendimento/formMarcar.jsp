@@ -1,8 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java"
-	pageEncoding="UTF-8"%>
-
+<%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
 <tags:pageTemplate titulo="Marcar Atendimento">
@@ -29,21 +27,25 @@
 					</div>
 
 					<div class="form-group">
-						<label class="color-font-label" for="valorTotal"> Valor
-							Total</label> <input type="number" class="form-control" disabled
-							id="valorTotal" value="${valorTotalCarrinho}">
+						<label class="color-font-label" for="valorTotal"> Valor Total</label>
+						<fmt:formatNumber var="fmtTotalCarrinho" type="currency" pattern="#,##0.00" 
+                    			value="${valorTotalCarrinho}" />
+						<input type="text" class="form-control" disabled
+							id="valorTotal" value="${fmtTotalCarrinho}">
 
 					</div>
 
 					<div class="form-group">
-						<label class="color-font-label" for="desconto">Desconto
-						</label> <input
-							type="number" class="form-control" id="desconto" name="desconto">
+						<label class="color-font-label" for="desconto">
+							Desconto
+						</label> 
+						<input type="text" class="form-control moeda" 
+							id="desconto" name="desconto">
 					</div>
 
 					<div class="form-group">
-						<label class="color-font-label" for="taxa">Taxa</label> <input
-							type="number" class="form-control" id="taxa" name="taxa">
+						<label class="color-font-label" for="taxa">Taxa</label> 
+						<input type="text" class="form-control moeda" id="taxa" name="taxa">
 					</div>
 
 					<div class="form-group">

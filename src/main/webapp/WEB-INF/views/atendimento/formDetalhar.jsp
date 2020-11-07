@@ -179,13 +179,17 @@
                         <tr>
                             <td>${itemAtendimento.servico.descricao}</td>
                             <td class="text-center">${itemAtendimento.quantidade}</td>
-                            <td class="text-center">${itemAtendimento.getTotal(itemAtendimento.quantidade)}</td>
+                            <td class="text-center">
+                            	<fmt:formatNumber type="currency" pattern="#,##0.00"
+                            	 value="${itemAtendimento.getTotal(itemAtendimento.quantidade)}"/>
+                            </td>
                         </tr>
                     </c:forEach>
                     <tr>
                     	<td colspan="2" class="text-left"><b>Total cesta</b></td>
                     	<td style="color: green" class="text-center">
-                    		<b>${atendimento.totalBruto}</b>
+                    		<fmt:formatNumber type="currency" pattern="#,##0.00" 
+                    			value="${atendimento.totalBruto}" />
                     	</td>
                     </tr>
                     
@@ -197,8 +201,10 @@
 	                    <label style="display:block;">Taxa</label>
 	                    <c:choose>
 	                    	<c:when test="${atendimento.taxa != null}">
+	                    	<fmt:formatNumber var="fmtTaxa" value="${atendimento.taxa}" 
+	                    		pattern="#,##0.00"/>
 	                    		<input disabled="disabled" class="form-control" 
-                    			value=" ${atendimento.taxa}" />
+                    			value="${fmtTaxa}" />
 	                    	</c:when>
 	                    	<c:otherwise>
 	                    		<input disabled="disabled" class="form-control" 
@@ -211,8 +217,10 @@
 	                    <label style="display:block;">Desconto</label>
 	                    <c:choose>
 	                    	<c:when test="${atendimento.desconto != null && atendimento.desconto != 0 }">
+	                    		<fmt:formatNumber var="fmtDesconto" value="${atendimento.desconto}"
+	                    		pattern="#,##0.00"/>	
 	                    		<input disabled="disabled" class="form-control" 
-                    			value="${atendimento.desconto}" />
+                    			value="${fmtDesconto}" />
 	                    	</c:when>
 	                    	<c:otherwise>
 	                    		<input disabled="disabled" class="form-control" 
@@ -223,8 +231,10 @@
 	                
 	                <div class="col-4 col-md-4 mt-3">
 	                    <label style="display:block;">Total</label>
+	                    <fmt:formatNumber var="fmtTotal" value="${atendimento.totalLiquido}"
+	                    		pattern="#,##0.00"/>
 	                    <input disabled="disabled" class="form-control" 
-                    			value="${atendimento.totalLiquido}" />
+                    			value="${fmtTotal}" />
 	                </div>
 	                
            		</div>
@@ -234,8 +244,8 @@
            		<div class="row">
            			<div class="col-4 col-md-4 text-left mt-3">
 	           			<label style="display:block;">Data</label>
-	           			<fmt:formatDate var="fmtDate" value="${atendimento.data.getTime()}" pattern="dd/MM/yyyy"/>
-		           			<input disabled="disabled" class="form-control" style="font-size: 13px;" 
+	           			<fmt:formatDate var="fmtDate" value="${atendimento.data.getTime()}" pattern="dd/MM/yy"/>
+		           			<input disabled="disabled" class="form-control" 
 		           				value="${fmtDate}" />
            			</div>
            			<div class="col-4 col-md-4 mt-3">
