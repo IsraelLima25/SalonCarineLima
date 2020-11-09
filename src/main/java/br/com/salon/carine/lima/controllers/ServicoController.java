@@ -42,7 +42,7 @@ public class ServicoController {
 		return modelAndView;
 	}
 	
-	@CacheEvict(value = {"listaServicoPage","listarServicosJSON"}, allEntries = true)
+	@CacheEvict(value = "listaServicoPage", allEntries = true)
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<ResponseServico> cadastroServico(@Valid ServicoDTO servicoDTO,
 			BindingResult result, HttpServletRequest request) {
@@ -106,20 +106,6 @@ public class ServicoController {
 		return modelAndView;
 	}
 	
-	@Cacheable(value = "listarServicosJSON")
-	@RequestMapping(method = RequestMethod.GET, value = "listar/json")
-	public ResponseEntity<Page<Servico>> formDetalheAtendimentoJSON(
-			@RequestParam(defaultValue = "0") Integer page,
-			@RequestParam(defaultValue = "5") Integer size,
-			HttpServletRequest request) {
-		
-		logger.info("Iniciando busca paginada JSON");
-		
-		Page<Servico> pageServico = servicoService.findPageServico(page, size);
-		
-		return ResponseEntity.ok().body(pageServico);
-	}
-	
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	public ModelAndView detalheServico(@PathVariable Integer id) {
 		ModelAndView modelAndView = new ModelAndView("servico/formDetalhar");
@@ -128,7 +114,7 @@ public class ServicoController {
 		return modelAndView;
 	}
 	
-	@CacheEvict(value = {"listaServicoPage", "listarServicosJSON"}, allEntries = true)
+	@CacheEvict(value = "listaServicoPage", allEntries = true)
 	@RequestMapping(method = RequestMethod.DELETE, value = "/remover/{id}")
 	public ResponseEntity<Void> removerCliente(@PathVariable("id") Integer id) {
 		
@@ -140,7 +126,7 @@ public class ServicoController {
 		}
 	}
 	
-	@CacheEvict(value = {"listaServicoPage","listarServicosJSON"}, allEntries = true)
+	@CacheEvict(value = "listaServicoPage", allEntries = true)
 	@RequestMapping(method = RequestMethod.POST, value = "alterar")
 	public ResponseEntity<ResponseServico> alterarServico(@Valid ServicoDTO servicoDTO,
 			BindingResult result, HttpServletRequest request) {

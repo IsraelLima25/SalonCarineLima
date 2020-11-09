@@ -71,9 +71,9 @@ function paginaAnterior (totalPaginas){
 
 function getNextPage(numeroPagina){
 	$.get({
-		url: `/SalonCarineLima/atendimento/listar/json?page=${numeroPagina+1}`,
+		url: `/SalonCarineLima/atendimento/listar.json?page=${numeroPagina+1}`,
 		success : function(response) {
-			rendererTabela(response.content);
+			rendererTabela(response.paginas.content);
 			updateNextButtonActive(numeroPagina);
 		},
 		fail: function(erro) {
@@ -85,9 +85,9 @@ function getNextPage(numeroPagina){
 
 function getPreviousPage(numeroPagina){
 	$.get({
-		url: `/SalonCarineLima/atendimento/listar/json?page=${numeroPagina-1}`,
+		url: `/SalonCarineLima/atendimento/listar.json?page=${numeroPagina-1}`,
 		success : function(response) {
-			rendererTabela(response.content);
+			rendererTabela(response.paginas.content);
 			updatePreviousButtonActive(numeroPagina);
 		},
 		fail: function(erro) {
@@ -99,9 +99,9 @@ function getPreviousPage(numeroPagina){
 
 function getPage(numeroPagina){
 	$.get({
-		url: `/SalonCarineLima/atendimento/listar/json?page=${numeroPagina}`,
+		url: `/SalonCarineLima/atendimento/listar.json?page=${numeroPagina}`,
 		success : function(response) {
-			rendererTabela(response.content);
+			rendererTabela(response.paginas.content);
 			updateButtonActive(numeroPagina);
 		},
 		fail: function(erro) {

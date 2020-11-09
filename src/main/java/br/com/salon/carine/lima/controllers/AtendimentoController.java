@@ -81,20 +81,6 @@ public class AtendimentoController {
 		return ResponseEntity.ok(pageAtendimento.getContent());
 	}
 	
-	@Cacheable(value = "listarJSON")
-	@RequestMapping(method = RequestMethod.GET, value = "listar/json")
-	public ResponseEntity<Page<Atendimento>> formDetalheAtendimentoJSON(
-			@RequestParam(defaultValue = "0") Integer page,
-			@RequestParam(defaultValue = "5") Integer size,
-			HttpServletRequest request) {
-		
-		this.logger.info("Iniciando busca paginada JSON");
-		
-		Page<Atendimento> pageAtendimento = atendimentoService.findPageAtendimento(page, size);
-		
-		return ResponseEntity.ok().body(pageAtendimento);
-	}
-	
 	@RequestMapping(method = RequestMethod.POST, value = "filterData")
 	public ResponseEntity<Page<Atendimento>> filterDataAtendimento
 		(@Valid FiltroDataAtendimentoDTO filtro, BindingResult result,
@@ -129,7 +115,7 @@ public class AtendimentoController {
 		}
 	}
 	
-	@CacheEvict(value = {"listarJSON","listarHTML"}, allEntries = true)
+	@CacheEvict(value = "listarHTML", allEntries = true)
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<ResponseMarcar> marcaAtendimento(
 			@Valid MarcarAtendimentoDTO atendimentoDTO, BindingResult result, 
@@ -178,7 +164,7 @@ public class AtendimentoController {
 		return modelAndView;
 	}
 	
-	@CacheEvict(value = {"listarJSON","listarHTML"}, allEntries = true)
+	@CacheEvict(value = "listarHTML", allEntries = true)
 	@RequestMapping(method = RequestMethod.POST, value = "cancelar")
 	public ResponseEntity<Message> cancelar(Integer idAtendimentoCancelado) {
 		Message message = this.atendimentoService.cancelar(idAtendimentoCancelado);
