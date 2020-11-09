@@ -7,7 +7,7 @@
 <tags:pageTemplate titulo="Lista Atendimentos">
 	<main>
 		<section>
-			<div class="container container-space-default">
+			<div class="container">
 			  <p hidden id="paginaAtual">${paginas.pageable.pageNumber}</p>
 				<h4 class="color-font">Atendimentos Marcados</h4>
 				<hr />
@@ -56,7 +56,7 @@
 						</div>
 					</form>
 				</div>
-				<table id="atendimento-table" class="table table-striped mt-5">
+				<table id="atendimento-table" class="table table-striped">
 					<thead>
 						<tr>
 							<th scope="col">Cliente</th>
@@ -136,11 +136,6 @@
 					</div>
 				</c:if>
 			</div>
-			
-			<div class="back-to-top" href="#">
-				<i class="fas fa-chevron-up"></i>
-			</div>
-
 		</section>
 	</main>
 	<script src="../resources/js/atendimento/lista.js"></script>

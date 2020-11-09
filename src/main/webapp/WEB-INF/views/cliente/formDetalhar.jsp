@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
@@ -35,8 +36,7 @@
 			</div>
 		</div>
 		
-		<form name="formDetalhar">
-
+		<form:form name="formDetalhar">
 			<div class="form-group">
 				<label class="color-font-label" hidden for="id">Id</label> 
 				<input type="text" hidden value="${cliente.id}" name="id" class="form-control" id="id">
@@ -121,9 +121,9 @@
 							Excluir Cliente	 
 				</a>
 			</div>
-			</div>
-		</form>
-	</div>
+		</form:form>
+	
+</div>
 
 	<!-- Modal Excluir -->
 	<div class="modal fade" id="modalExcluir" tabindex="-1"

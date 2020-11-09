@@ -32,7 +32,7 @@
 	<!-- Conteudo da pagina -->
 	
 	<!--Botão voltar para o topo -->
-	<div class="back-to-top" hidden href="#">
+	<div class="back-to-top" href="#" style="margin-bottom: 50px;">
 		<i class="fas fa-chevron-up"></i>
 	</div>
 
@@ -70,7 +70,29 @@
 
 	<jsp:doBody />
 
-	<!-- Futuro Rodapé  -->
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="footer-copyright fixed-bottom text-center" style="background-color: #B84BFF">
+   <div class="container text-center mt-2 pb-3">
+		  <div class="row">
+		  <div class="col-4">
+		  		©Copyright
+		  </div>
+		   <div class="col-4">
+		   		<a> V.1.0.0</a>
+		  </div>
+		   <div class="col-4">
+		   		<a style="color:white;" href="https://israellima25.github.io/PageProfile/">@DevLima</a>
+		  </div>
+		  </div>
+	</div>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 
 	<%-- 	<script charset="UTF-8" src="${rsc}/js/global.js"></script> --%>
 	<script src="../resources/js/global.js"></script>

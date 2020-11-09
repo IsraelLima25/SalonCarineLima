@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -317,13 +318,13 @@
 				      </div>
 				      <div class="modal-footer">
 <%-- 				         action="${s:mvcUrl('AC#marcarAtendimento').arg(0,atendimento.id).build()}" --%>
-				      <form method="post" name="formLancamento">
+				      <form:form method="POST" name="formLancamento">
 				      		<input hidden id="atendimentoId" name="idAtendimento" value="${atendimento.id}" />
 					        <button type="submit" id="confirmarLancamento" 
 					        	class="btn btn-color-salon" data-dismiss="modal">
 					        	Sim
 					        </button>
-				      </form>
+				      </form:form>
 				        <button type="button" class="btn btn-color-salon" data-dismiss="modal">
 				       	 Não
 				        </button>
@@ -367,13 +368,13 @@
 				      </div>
 				      <div class="modal-footer">
 <%-- 				         action="${s:mvcUrl('AC#marcarAtendimento').arg(0,atendimento.id).build()}" --%>
-				      <form method="post" name="formCancelamento">
+				      <form:form method="post" name="formCancelamento">
 				      		<input hidden id="atendimentoIdCancelamento" name="idAtendimentoCancelado" value="${atendimento.id}" />
 					        <button type="submit" id="cancelarAtendimento"
 					        	 class="btn btn-color-salon" data-dismiss="modal">
 					        	Sim
 					        </button>
-				      </form>
+				      </form:form>
 					        <button type="button" class="btn btn-color-salon" data-dismiss="modal">
 					       		Não
 					        </button>
@@ -405,6 +406,7 @@
                 <div class="back-to-top" href="#"><i class="fas fa-chevron-up"></i></div>
   			</div>
         </section>
+        
     </main>	
     <script type="text/javascript" charset="UTF-8" src="../resources/js/atendimento/detalhe.js"></script>
 </tags:pageTemplate>

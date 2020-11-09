@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
 <tags:pageTemplate titulo="Relatório Lançamento">
@@ -15,7 +16,7 @@
 				<input hidden id="idLancamento" />
 
 				<div id="groupFilterByData">
-				<form name="formFiltroRelatorio">
+				<form:form name="formFiltroRelatorio">
 					<div class="form-group">
 						<label class="color-font-label" for="data-inicio">Data Ínicio</label> 
 						<input type="date" name="dataInicio" class="form-control" id="data-inicio">
@@ -33,7 +34,7 @@
 								<i class="fas fa-filter"></i> Filtrar </button>
 						</div>
 					</div>
-				</form>
+				</form:form>
 				</div>
 				<div id="msg-nenhum-registro-encontrado" class="mt-4" hidden>
 					<p>Nenhum lançamento neste período</p>
@@ -87,11 +88,6 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="back-to-top" href="#">
-				<i class="fas fa-chevron-up"></i>
-			</div>
-			
 				<!-- Modais -->
 				<div class="modal modal fade" id="modalEstornar" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
 				  <div class="modal-dialog">

@@ -63,7 +63,7 @@ public class ClienteController {
 	}
 	
 	@CacheEvict(value = "listarClientesHTML", allEntries = true)
-	@RequestMapping(method = RequestMethod.POST, value = "alterar")
+	@RequestMapping(method = RequestMethod.POST, value = "/alterar")
 	public ResponseEntity<ResponseCliente> alterarCliente(@Valid ClienteDTO clienteDTO,
 			BindingResult result, HttpServletRequest request) {
 		

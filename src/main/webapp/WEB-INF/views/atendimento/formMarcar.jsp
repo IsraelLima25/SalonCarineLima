@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
@@ -10,7 +11,7 @@
 			<div class="container container-space-default">
 				<h4 class="color-font">Marcar Atendimento</h4>
 				<hr />
-				<form name="formMarcar">
+				<form:form name="formMarcar">
 					<div class="form-group">
 
 						<label for="slcClientes">Cliente
@@ -148,18 +149,11 @@
 					</div>
 
 					<div class="text-center alinhamento">
-						<button id="btnMarcar" style="margin-bottom: 16px;" type="submit"
+						<button id="btnMarcar" style="margin-bottom: 100px;" type="submit"
 							class="btn btn-color-salon btn-block">Marcar</button>
 					</div>
-
-				</form>
-
+				</form:form>
 			</div>
-
-			<div class="back-to-top" href="#">
-				<i class="fas fa-chevron-up"></i>
-			</div>
-
 		</section>
 		
 		<!-- Global -->
