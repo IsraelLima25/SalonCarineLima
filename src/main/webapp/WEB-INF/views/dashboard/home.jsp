@@ -38,7 +38,6 @@
 			                                	<fmt:formatDate pattern="HH:mm" value="${atendimento.hora}" />
 			                            </li>
 			                        </ul>
-			
 			                        <a id="btnCadastrar" style="margin-bottom: 16px;" 
 			                        	type="button" class="btn btn-color-salon btn-block"
 			                        	href="${s:mvcUrl('AC#detalheAtendimento')

@@ -1,3 +1,5 @@
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
+
 	 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
 	 
 	        <a class="navbar-brand far fa-calendar-alt loader" href="../dashboard/home" 
@@ -87,6 +89,12 @@
 	                    </a>
 	             	</li>
 	
+	            </ul>
+	            <ul class="nav navbar-nav navbar-right">
+	            	<li>
+	            		Usuario:
+	            		<a href="#"><security:authentication property="principal.username"></security:authentication></a>
+	            	</li>
 	            </ul>
 	        </div>
 	    </nav>
