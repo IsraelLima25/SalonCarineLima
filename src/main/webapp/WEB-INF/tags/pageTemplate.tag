@@ -12,8 +12,7 @@
 
 <c:url value="/resources" var="rsc" />
 
-<link rel="stylesheet"
-	href="${rsc}/bootstrap-4.5.2/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${rsc}/bootstrap-4.5.2/css/bootstrap.min.css" />
 <link rel="stylesheet" href="${rsc}/css/style.css" />
 
 <link rel="stylesheet"
