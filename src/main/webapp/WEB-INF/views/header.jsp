@@ -1,6 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <div id="topHeader">
-<nav class="navbar fixed-top navbar-expand-sm navbar-custom">
+<nav id="navMenu" class="navbar fixed-top navbar-expand-sm navbar-custom">
     <a href="../dashboard/home" class="navbar-brand far fa-calendar-alt loader"> SAG - Agendamentos</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCustom">
         <i class="fa fa-bars fa-lg py-1 text-white"></i>

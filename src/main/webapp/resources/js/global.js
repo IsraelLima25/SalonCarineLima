@@ -1,3 +1,5 @@
+$(document).click(function(e) { if (!$(e.target).is('a')) { $('.collapse').collapse('hide'); } }); 
+
 /* Scroll Configuration */
 $('.back-to-top').click(function() {
 	$("html, body").animate({
