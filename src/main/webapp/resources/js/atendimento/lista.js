@@ -24,7 +24,7 @@ $(function() {
 
 
 function removerActiveButton(){
-	$("nav ul li").removeClass("active");
+	$("#pagination ul li").removeClass("active");
 }
 
 function updateButtonActive(numeroPagina){
@@ -34,7 +34,7 @@ function updateButtonActive(numeroPagina){
 }
 
 function buttonAtual(){
-	return	$("li").filter("[class~='active']")[0].id;
+	return	$("#pagination li").filter("[class~='active']")[0].id;
 }
 
 function updateNextButtonActive(numeroPagina){
@@ -134,7 +134,10 @@ function rendererTabela (atendimentos) {
 	}else{
 		$('#msg-nenhum-registro-encontrado').prop("hidden", true);
 	}
-	atendimentos.forEach(function(atendimento) {
+	
+		$("#atendimento-item").addClass("active");
+	
+		atendimentos.forEach(function(atendimento) {
 		
 		var dataFormatada = formatData(atendimento.data);
 		var horaformatada = formatHora(atendimento.hora);

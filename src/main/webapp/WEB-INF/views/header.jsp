@@ -7,7 +7,7 @@
     </button>
     <div class="navbar-collapse collapse" id="navbarCustom">
         <ul class="navbar-nav">
-            <li class="nav-item ${activeAtendimento}">
+            <li id="atendimento-item" class="nav-item ${activeAtendimento}">
                 <a class="nav-link" href="../atendimento/listar"> 
                 	<i class="fas fa-phone-square"></i>
                 	Atendimentos

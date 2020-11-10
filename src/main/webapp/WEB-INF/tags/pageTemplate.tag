@@ -73,7 +73,7 @@
 <footer class="page-footer font-small blue">
 
   <!-- Copyright -->
-  <div class="footer-copyright fixed-bottom text-center" style="background-color: #B84BFF">
+  <div class="fixed-bottom text-center" style="background-color: #A020F0">
    <div class="container text-center mt-2 pb-3">
 		  <div class="row">
 		  <div class="col-4">

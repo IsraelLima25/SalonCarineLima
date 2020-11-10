@@ -131,7 +131,7 @@ body {
   	padding: 10px;
  }
  
-#navbarNav{
+ #navbarNav{
     padding:10px;
     width:100%;
 }
@@ -140,7 +140,6 @@ body {
   	list-style:none;
 	margin:0 auto;
 }
-
 
 #modalLoading {
   text-align: center;
@@ -170,7 +169,7 @@ footer{
 /* Nav Bar*/
 
 .navbar-custom {
-    background-color: #B84BFF;
+    background-color: #A020F0;
 }
 
 /* change the brand and text color */
@@ -192,7 +191,7 @@ footer{
 
 /* for dropdown only - change the color of droodown */
 .navbar-custom .dropdown-menu {
-    background-color:  #B84BFF;
+    background-color:  #A020F0	;
 }
 .navbar-custom .dropdown-item {
     color: #ffffff;
