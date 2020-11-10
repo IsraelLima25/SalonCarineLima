@@ -28,8 +28,10 @@
 			    <div id="loginbox" style="margin-top: 50px;" class="mainbox col-lg-6 offset-md-3 col-md-8 offset-sm-2">
 			        <div class="card card-inverse card-info">
 			            <div class="card-header">
-			                <div class="card-title"><h5>Login</h5></div>
-			                <div style="float: right; font-size: 80%; position: relative; top: -10px;"><a href="#">Esqueceu a senha?</a>
+			        	<h3 class="text-center mt-3 color-font" >SAG - Agendamentos</h3>
+			                <div class="card-title">
+			                	<h5 class="text-center">Login</h5>
+			                </div>
 			                </div>
 			            </div>
 			            <div style="padding-top: 30px;" class="card-block">
@@ -60,10 +62,16 @@
 			                        	</button>
 			                        </div>
 			                    </div>
+			                    
+			                    <div class="text-center">
+			                    	<a href="#">Esqueceu a senha?</a>
+			                    </div>
+			                    
 			                    <div class="form-group">
-			                        <div class="col-lg-12 control text-center">
-			                            <div style="padding-top: 15px; font-size: 85%;">Não tem conta? 
-			                            <a href="#" onclick="$('#loginbox').hide(); $('#signupbox').show()">
+			                        <div class="col-lg-12 control text-center mt-3">
+			                            <div>Não tem conta? 
+			                            <a href="#" style="display: block;" 
+			                            	onclick="$('#loginbox').hide(); $('#signupbox').show()">
 			                                 cadastre-se agora
 			                            </a>
 			                            </div>
