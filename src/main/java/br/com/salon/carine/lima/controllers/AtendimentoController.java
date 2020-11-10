@@ -71,6 +71,7 @@ public class AtendimentoController {
 		Page<Atendimento> pageAtendimento = atendimentoService.findPageAtendimento(page, size);
 		
 		modelAndView.addObject("paginas", pageAtendimento);
+		modelAndView.addObject("activeAtendimento", "active");
 		
 		return modelAndView;
 	}

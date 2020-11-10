@@ -78,4 +78,7 @@ $('.moeda').mask('#.##0,00', {reverse: true});
 $('.tel').mask('###########', {reverse: true});
 
 /* Scripts NavBar */
-
+$( '#topheader .navbar-nav a' ).on( 'click', function () {
+	$( '#topheader .navbar-nav' ).find( 'li.active' ).removeClass( 'active' );
+	$( this ).parent( 'li' ).addClass( 'active' );
+});

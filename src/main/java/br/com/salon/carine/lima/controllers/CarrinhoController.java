@@ -39,6 +39,7 @@ public class CarrinhoController {
 		BigDecimal valorTotalCarrinho = carrinhoService.getValorTotalCarrinho();
 		modelAndView.addObject("itens", servicosCarrinho);
 		modelAndView.addObject("total", valorTotalCarrinho);
+		modelAndView.addObject("activeCarrinho","active");
 
 		return modelAndView;
 	}

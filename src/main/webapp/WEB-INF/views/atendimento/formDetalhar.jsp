@@ -273,8 +273,8 @@
 					</c:if>
 					
 					<c:if test="${atendimento.pagamento.getClass().getSimpleName() == 'Credito'}">
-						<div class="col-4 col-md-4 text-center mt-3">		 
-							<label style="display:block;">Quantidade Parcelas</label>
+						<div class="col-4 col-md-4 mt-3">		 
+							<label style="display:block;">Parcelas</label>
 							<input disabled="disabled" class="form-control" 
                     			value="${atendimento.pagamento.quantidadeParcelas}" />
 	                    </div>
