@@ -52,7 +52,6 @@
                 </c:choose>
             </div>
 
-            <div class="back-to-top" href="#"><i class="fas fa-chevron-up"></i></div>
 		</section>
 	</main>
 	

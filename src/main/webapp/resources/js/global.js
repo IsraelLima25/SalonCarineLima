@@ -6,6 +6,10 @@ $('.back-to-top').click(function() {
 	return false;
 });
 
+$(document).ready(function() {
+	$('.back-to-top').prop("hidden", true);
+});
+
 $(window).scroll(function(event) {
 	
 	var scroll = $(window).scrollTop();
@@ -21,7 +25,7 @@ $('section').click(function() {
 	$('.navbar-collapse').collapse('hide');
 })
 
-/*Modal Loading*/
+/* Modal Loading */
 function showLoader() {
 	$('#modalLoading').modal('show');
 }
@@ -72,3 +76,6 @@ function showMessageClient(title, body) {
 /*mask*/
 $('.moeda').mask('#.##0,00', {reverse: true});
 $('.tel').mask('###########', {reverse: true});
+
+/* Scripts NavBar */
+

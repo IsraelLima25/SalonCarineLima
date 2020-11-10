@@ -262,7 +262,7 @@
            			</div>
            		</div>
 				<hr/>
-				<div class="row">
+				<div class="row mb-5">
 					<c:if test="${atendimento.pagamento.getClass().getSimpleName() == 'Debito' ||
 								 atendimento.pagamento.getClass().getSimpleName() == 'Credito' }">
 						<div class="col-4 col-md-4 text-left mt-3">		 
@@ -285,7 +285,7 @@
 				
 				<c:if test="${atendimento.status.descricao == 'Pendente'}">
 					<div class="row">
-						<div class="col-12 col-md-12 mt-3 mb-5 text-left">
+						<div class="col-12 col-md-12 mt-3 text-left" style="margin-bottom: 100px;">
 							<button id="btn-confirmar-lancamento" data-toggle="modal"
 								data-target="#modalLancar" 
 								class="btn btn-success">
@@ -401,9 +401,6 @@
 				  </div>
 			</div>
 				
-			<!--  -->
-									
-                <div class="back-to-top" href="#"><i class="fas fa-chevron-up"></i></div>
   			</div>
         </section>
         

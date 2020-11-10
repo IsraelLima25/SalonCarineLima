@@ -111,7 +111,7 @@
 				<small hidden class="form-text obrigatorio complemento"></small>
 			</div>
 
-			<div class="text-center alinhamento mb-4">
+			<div class="text-center alinhamento" style="margin-bottom: 100px;">
 				<button id="btn-confirmar-alteracao" type="submit" 
 					class="btn btn-color-salon btn-block fas fa-check">
 					Alterar Cliente
