@@ -1,18 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <html lang="pt-br">
 <head>
-<meta charset="utf-8" />
 <title>SSC - Login</title>
+<meta charset="UTF-8" />
 <c:url value="/resources" var="rsc" />
 <link rel="stylesheet"
 	href="${rsc}/bootstrap-4.5.2/css/bootstrap.min.css" />
 <link rel="stylesheet" href="${rsc}/css/style.css" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
 	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
@@ -26,6 +24,14 @@
 	<section id="login">
 			<div class="container">
 			    <div id="loginbox" style="margin-top: 50px;" class="mainbox col-lg-6 offset-md-3 col-md-8 offset-sm-2">
+			        <c:if test="${not empty sucesso }">
+						<div class="alert alert-success alert-dismissible fade show" role="alert">
+						  ${sucesso}
+						  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						    <span aria-hidden="true">&times;</span>
+						  </button>
+						</div>
+					</c:if>
 			        <div class="card card-inverse card-info">
 			            <div class="card-header">
 			        	<h3 class="text-center mt-3 color-font" >SAG - Agendamentos</h3>

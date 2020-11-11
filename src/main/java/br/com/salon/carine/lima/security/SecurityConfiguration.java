@@ -29,6 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers("/resources/**").permitAll()
 		.antMatchers("/esqueciSenha/**").permitAll()
+		.antMatchers("/register/**").permitAll()
 		.antMatchers("/warningSessionExpired").permitAll()
 		.antMatchers("/registrar/**").permitAll()
 		.anyRequest()
