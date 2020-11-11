@@ -23,17 +23,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		http.sessionManagement().maximumSessions(1).expiredUrl("/login");
+		http.sessionManagement().maximumSessions(1)
+		.expiredUrl("/warningSessionExpired");
 		
 		http.authorizeRequests()
 		.antMatchers("/resources/**").permitAll()
 		.antMatchers("/esqueciSenha/**").permitAll()
+		.antMatchers("/warningSessionExpired").permitAll()
 		.antMatchers("/registrar/**").permitAll()
 		.anyRequest()
 		.authenticated()
 		.and().formLogin().loginPage("/login").permitAll()
 		.successHandler(new MyAuthenticationSuccessHandler())
-		.failureUrl("/login")
+		.failureUrl("/login?error=true")
 		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 		.logoutSuccessUrl("/login")
 		.and().rememberMe();

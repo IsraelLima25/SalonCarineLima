@@ -20,13 +20,14 @@ public class DashBoardController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "home")
 	public ModelAndView homePage() {
-		
+
 		ModelAndView modelAndView = new ModelAndView("dashboard/home");
 		String dateActualFormatada = dashBoardService.getDateActualFormatter();
 		modelAndView.addObject("dataAtual", dateActualFormatada);
 		
 		List<Atendimento> atendimentos = dashBoardService.atendimentosDiaAtual();
 		modelAndView.addObject("atendimentos", atendimentos);
+		
 		
 		return modelAndView;
 	}

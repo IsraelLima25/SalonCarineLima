@@ -14,12 +14,16 @@ import br.com.salon.carine.lima.repositoriessdp.UsuarioRepositorySJPA;
 @Service
 public class UsuarioService implements UserDetailsService{
 	
+	public static String emailPage;
+	
 	@Autowired
 	private UsuarioRepositorySJPA usuarioRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
+		
+		emailPage = email;
+		
 		Optional<Usuario> optionalUsuario = usuarioRepository.findById(email);
 		
 		if(optionalUsuario.isPresent()) {
@@ -28,5 +32,5 @@ public class UsuarioService implements UserDetailsService{
 		
 		throw new UsernameNotFoundException("O usuário" + email + "não foi encontrado");
 	}
-
+	
 }

@@ -36,11 +36,16 @@
 			            </div>
 			            <div style="padding-top: 30px;" class="card-block">
 			                <div style="display: none;" id="login-alert" class="alert alert-danger col-md-12"></div>
-			                <form:form id="loginform" class="" role="form">
+				                <c:if test="${not empty message}">
+				                <div class="alert alert-danger" role="alert">
+									${message}
+								</div>
+								</c:if>
+			                <form:form id="loginform" role="form">
 			                    <div style="margin-bottom: 25px;" class="input-group"> 
 			                    	<span class="input-group-addon"></span>
 			                        <input id="login-username" type="text" class="form-control" 
-			                        name="username" value="" placeholder="email" />
+			                        name="username" placeholder="email" value="${emailInvalido}" />
 			                    </div>
 			                    <div style="margin-bottom: 25px;" class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 			                        <input id="login-password" type="password" 
@@ -57,7 +62,8 @@
 			                    <div class="form-group">
 			                        <!-- Button -->
 			                        <div class="col-md-12 controls"> 
-			                        	<button id="btn-login" type="submit" class="btn btn-color-salon btn-block">
+			                        	<button id="btn-login" type="submit" 
+			                        	class="btn btn-color-salon btn-block loader">
 			                        		Entrar
 			                        	</button>
 			                        </div>
@@ -98,6 +104,7 @@
 	</main>
 
 	<script src="${rsc}/js/global.js"></script>
+	<script src="${rsc}/js/login.js"></script>
 	<script src="${rsc}/bootstrap-4.5.2/js/bootstrap.min.js"></script>
 	<script src="${rsc}/popper/popper.js"></script>
 

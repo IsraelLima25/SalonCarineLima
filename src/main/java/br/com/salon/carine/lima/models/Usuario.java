@@ -20,7 +20,9 @@ public class Usuario implements Serializable, UserDetails {
 
 	@Id
 	private String email;
+	
 	private String nome;
+	
 	private String senha;
 	
 	@OneToMany(fetch = FetchType.EAGER)
