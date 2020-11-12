@@ -8,35 +8,40 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
+import br.com.salon.carine.lima.validations.KeyInsertValidator;
+import br.com.salon.carine.lima.validations.PasswordConfirmInsertValidator;
+
 public class UsuarioDTO implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Length(min = 10, max = 30, message = "Nome inválido")
 	private String nome;
-	
+
 	@NotBlank(message = "Email obrigatório")
-	
 	@Email(message = "Email inválido")
 	private String email;
-	
+
 	@Valid
 	private EnderecoDTO endereco;
+
+	@Valid
+	@PasswordConfirmInsertValidator
+	private PasswordDTO password;
 	
-	private String senha;
-	
-	private String senhaConfirmada;
+	@KeyInsertValidator
+	private String chave;
 
 	public UsuarioDTO() {
 
 	}
 
-	public UsuarioDTO(String nome, String email, String senha, EnderecoDTO endereco,
-			String senhaConfirmada) {
+	public UsuarioDTO(String nome, String email, String senha, EnderecoDTO endereco, String senhaConfirmada,
+			String chave) {
 		this.nome = nome;
 		this.email = email;
-		this.senha = senha;
 		this.endereco = endereco;
+		this.chave = chave;
 	}
 
 	public String getNome() {
@@ -55,14 +60,6 @@ public class UsuarioDTO implements Serializable {
 		this.email = email;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
 	public EnderecoDTO getEndereco() {
 		return endereco;
 	}
@@ -71,11 +68,20 @@ public class UsuarioDTO implements Serializable {
 		this.endereco = endereco;
 	}
 
-	public String getSenhaConfirmada() {
-		return senhaConfirmada;
+	public PasswordDTO getPassword() {
+		return password;
 	}
 
-	public void setSenhaConfirmada(String senhaConfirmada) {
-		this.senhaConfirmada = senhaConfirmada;
+	public void setPassword(PasswordDTO password) {
+		this.password = password;
 	}
+
+	public String getChave() {
+		return chave;
+	}
+
+	public void setChave(String chave) {
+		this.chave = chave;
+	}
+
 }

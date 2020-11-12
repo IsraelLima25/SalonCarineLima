@@ -4,7 +4,7 @@
 
 <html lang="pt-br">
 <head>
-<title>SSC - Login</title>
+<title>SAG - Login</title>
 <meta charset="UTF-8" />
 <c:url value="/resources" var="rsc" />
 <link rel="stylesheet"
