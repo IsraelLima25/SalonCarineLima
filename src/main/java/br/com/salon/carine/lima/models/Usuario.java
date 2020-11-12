@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,17 +28,22 @@ public class Usuario implements Serializable, UserDetails {
 	
 	private String senha;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "endereco_id")
+	private Endereco endereco;
+	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Role> roles = new ArrayList<>();
 
 	public Usuario() {
 
 	}
 
-	public Usuario(String email, String nome, String senha, List<Role> roles) {
+	public Usuario(String email, String nome, String senha, Endereco endereco, List<Role> roles) {
 		this.email = email;
 		this.nome = nome;
 		this.senha = senha;
+		this.endereco = endereco;
 		this.roles = roles;
 	}
 
@@ -63,6 +71,14 @@ public class Usuario implements Serializable, UserDetails {
 		this.senha = senha;
 	}
 
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
 	public List<Role> getRoles() {
 		return roles;
 	}
@@ -83,7 +99,6 @@ public class Usuario implements Serializable, UserDetails {
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return this.email;
 	}
 
