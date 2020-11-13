@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 <html lang="pt-br">
 <head>
@@ -32,23 +33,45 @@
             		</div>
 		            <div class="text-right col-4 col-md-4">
 						<a type="button" href="../SalonCarineLima/login" 
-							class="btn btn-info fas fa-fast-backward loader">
+							class="loader">
 							voltar
 						</a>
 					</div>
             	</div>
                 <hr/>
-                <label for="email">Email</label>
-                <div class="form-group">
-                    <input type="email" class="form-control" id="email" placeholder="Ex: salaobycarine@gmail.com">
-                </div>
-                <div class="text-center alinhamento">
-                    <button type="button" class="btn btn-color-salon btn-lg btn-block fas fa-key">
-                        Recuperar Senha</button>
-                    <hr />
-                </div>
+                <form:form method="POST" enctype="UTF-8" modelAttribute="usuarioRecovery"
+                	action="${s:mvcUrl('solicitarSenha').build()}" role="form">
+	                <label for="email">Email</label>
+	                <div class="form-group">
+	                    <form:input class="form-control" path="email" 
+	                    placeholder="Ex: salaobycarine@gmail.com" />
+	                </div>
+                    <small><form:errors cssClass="obrigatorio" path="email" /></small>
+	                <div class="text-center alinhamento">
+	                    <button class="btn btn-color-salon loader btn-lg btn-block fas fa-key"
+	                    	type="submit">
+	                        Recuperar Senha
+	                    </button>
+	                    <hr />
+	                </div>
+                </form:form>
             </div>
         </section>
+        
+        <div class="modal" id="modalLoading" tabindex="-1" data-backdrop="static">
+		  <div class="modal-dialog modal-loading">
+		    <div class="modal-content">
+		      <div class="modal-body text-center">
+		        <div class="modal-body text-center">
+					 Carregando..
+					 <div class="spinner-border text-success" role="status">
+		  				<span class="sr-only">Loading...</span>
+					 </div>
+		       </div>
+		      </div>
+		    </div>
+		</div>
+	</div>
     </main>					
 </main>
 

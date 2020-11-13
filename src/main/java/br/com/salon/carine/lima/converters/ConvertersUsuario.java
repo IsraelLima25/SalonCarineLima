@@ -17,7 +17,7 @@ public class ConvertersUsuario {
 		usuario.setEndereco(endereco);
 		usuario.setNome(usuarioDTO.getNome());
 		usuario.setSenha(usuarioDTO.getPassword().getSenha());
-		
+		usuario.setSalt(usuarioDTO.getSalt());
 		
 		return usuario;
 		

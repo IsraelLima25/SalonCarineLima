@@ -17,7 +17,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		
-		request.getSession(false).setMaxInactiveInterval(60);
+		request.getSession(false).setMaxInactiveInterval(900);
 		
 		response.sendRedirect(request.getContextPath());
 	}

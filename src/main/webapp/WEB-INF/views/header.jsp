@@ -1,4 +1,9 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+
 <div id="topHeader">
 <nav id="navMenu" class="navbar fixed-top navbar-expand-sm navbar-custom">
     <a href="../dashboard/home" class="navbar-brand far fa-calendar-alt loader"> SAG - Agendamentos</a>
@@ -51,25 +56,25 @@
                 	Carrinho
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link loader" href="../logout">
-                	<i class="fas fa-sign-out-alt"></i>
-                	Sair
+            
+            <li class="nav-item dropdown ${activeServico} profile">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-user"></i>              
+                  <security:authentication property="principal.nome" />
                 </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item"
+                    	 href="../config/alterarSenha">Alterar Senha</a>
+                    <a class="dropdown-item" href="../servico/listar">Meu Perfil</a>
+                    <a class="dropdown-item" href="../logout">Sair</a>
+                </div>
             </li>
 
         </ul>
-        <span class="ml-auto navbar-text">
-			    <a class="nav-link" style="color: white;"
-			    href="#" id="navbarSecurity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-user"></i>              
-                  <security:authentication property="principal.username" />
-                </a>
-                
-                <!--Abrir modal com informções do usuario -->
-		</span>
+	
     </div>
 </nav>
+
 </div>
 	    
     

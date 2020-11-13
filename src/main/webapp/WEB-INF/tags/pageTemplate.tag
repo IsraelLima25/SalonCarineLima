@@ -1,4 +1,5 @@
 
+
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ attribute name="titulo" required="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -8,7 +9,7 @@
 
 <meta name="viewport" charset="UTF-8"
 	content="width=device-width, initial-scale=1, maximum-scale=1" />
-<title>${titulo}-SalãoCarine</title>
+<title>${titulo} - SAG</title>
 
 <c:url value="/resources" var="rsc" />
 

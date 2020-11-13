@@ -15,7 +15,7 @@ public class UsuarioDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Length(min = 10, max = 30, message = "Nome inválido")
+	@Length(min = 10, max = 20, message = "Nome inválido. Mínimo 10 e máximo de 20 caracteres.")
 	private String nome;
 
 	@NotBlank(message = "Email obrigatório")
@@ -28,9 +28,11 @@ public class UsuarioDTO implements Serializable {
 	@Valid
 	@PasswordConfirmInsertValidator
 	private PasswordDTO password;
-	
+
 	@KeyInsertValidator
 	private String chave;
+
+	private String salt;
 
 	public UsuarioDTO() {
 
@@ -82,6 +84,14 @@ public class UsuarioDTO implements Serializable {
 
 	public void setChave(String chave) {
 		this.chave = chave;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 
 }

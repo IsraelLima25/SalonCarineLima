@@ -28,6 +28,8 @@ public class Usuario implements Serializable, UserDetails {
 	
 	private String senha;
 	
+	private String salt;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
@@ -85,6 +87,14 @@ public class Usuario implements Serializable, UserDetails {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+	
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 
 	@Override
