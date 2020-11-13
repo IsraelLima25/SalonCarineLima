@@ -2,7 +2,10 @@ package br.com.salon.carine.lima.dto;
 
 import java.io.Serializable;
 
+import javax.validation.Valid;
+
 import br.com.salon.carine.lima.validations.PasswordAtualValidator;
+import br.com.salon.carine.lima.validations.PasswordConfirmInsertValidator;
 
 public class UsuarioAlterarSenhaDTO implements Serializable {
 
@@ -10,8 +13,9 @@ public class UsuarioAlterarSenhaDTO implements Serializable {
 	
 	@PasswordAtualValidator
 	private String senhaAtual;
-
-//	@PasswordConfirmInsertValidator
+	
+	@Valid
+	@PasswordConfirmInsertValidator
 	private PasswordDTO passwordDTO;
 
 	public UsuarioAlterarSenhaDTO() {
