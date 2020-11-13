@@ -12,7 +12,16 @@
                 <div class="pb-4">
                     <h4 class="text-center"><i class="fas fa-clock"></i> Hoje ${dataAtual}</h4>
                 </div>
-
+				<c:if test="${not empty sucesso}">
+					<div class="alert alert-success alert-dismissible fade show mt-3"
+						role="alert">
+						${sucesso}
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</c:if>
                 <h3 class="color-font">Atendimentos</h3>
                 <hr />
                 

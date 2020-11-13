@@ -59,13 +59,13 @@
             
             <li class="nav-item dropdown ${activeServico} profile">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-user"></i>              
-                  <security:authentication property="principal.nome" />
+                  <i class="fas fa-user"></i>
+                  	Usuário
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item"
                     	 href="../config/alterarSenha">Alterar Senha</a>
-                    <a class="dropdown-item" href="../servico/listar">Meu Perfil</a>
+                    <a class="dropdown-item" href="../config/meuPerfil">Meu Perfil</a>
                     <a class="dropdown-item" href="../logout">Sair</a>
                 </div>
             </li>

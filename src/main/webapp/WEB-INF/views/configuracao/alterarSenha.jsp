@@ -38,7 +38,7 @@
 			            <small><form:errors cssClass="obrigatorio" path="passwordDTO.confirmacaoSenha" /></small>
 			            <small><form:errors cssClass="obrigatorio" path="passwordDTO" /></small>
 			          </div>
-				        <button type="submit" class="btn btn-color-salon btn-block">Alterar</button>
+				        <button type="submit" class="btn btn-color-salon btn-block loader">Alterar</button>
 			   </form:form>
 			</div>
 		</section>
