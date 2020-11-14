@@ -58,7 +58,7 @@
 			                        class="form-control" name="password" placeholder="senha" />
 			                    </div>
 			                    <div class="input-group">
-			                        <div class="form-check ml-3">
+			                        <div class="form-check">
 			                            <label for="remember-me">
 											<input type="checkbox" id="remember-me" name="remember-me" class="form-check-input">
 			                                 Lembrar-me
@@ -67,7 +67,7 @@
 			                    </div>
 			                    <div class="form-group">
 			                        <!-- Button -->
-			                        <div class="col-md-12 controls"> 
+			                        <div> 
 			                        	<button id="btn-login" type="submit" 
 			                        	class="btn btn-color-salon btn-block loader">
 			                        		Entrar
@@ -83,7 +83,7 @@
 			                        <div class="col-lg-12 control text-center mt-3">
 			                            <div>Não tem conta? 
 			                            <a href="../SalonCarineLima/registrar" style="display: block;">
-			                                 cadastre-se agora
+			                                 Cadastre-se agora
 			                            </a>
 			                            </div>
 			                        </div>

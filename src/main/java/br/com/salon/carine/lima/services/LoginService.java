@@ -54,11 +54,12 @@ public class LoginService {
 		EmailDTO email = new EmailDTO();
 		email.setAssunto("Bem Vindo ao SAG");
 		email.setDestinatario(usuario.getEmail());
-		email.setMensagem("Olá" + usuario.getNome() + " seja bem vindo(a) ao SAG. \n"
+		email.setMensagem("Olá, " + usuario.getNome() + " seja bem vindo(a) ao SAG. \n"
 				+ "Estamos muito contentes por ter você aqui!!\n"
 				+ "Acesse o link abaixo para confirmar seu cadastro. \n"
-				+ link
-				+ "Atenciosamente: @DevLima");
+				+ link +"\n"
+				+ "Atenciosamente \n"
+				+ "@DevLima");
 		
 		emailService.enviarEmail(email);
 	}
@@ -83,7 +84,8 @@ public class LoginService {
 		email.setMensagem("Sag - Agendamentos Informa \n"
 				+ "Nova senha gerada com sucesso !! \n"
 				+ "Nova Senha: "+newPassword+"\n"
-				+ "Atenciosamente: @DevLima");
+				+ "Atenciosamente \n"
+				+ "@DevLima");
 		
 		emailService.enviarEmail(email);
 	}
