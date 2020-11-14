@@ -33,4 +33,8 @@ public class UsuarioService implements UserDetailsService{
 		throw new UsernameNotFoundException("O usuário" + email + "não foi encontrado");
 	}
 	
+	public Optional<Usuario> userSaltByUser(String salt) {
+		return usuarioRepository.findBySalt(salt);
+	}
+	
 }

@@ -30,6 +30,8 @@ public class Usuario implements Serializable, UserDetails {
 	
 	private String salt;
 	
+	private boolean isAccountNoLocked = false;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
@@ -97,6 +99,14 @@ public class Usuario implements Serializable, UserDetails {
 		this.salt = salt;
 	}
 
+	public boolean isAccountNoLocked() {
+		return isAccountNoLocked;
+	}
+
+	public void setAccountNoLocked(boolean isAccountNoLocked) {
+		this.isAccountNoLocked = isAccountNoLocked;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.roles;
@@ -119,6 +129,9 @@ public class Usuario implements Serializable, UserDetails {
 
 	@Override
 	public boolean isAccountNonLocked() {
+		if(this.isAccountNoLocked == false) {
+			return false;
+		}
 		return true;
 	}
 

@@ -42,8 +42,27 @@ public class LoginService {
 		Usuario usuarioEncripty = bCriptyHashImpl.usuarioEncripty(usuario);
 		
 		usuarioRepository.save(usuarioEncripty);
+		
+		enviarEmailBoasVindas(usuarioEncripty, gerarLink(usuarioEncripty));
 	}
 	
+	private String gerarLink(Usuario usuarioEncripty) {
+		return "http://localhost:8080/SalonCarineLima/desbloquearUsuario?identity="+usuarioEncripty.getSalt();
+	}
+
+	private void enviarEmailBoasVindas(Usuario usuario, String link) {
+		EmailDTO email = new EmailDTO();
+		email.setAssunto("Bem Vindo ao SAG");
+		email.setDestinatario(usuario.getEmail());
+		email.setMensagem("Olá" + usuario.getNome() + " seja bem vindo(a) ao SAG. \n"
+				+ "Estamos muito contentes por ter você aqui!!\n"
+				+ "Acesse o link abaixo para confirmar seu cadastro. \n"
+				+ link
+				+ "Atenciosamente: @DevLima");
+		
+		emailService.enviarEmail(email);
+	}
+
 	public void recuperarSenhaUsuario(String email) {
 		 Usuario usuario = usuarioRepository.findByEmail(email).get();
 		 String newPassword = GeneratorPassword.generate();
@@ -52,11 +71,11 @@ public class LoginService {
 		 
 		 usuarioRepository.save(usuarioEncripty);
 		 
-		 buildEmailSendNewPassword(usuario,newPassword);
+		 enviarEmailSendNewPassword(usuario,newPassword);
 		 
 	}
 
-	private void buildEmailSendNewPassword(Usuario usuario, String newPassword) {
+	private void enviarEmailSendNewPassword(Usuario usuario, String newPassword) {
 		
 		EmailDTO email = new EmailDTO();
 		email.setAssunto("Nova Senha");
@@ -72,6 +91,10 @@ public class LoginService {
 	private Role getRole() {
 		Role role = new Role("'ROLE_ADM'");
 		return role;
+	}
+	
+	public void updateUsuario(Usuario usuario) {
+		usuarioRepository.save(usuario);
 	}
 	
 }

@@ -11,4 +11,6 @@ import br.com.salon.carine.lima.models.Usuario;
 public interface UsuarioRepositorySJPA extends JpaRepository<Usuario, String>{
 
 	Optional<Usuario> findByEmail(String email);
+	
+	Optional<Usuario> findBySalt(String salt);
 }

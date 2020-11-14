@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page contentType="text/html; charset=UTF-8" language="java"	pageEncoding="UTF-8"%><%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
@@ -23,7 +21,7 @@
 				</c:if>
 
 				<form:form method="post" enctype="UTF-8"
-					action="${s:mvcUrl('alterarPerfil').build()}" role="form"
+					action="${s:mvcUrl('alterarPerfil').build()}"
 					modelAttribute="usuario">
 					
 					<div class="form-group">
