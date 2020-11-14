@@ -25,6 +25,7 @@ public class LojaController {
 		
 		ModelAndView modelAndView = new ModelAndView("loja/home-loja");
 		modelAndView.addObject("servicos",servicos);
+		modelAndView.addObject("activeLoja", "active");
 
 		return modelAndView;
 	}

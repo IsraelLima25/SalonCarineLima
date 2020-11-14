@@ -1,4 +1,5 @@
 
+
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ attribute name="titulo" required="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -8,12 +9,11 @@
 
 <meta name="viewport" charset="UTF-8"
 	content="width=device-width, initial-scale=1, maximum-scale=1" />
-<title>${titulo}-SalãoCarine</title>
+<title>${titulo} - SAG</title>
 
 <c:url value="/resources" var="rsc" />
 
-<link rel="stylesheet"
-	href="${rsc}/bootstrap-4.5.2/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${rsc}/bootstrap-4.5.2/css/bootstrap.min.css" />
 <link rel="stylesheet" href="${rsc}/css/style.css" />
 
 <link rel="stylesheet"
@@ -27,12 +27,13 @@
 </head>
 
 <body>
+
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 
 	<!-- Conteudo da pagina -->
 	
 	<!--Botão voltar para o topo -->
-	<div class="back-to-top" hidden href="#">
+	<div class="back-to-top" href="#" style="margin-bottom: 50px;">
 		<i class="fas fa-chevron-up"></i>
 	</div>
 
@@ -70,7 +71,29 @@
 
 	<jsp:doBody />
 
-	<!-- Futuro Rodapé  -->
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="fixed-bottom text-center" style="background-color: #A020F0">
+   <div class="container text-center mt-2 pb-3">
+		  <div class="row">
+		  <div class="col-4">
+		  		©Copyright
+		  </div>
+		   <div class="col-4">
+		   		<a> V.1.0.0</a>
+		  </div>
+		   <div class="col-4">
+		   		<a style="color:white;" href="https://israellima25.github.io/PageProfile/">@DevLima</a>
+		  </div>
+		  </div>
+	</div>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 
 	<%-- 	<script charset="UTF-8" src="${rsc}/js/global.js"></script> --%>
 	<script src="../resources/js/global.js"></script>

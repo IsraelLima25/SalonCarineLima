@@ -9,7 +9,7 @@
 			<div class="container container-space-default">
 				<h4 class="color-font">Cadastrar Cliente</h4>
 				<hr />
-				<form name="formCadastro">
+				<form:form name="formCadastro">
 					<div class="form-group">
 						<label class="color-font-label" for="nome">Nome <span class="obrigatorio">*</span></label> <input
 							type="text" class="form-control" id="nome" name="nome">
@@ -69,12 +69,11 @@
 					</div>
 					
 					<div class="text-center alinhamento">
-						<button id="btnCadastrar" style="margin-bottom: 16px;"
+						<button id="btnCadastrar" style="margin-bottom: 100px;"
 							data-toggle="modal" type="submit"
 							class="btn btn-color-salon btn-block">Cadastrar</button>
 					</div>
-
-				</form>
+				</form:form>
 			</div>
 		</section>
 		

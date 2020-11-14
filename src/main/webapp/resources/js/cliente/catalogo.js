@@ -1,7 +1,7 @@
 /****************** Scripts de paginação ***********************************/
 
 function removerActiveButton(){
-	$("nav ul li").removeClass("active");
+	$("#pagination ul li").removeClass("active");
 }
 
 function updateButtonActive(numeroPagina){
@@ -11,7 +11,7 @@ function updateButtonActive(numeroPagina){
 }
 
 function buttonAtual(){
-	return	$("li").filter("[class~='active']")[0].id;
+	return	$("#pagination li").filter("[class~='active']")[0].id;
 }
 
 function updateNextButtonActive(numeroPagina){

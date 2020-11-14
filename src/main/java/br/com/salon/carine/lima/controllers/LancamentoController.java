@@ -41,6 +41,7 @@ public class LancamentoController {
 		RelatorioLancamentoDTO relatorio = lancamentoService.getRelatorioPeriodo();
 		modelAndView.addObject("lancamentos", relatorio.getLancamentos());
 		modelAndView.addObject("totalPeriodo", relatorio.getTotalPeriodo());
+		modelAndView.addObject("activeFinanceiro", "active");
 		return modelAndView;
 	}
 	

@@ -12,7 +12,16 @@
                 <div class="pb-4">
                     <h4 class="text-center"><i class="fas fa-clock"></i> Hoje ${dataAtual}</h4>
                 </div>
-
+				<c:if test="${not empty sucesso}">
+					<div class="alert alert-success alert-dismissible fade show mt-3"
+						role="alert">
+						${sucesso}
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</c:if>
                 <h3 class="color-font">Atendimentos</h3>
                 <hr />
                 
@@ -38,7 +47,6 @@
 			                                	<fmt:formatDate pattern="HH:mm" value="${atendimento.hora}" />
 			                            </li>
 			                        </ul>
-			
 			                        <a id="btnCadastrar" style="margin-bottom: 16px;" 
 			                        	type="button" class="btn btn-color-salon btn-block"
 			                        	href="${s:mvcUrl('AC#detalheAtendimento')
@@ -53,7 +61,6 @@
                 </c:choose>
             </div>
 
-            <div class="back-to-top" href="#"><i class="fas fa-chevron-up"></i></div>
 		</section>
 	</main>
 	

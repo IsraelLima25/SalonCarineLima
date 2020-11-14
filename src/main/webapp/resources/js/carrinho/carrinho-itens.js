@@ -1,7 +1,15 @@
+$(function () {
+    var token = $("input[name='_csrf']").val();
+    var header = "X-CSRF-TOKEN";
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
+});
+
 function incrementarItem(idServico){
 	$.ajax({
 		url: `/SalonCarineLima/carrinho/add/${idServico}`,
-		method: 'GET',
+		method: 'GET'
 		
 	}).then(function(response) {
 		console.log(response);
@@ -16,8 +24,7 @@ function incrementarItem(idServico){
 function removerItem(idServico){
 	$.ajax({
 		url: `/SalonCarineLima/carrinho/remover/${idServico}`,
-		method: 'GET',
-		
+		method: 'GET'
 	}).then(function(response) {
 		atualizarValoresServico(response);
 		atualizarTotalCarrinho();

@@ -1,9 +1,15 @@
+$(document).click(function(e) { if (!$(e.target).is('a')) { $('.collapse').collapse('hide'); } }); 
+
 /* Scroll Configuration */
 $('.back-to-top').click(function() {
 	$("html, body").animate({
 		scrollTop : 0
 	}, 600);
 	return false;
+});
+
+$(document).ready(function() {
+	$('.back-to-top').prop("hidden", true);
 });
 
 $(window).scroll(function(event) {
@@ -21,7 +27,7 @@ $('section').click(function() {
 	$('.navbar-collapse').collapse('hide');
 })
 
-/*Modal Loading*/
+/* Modal Loading */
 function showLoader() {
 	$('#modalLoading').modal('show');
 }
@@ -72,3 +78,9 @@ function showMessageClient(title, body) {
 /*mask*/
 $('.moeda').mask('#.##0,00', {reverse: true});
 $('.tel').mask('###########', {reverse: true});
+
+/* Scripts NavBar */
+$( '#topheader .navbar-nav a' ).on( 'click', function () {
+	$( '#topheader .navbar-nav' ).find( 'li.active' ).removeClass( 'active' );
+	$( this ).parent( 'li' ).addClass( 'active' );
+});

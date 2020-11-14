@@ -36,11 +36,14 @@ import br.com.salon.carine.lima.models.Especie;
 import br.com.salon.carine.lima.models.Pagamento;
 import br.com.salon.carine.lima.models.Servico;
 import br.com.salon.carine.lima.models.ServicoItemCarrinho;
+import br.com.salon.carine.lima.models.Usuario;
 import br.com.salon.carine.lima.repositories.EnderecoRepository;
 import br.com.salon.carine.lima.repositories.ServicoItemCarrinhoRepository;
 import br.com.salon.carine.lima.repositoriessdp.AtendimentoRepositorySJPA;
+import br.com.salon.carine.lima.repositoriessdp.UsuarioRepositorySJPA;
 import br.com.salon.carine.lima.response.Message;
 import br.com.salon.carine.lima.response.ResponseMarcar;
+import br.com.salon.carine.lima.security.AuthenticationFacade;
 
 @Service
 public class AtendimentoService {
@@ -62,6 +65,12 @@ public class AtendimentoService {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private AuthenticationFacade usuarioAutenticado;
+	
+	@Autowired
+	private UsuarioRepositorySJPA usuarioRepository;
 	
 	private Integer idLastAtendimento;
 	
@@ -151,7 +160,6 @@ public class AtendimentoService {
 		atendimento.setTaxa(taxa);
 
 		return atendimento;
-
 	}
 
 	private Endereco getEnderecoAtendimento(MarcarAtendimentoDTO marcarAtendimentoDTO,
@@ -161,11 +169,15 @@ public class AtendimentoService {
 			Endereco endereco = clienteAtendimento.getEndereco();
 			return endereco;
 		} else if (marcarAtendimentoDTO.getTipoEndereco() == TipoEndereco.CASA) {
-			/*
-			 * Este endereço virá do cadastro do usuário no módulo controle de acesso em
-			 * fase de desenvolvimento
-			 */
+			String emailUsuarioAutenticado = usuarioAutenticado.getAuthentication().getName();
+			Optional<Usuario> optionalUser = usuarioRepository.findByEmail(emailUsuarioAutenticado);
+			
+			if(optionalUser.isPresent()) {
+				return optionalUser.get().getEndereco();
+			}
+			
 			return null;
+			
 		} else if (marcarAtendimentoDTO.getTipoEndereco() == TipoEndereco.OUTRO_ENDERECO) {
 			Endereco enderecoSalvo = enderecoRepository.salvarEndereco(
 					ConvertersEndereco.deEnderecoDTOParaEndereco(marcarAtendimentoDTO.getEnderecoDTOAtendimento()));

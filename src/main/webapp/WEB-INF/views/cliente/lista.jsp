@@ -5,8 +5,8 @@
 
 <tags:pageTemplate titulo="Lista Cliente">
 
-	<div class="container container-space-default">
-		<h4 class="mt-4 color-font">Lista de Clientes</h4>
+	<div class="container">
+		<h4 class="color-font">Lista de Clientes</h4>
 		<hr />
 
 		<div class="form-group">
@@ -15,7 +15,7 @@
 			<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
 		</div>
 
-		<table id="cliente-table" class="mt-5 table table-striped">
+		<table id="cliente-table" class="table table-striped">
 			<thead>
 				<tr>
 					<th scope="col">Código</th>
@@ -58,14 +58,15 @@
 		
 		<!-- Paginação -->
 		<c:if test="${paginas.totalPages > 0 }">
-				<div class="row pb-5">
-						<nav aria-label="..." style="margin: auto;">
+				<div class="row mb-5">
+						<nav id="pagination" class="pb-5" aria-label="..." style="margin: auto;">
 							  <ul class="pagination flex-wrap ">
 							  <li class="page-item">
 								  <p hidden id="paginaAtual">${paginas.pageable.pageNumber}</p>
 								  
-							      <a class="page-link fas fa-chevron-left" type="button"
+							      <a class="page-link" type="button"
 							      	onclick="paginaAnterior(${paginas.totalPages})">
+							      	<span aria-hidden="true">&laquo;</span>
 							      </a>
 							    </li>
 							  <c:forEach var="pageNumber" begin="0" end="${paginas.totalPages - 1}" 
@@ -86,14 +87,15 @@
 						    	</c:choose>
 							  </c:forEach>
 							    <li class="page-item">
-							      <a class="page-link fas fa-chevron-right" type="button"
+							      <a class="page-link" type="button"
 							      	onclick="proximaPagina(${paginas.totalPages})">
+							      	<span aria-hidden="true">&raquo;</span>
 							      </a>
 							    </li>
 							  </ul>
 						</nav>
 					</div>
-				</c:if>
+		</c:if>
 	</div>
 	
 	<script src="../resources/js/cliente/catalogo.js"></script>

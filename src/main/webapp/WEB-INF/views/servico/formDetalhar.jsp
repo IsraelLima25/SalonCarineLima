@@ -1,6 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java"
-	pageEncoding="UTF-8"%>
-
+<%@ page contentType="text/html; charset=UTF-8" language="java"	pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
 <tags:pageTemplate titulo="Detalhar Serviço">
@@ -50,8 +49,11 @@
 			</div>
 			
 			<div class="form-group">
-				<label class="color-font-label" for="preco">Preço <span class="obrigatorio">*</span></label> 
-				<input type="text" value="${servico.preco}" name="preco" class="form-control" id="preco">
+				<label class="color-font-label moeda" for="preco">Preço <span class="obrigatorio">*</span></label> 
+				
+				<fmt:formatNumber var="precoFormatado" pattern="#,##0.00" type="currency" value="${servico.preco}"/>
+				
+				<input type="text" value="${precoFormatado}" name="preco" class="form-control moeda" id="preco">
 				<small hidden class="form-text obrigatorio preco"></small>
 			</div>
 
