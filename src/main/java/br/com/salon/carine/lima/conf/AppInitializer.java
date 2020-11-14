@@ -5,20 +5,19 @@ import javax.servlet.Filter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import br.com.salon.carine.lima.security.SecurityConfiguration;
+
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 	
-		return new Class[] {PersistenceJPAConfig.class};
-//		return null
+		return new Class[] {PersistenceJPAConfig.class, SecurityConfiguration.class, WebMvcConfig.class};
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] {
-	            WebMvcConfig.class
-	        };
+		return new Class[] {WebMvcConfig.class};
 	}
 
 	@Override

@@ -2,12 +2,13 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <tags:pageTemplate titulo="Lista Atendimentos">
 	<main>
 		<section>
-			<div class="container container-space-default">
+			<div class="container">
 			  <p hidden id="paginaAtual">${paginas.pageable.pageNumber}</p>
 				<h4 class="color-font">Atendimentos Marcados</h4>
 				<hr />
@@ -40,7 +41,7 @@
 				</div>		
 
 				<div hidden id="groupFilterByData" class="mt-3">
-					<form name="formFiltro">
+					<form:form name="formFiltro">
 						<div class="form-group">
 							<label class="color-font-label" for="data-inicio">
 								Data Ínicio
@@ -54,9 +55,9 @@
 								<small hidden class="form-text obrigatorio dataFim"></small>
 							<button type="submit" class="btn btn-color-salon btn-sm">Filtrar</button>
 						</div>
-					</form>
+					</form:form>
 				</div>
-				<table id="atendimento-table" class="table table-striped mt-5">
+				<table id="atendimento-table" class="table table-striped">
 					<thead>
 						<tr>
 							<th scope="col">Cliente</th>
@@ -98,17 +99,18 @@
 				</table>
 				
 				<!-- Paginação -->
-		<c:if test="${paginas.totalPages > 0 }">
+				<c:if test="${paginas.totalPages > 0 }">
 				<div class="row pb-5">
-						<nav aria-label="..." style="margin: auto;">
+						<nav id="pagination" aria-label="..." style="margin: auto;">
 							  <ul class="pagination flex-wrap ">
 							  <li class="page-item">
 								  <p hidden id="paginaAtual">${paginas.pageable.pageNumber}</p>
 								  
-							      <a class="page-link fas fa-chevron-left" type="button"
+							      <a class="page-link" type="button"
 							      	onclick="paginaAnterior(${paginas.totalPages})">
+							      	<span aria-hidden="true">&laquo;</span>
 							      </a>
-							    </li>
+							   </li>
 							  <c:forEach var="pageNumber" begin="0" end="${paginas.totalPages - 1}" 
 							  			varStatus="value">
 						    	<c:choose>
@@ -127,8 +129,9 @@
 						    	</c:choose>
 							  </c:forEach>
 							    <li class="page-item">
-							      <a class="page-link fas fa-chevron-right" type="button"
+							      <a class="page-link" type="button"
 							      	onclick="proximaPagina(${paginas.totalPages})">
+							      	<span aria-hidden="true">&raquo;</span>
 							      </a>
 							    </li>
 							  </ul>
@@ -136,11 +139,6 @@
 					</div>
 				</c:if>
 			</div>
-			
-			<div class="back-to-top" href="#">
-				<i class="fas fa-chevron-up"></i>
-			</div>
-
 		</section>
 	</main>
 	<script src="../resources/js/atendimento/lista.js"></script>

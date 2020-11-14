@@ -104,13 +104,13 @@
 				</div>
 
 				<div class="text-center alinhamento">
-					<button id="btnMarcarAtendimento" spellcheck="false" style="margin-bottom: 16px;"
+					<button id="btnMarcarAtendimento" spellcheck="false" style="margin-bottom: 100px;"
 						class="btn btn-color-salon btn-block" onclick="marcarAtendimento()">
 							Marcar Atendimento
 						</button>
 				</div>
-
 			</div>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</section>
 	</main>
 

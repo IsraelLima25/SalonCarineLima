@@ -39,6 +39,7 @@ public class ServicoController {
 	@RequestMapping(method = RequestMethod.GET, value = "cadastro")
 	public ModelAndView formCadastroServico() {
 		ModelAndView modelAndView = new ModelAndView("servico/formCadastro");
+		modelAndView.addObject("activeServico", "active");
 		return modelAndView;
 	}
 	
@@ -80,6 +81,7 @@ public class ServicoController {
 		ModelAndView modelAndView = new ModelAndView("servico/lista");
 		Page<Servico> pageServico = servicoService.findPageServico(page, size);
 		modelAndView.addObject("paginas", pageServico);
+		modelAndView.addObject("activeServico", "active");
 		
 		return modelAndView;
 	}
