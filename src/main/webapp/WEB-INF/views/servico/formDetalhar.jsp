@@ -63,7 +63,7 @@
 						Alterar Serviço
 				</button>
 			</div>
-			<div class="text-center alinhamento mt-2">
+			<div class="text-center alinhamento mt-2" style="margin-bottom: 80px;">
 				<a type="button" data-toggle="modal" data-target="#modalExcluir"
 					class="btn btn-danger fas fa-trash-alt btn-block"> Excluir</a>
 			</div>

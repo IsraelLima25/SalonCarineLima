@@ -85,7 +85,7 @@ public class LoginController {
 			redirect.addFlashAttribute("sucesso","Usuário pré cadastrado com sucesso. "
 					+"Um link para confirmação da conta foi enviado para o email "
 					+usuario.getEmail()
-					+"acecesse o link para desbloqueio da conta.");
+					+" acesse o link para desbloqueio da conta.");
 			
 			return new ModelAndView("redirect:/login");
 			
