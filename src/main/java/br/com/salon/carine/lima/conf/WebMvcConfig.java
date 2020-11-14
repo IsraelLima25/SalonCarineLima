@@ -1,5 +1,7 @@
 package br.com.salon.carine.lima.conf;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -11,9 +13,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.web.accept.ContentNegotiationManager;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.google.common.cache.CacheBuilder;
@@ -45,6 +50,21 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		GuavaCacheManager manager = new GuavaCacheManager();
 		manager.setCacheBuilder(builder);
 		return manager;
+	}
+	
+	@Bean
+	public ViewResolver contenNegotiationViewResolver(ContentNegotiationManager manager) {
+		
+		List<ViewResolver> viewResolvers = new ArrayList<>();
+		viewResolvers.add(resolver());
+		viewResolvers.add(new JsonViewResolver());
+		
+		ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
+		resolver.setViewResolvers(viewResolvers);
+		resolver.setContentNegotiationManager(manager);
+
+		return resolver;
+		
 	}
 	
 	@Bean
