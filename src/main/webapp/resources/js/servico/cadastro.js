@@ -1,7 +1,7 @@
 $(function() {
 	$('button[type=submit]').click(function(e) {
-		showLoader();
 		e.preventDefault();
+		showLoader();
 		$.post({
 			url : '/SalonCarineLima/servico',
 			method : 'POST',

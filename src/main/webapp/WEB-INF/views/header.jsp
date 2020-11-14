@@ -57,7 +57,7 @@
                 </a>
             </li>
             
-            <li class="nav-item dropdown ${activeServico} profile">
+            <li class="nav-item dropdown profile">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-user"></i>
                   	Usuário

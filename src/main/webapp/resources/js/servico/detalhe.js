@@ -24,14 +24,8 @@ $(function() {
 });
 
 function atualizarPagina(){
-	limparCampos();
 	limparMessagesErrors();
 	topPage();
-}
-
-function limparCampos() {
-	$('#descricao').val('');
-	$('#preco').val('');
 }
 
 function limparMessagesErrors(){
