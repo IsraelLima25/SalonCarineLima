@@ -52,39 +52,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		return manager;
 	}
 	
-	@Bean
-	public ViewResolver contenNegotiationViewResolver(ContentNegotiationManager manager) {
-		
-		List<ViewResolver> viewResolvers = new ArrayList<>();
-		viewResolvers.add(resolver());
-		viewResolvers.add(new JsonViewResolver());
-		
-		ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
-		resolver.setViewResolvers(viewResolvers);
-		resolver.setContentNegotiationManager(manager);
-
-		return resolver;
-		
-	}
-
-	@Bean
-	public JavaMailSender getJavaMailSender() {
-	    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-	    mailSender.setHost("smtp.gmail.com");
-	    mailSender.setPort(587);
-	    
-	    mailSender.setUsername("sagsoftwareagendamentos@gmail.com");
-	    mailSender.setPassword("");
-	    
-	    Properties props = mailSender.getJavaMailProperties();
-	    props.put("mail.transport.protocol", "smtp");
-	    props.put("mail.smtp.auth", "true");
-	    props.put("mail.smtp.starttls.enable", "true");
-	    props.put("mail.debug", "true");
-	    
-	    return mailSender;
-	}
 	
+
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //        registry
 //            .addResourceHandler("/resources/**")
