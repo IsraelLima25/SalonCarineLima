@@ -1,5 +1,6 @@
 package br.com.salon.carine.lima.conf;
 
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.cache.CacheManager;
@@ -8,6 +9,8 @@ import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -42,6 +45,24 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		GuavaCacheManager manager = new GuavaCacheManager();
 		manager.setCacheBuilder(builder);
 		return manager;
+	}
+	
+	@Bean
+	public JavaMailSender getJavaMailSender() {
+	    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+	    mailSender.setHost("smtp.gmail.com");
+	    mailSender.setPort(587);
+	    
+	    mailSender.setUsername("sagsoftwareagendamentos@gmail.com");
+	    mailSender.setPassword("");
+	    
+	    Properties props = mailSender.getJavaMailProperties();
+	    props.put("mail.transport.protocol", "smtp");
+	    props.put("mail.smtp.auth", "true");
+	    props.put("mail.smtp.starttls.enable", "true");
+	    props.put("mail.debug", "true");
+	    
+	    return mailSender;
 	}
 
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
