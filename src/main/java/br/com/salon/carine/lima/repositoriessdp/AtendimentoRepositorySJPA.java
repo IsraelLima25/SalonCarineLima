@@ -1,5 +1,6 @@
 package br.com.salon.carine.lima.repositoriessdp;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,8 @@ public interface AtendimentoRepositorySJPA extends JpaRepository<Atendimento, In
 	Page<Atendimento> findByDataBetween(Calendar from, Calendar to, Pageable pageable);
 	
 	List<Atendimento> findByDataBetween(Calendar from, Calendar de);
+	
+	List<Atendimento> findByDataBetween(LocalDate from, LocalDate de);
 	
 	@EntityGraph(value = "Cliente.endereco")
 	@Query("SELECT a FROM Atendimento a JOIN a.cliente c WHERE c.nome LIKE :nome%")
