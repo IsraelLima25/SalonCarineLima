@@ -1,5 +1,4 @@
 
-
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ attribute name="titulo" required="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -16,10 +15,7 @@
 <link rel="stylesheet" href="${rsc}/bootstrap-4.5.2/css/bootstrap.min.css" />
 <link rel="stylesheet" href="${rsc}/css/style.css" />
 
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-	crossorigin="anonymous">
+<link rel="stylesheet" href="${rsc}/fontawesome-5.15.1/css/all.css" />
 
 <script src="${rsc}/jquery-3.5.1/jquery-3.5.1.js"></script>
 <script src="${rsc}/jquery-3.5.1/jquery.mask.min.js"></script>
