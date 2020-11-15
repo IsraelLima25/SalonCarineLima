@@ -34,7 +34,7 @@ public class LoginController {
 		defaultValue = "") String error, RedirectAttributes redirect) {
 		
 		ModelAndView modelAndView = new ModelAndView("security/loginForm");
-		
+
 		if(!error.isEmpty()) {
 			String emailInvalido = UsuarioService.emailPage;
 			modelAndView.addObject("message","Usuário ou Senha inválidos");
