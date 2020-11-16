@@ -1,7 +1,10 @@
 package br.com.salon.carine.lima.conf;
 
 import javax.servlet.Filter;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
+import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -12,7 +15,8 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		
-		return new Class[] {PersistenceJPAConfig.class, SecurityConfiguration.class, WebMvcConfig.class};
+		return new Class[] {PersistenceJPAConfigTest.class, SecurityConfiguration.class, 
+				PersistenceJPAConfigProd.class,WebMvcConfig.class};
 	}
 
 	@Override
@@ -30,6 +34,15 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
 		encodingFilter.setEncoding("UTF-8");
 		return new Filter[] { encodingFilter };
+	}
+
+	@Override
+	public void onStartup(ServletContext servletContext) throws ServletException {
+		super.onStartup(servletContext);
+		servletContext.addListener(new RequestContextListener());
+		servletContext.setInitParameter("spring.profiles.active", "prod");
 	}	
+	
+	
 
 }

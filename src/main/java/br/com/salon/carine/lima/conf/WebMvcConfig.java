@@ -11,6 +11,7 @@ import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.accept.ContentNegotiationManager;
@@ -85,6 +86,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	    return mailSender;
 	}
 	
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //        registry
