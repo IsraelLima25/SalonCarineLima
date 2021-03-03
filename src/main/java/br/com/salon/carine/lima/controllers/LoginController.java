@@ -2,6 +2,7 @@ package br.com.salon.carine.lima.controllers;
 
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,7 @@ public class LoginController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "register", name = "registerUser")
 	public ModelAndView registrarUsuario(@Valid @ModelAttribute("usuario") UsuarioDTO usuario,
-			BindingResult result, RedirectAttributes redirect) {
+			BindingResult result, RedirectAttributes redirect, HttpServletRequest request) {
 		
 		if(result.hasErrors()) {
 			return registrar(usuario);
@@ -81,7 +82,7 @@ public class LoginController {
 		
 		try {
 			
-			loginService.registrarUsuarioService(usuario);
+			loginService.registrarUsuarioService(usuario, request);
 			redirect.addFlashAttribute("sucesso","Usuário pré cadastrado com sucesso. "
 					+"Um link para confirmação da conta foi enviado para o email "
 					+usuario.getEmail()

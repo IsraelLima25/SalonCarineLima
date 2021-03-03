@@ -2,6 +2,8 @@ package br.com.salon.carine.lima.services;
 
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +28,7 @@ public class LoginService {
 	@Autowired
 	private BCriptyHashImpl bCriptyHashImpl;
 	
-	public void registrarUsuarioService(UsuarioDTO usuarioDTO) throws Exception {
+	public void registrarUsuarioService(UsuarioDTO usuarioDTO, HttpServletRequest request) throws Exception {
 		
 		Optional<Usuario> optionalUsuario = usuarioRepository.
 				findByEmail(usuarioDTO.getEmail());
@@ -43,11 +45,13 @@ public class LoginService {
 		
 		usuarioRepository.save(usuarioEncripty);
 		
-		enviarEmailBoasVindas(usuarioEncripty, gerarLink(usuarioEncripty));
+		enviarEmailBoasVindas(usuarioEncripty, gerarLink(usuarioEncripty, request));
 	}
 	
-	private String gerarLink(Usuario usuarioEncripty) {
-		return "http://localhost:8080/SalonCarineLima/desbloquearUsuario?identity="+usuarioEncripty.getSalt();
+	private String gerarLink(Usuario usuarioEncripty, HttpServletRequest request) {
+		String urlCurrent = request.getRequestURL().toString().split("register")[0];
+		String urlUnlockUser = urlCurrent+"desbloquearUsuario?identity="+usuarioEncripty.getSalt();
+		return urlUnlockUser;
 	}
 
 	private void enviarEmailBoasVindas(Usuario usuario, String link) {
