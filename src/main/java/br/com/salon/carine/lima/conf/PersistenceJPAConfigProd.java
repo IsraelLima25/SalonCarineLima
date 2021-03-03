@@ -65,7 +65,7 @@ public class PersistenceJPAConfigProd {
 		
 		URI dbUrl = new URI(environment.getProperty("CLEARDB_DATABASE_URL"));
 		
-		dataSource.setUrl("jdbc:mysql://"+dbUrl.getHost()+":"+dbUrl.getPort()+dbUrl.getPath());
+		dataSource.setUrl("jdbc:mysql://"+dbUrl.getHost()+":"+"3306"+dbUrl.getPath());
 		dataSource.setUsername(dbUrl.getUserInfo().split(":")[0]);
 		dataSource.setPassword(dbUrl.getUserInfo().split(":")[1]);
 
