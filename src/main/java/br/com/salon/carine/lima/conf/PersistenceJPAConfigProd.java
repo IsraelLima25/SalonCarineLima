@@ -63,9 +63,9 @@ public class PersistenceJPAConfigProd {
 		
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		
-		URI dbUrl = new URI("mysql://b8471df8612d59:72198c8e@us-cdbr-east-02.cleardb.com/heroku_c288e890499b124?reconnect=true");
+		URI dbUrl = new URI(environment.getProperty("DATABASE_URL"));
 		
-		dataSource.setUrl("jdbc:mysql://"+dbUrl.getHost()+":"+"3306"+dbUrl.getPath());
+		dataSource.setUrl("jdbc:mysql://"+dbUrl.getHost()+":"+dbUrl.getPort()+dbUrl.getPath());
 		dataSource.setUsername(dbUrl.getUserInfo().split(":")[0]);
 		dataSource.setPassword(dbUrl.getUserInfo().split(":")[1]);
 
@@ -77,7 +77,7 @@ public class PersistenceJPAConfigProd {
 	    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 	    mailSender.setHost("smtp.gmail.com");
 	    mailSender.setPort(587);
-	    
+	    	
 	    mailSender.setUsername("sagsoftwareagendamentos@gmail.com");
 	    mailSender.setPassword(environment.getProperty("PASSWORD_EMAIL"));
 	    
