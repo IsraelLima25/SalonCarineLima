@@ -65,7 +65,7 @@ public class PersistenceJPAConfigProd {
 		
 		URI dbUrl = new URI("mysql://b8471df8612d59:72198c8e@us-cdbr-east-02.cleardb.com/heroku_c288e890499b124?reconnect=true");
 		
-		dataSource.setUrl("jdbc:mysql://"+dbUrl.getHost()+":"+dbUrl.getPort()+dbUrl.getPath());
+		dataSource.setUrl("jdbc:mysql://"+dbUrl.getHost()+":"+"3306"+dbUrl.getPath());
 		dataSource.setUsername(dbUrl.getUserInfo().split(":")[0]);
 		dataSource.setPassword(dbUrl.getUserInfo().split(":")[1]);
 
