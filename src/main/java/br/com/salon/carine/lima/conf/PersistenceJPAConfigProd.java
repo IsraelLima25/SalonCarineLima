@@ -63,7 +63,7 @@ public class PersistenceJPAConfigProd {
 		
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		
-		URI dbUrl = new URI(environment.getProperty("CLEARDB_DATABASE_URL"));
+		URI dbUrl = new URI(environment.getProperty("DATABASE_URL"));
 		
 		dataSource.setUrl("jdbc:mysql://"+dbUrl.getHost()+":"+dbUrl.getPort()+dbUrl.getPath());
 		dataSource.setUsername(dbUrl.getUserInfo().split(":")[0]);
