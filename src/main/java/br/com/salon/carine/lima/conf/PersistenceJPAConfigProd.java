@@ -37,7 +37,8 @@ public class PersistenceJPAConfigProd {
 	@Autowired
 	private Environment environment;
 	
-	Logger logger = LoggerFactory.getLogger(PersistenceJPAConfigProd.class);
+    private static Logger logger = LoggerFactory.getLogger(PersistenceJPAConfigProd.class);
+	
 	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws URISyntaxException {
@@ -65,16 +66,18 @@ public class PersistenceJPAConfigProd {
 		
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		
-		logger.info("Criando conexão");
-		logger.info("DATABASE_URL");
-		logger.info(environment.getProperty("DATABASE_URL").toString());
-		logger.info("CLEARDB_DATABASE_URL");
-		logger.info(environment.getProperty("CLEARDB_DATABASE_URL").toString());
+		logger.error("Criando conexão");;
+		logger.error("DATABASE_URL");
+		logger.error(environment.getProperty("DATABASE_URL").toString());
+		logger.error("CLEARDB_DATABASE_URL");
+		logger.error(environment.getProperty("CLEARDB_DATABASE_URL").toString());
+		logger.error("PASSWORD_EMAIL");
+		logger.error(environment.getProperty("PASSWORD_EMAIL").toString());
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		
 		URI dbUrl = new URI("mysql://bcf5398440fcaf:bec5aafe@us-cdbr-east-03.cleardb.com/heroku_ee0664da547d01d?reconnect=true");
 		
-		dataSource.setUrl("jdbc:mysql://"+dbUrl.getHost()+":"+dbUrl.getPort()+dbUrl.getPath());
+		dataSource.setUrl("jdbc:mysql://"+dbUrl.getHost()+":"+"3306"+dbUrl.getPath());
 		dataSource.setUsername(dbUrl.getUserInfo().split(":")[0]);
 		dataSource.setPassword(dbUrl.getUserInfo().split(":")[1]);
 
@@ -88,7 +91,7 @@ public class PersistenceJPAConfigProd {
 	    mailSender.setPort(587);
 	    	
 	    mailSender.setUsername("sagsoftwareagendamentos@gmail.com");
-	    mailSender.setPassword(environment.getProperty("PASSWORD_EMAIL"));
+	    mailSender.setPassword("");
 	    
 	    Properties props = mailSender.getJavaMailProperties();
 	    props.put("mail.transport.protocol", "smtp");
