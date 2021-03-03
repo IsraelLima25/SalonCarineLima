@@ -7,6 +7,8 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -34,7 +36,9 @@ public class PersistenceJPAConfigProd {
 	
 	@Autowired
 	private Environment environment;
-
+	
+	Logger logger = LoggerFactory.getLogger(PersistenceJPAConfigProd.class);
+	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws URISyntaxException {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
@@ -61,6 +65,11 @@ public class PersistenceJPAConfigProd {
 		
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		
+		logger.info("Criando conexão");
+		logger.info("DATABASE_URL");
+		logger.info(environment.getProperty("DATABASE_URL").toString());
+		logger.info("CLEARDB_DATABASE_URL");
+		logger.info(environment.getProperty("CLEARDB_DATABASE_URL").toString());
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		
 		URI dbUrl = new URI(environment.getProperty("DATABASE_URL"));
