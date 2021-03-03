@@ -72,7 +72,7 @@ public class PersistenceJPAConfigProd {
 		logger.info(environment.getProperty("CLEARDB_DATABASE_URL").toString());
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		
-		URI dbUrl = new URI(environment.getProperty("DATABASE_URL"));
+		URI dbUrl = new URI("mysql://bcf5398440fcaf:bec5aafe@us-cdbr-east-03.cleardb.com/heroku_ee0664da547d01d?reconnect=true");
 		
 		dataSource.setUrl("jdbc:mysql://"+dbUrl.getHost()+":"+dbUrl.getPort()+dbUrl.getPath());
 		dataSource.setUsername(dbUrl.getUserInfo().split(":")[0]);
