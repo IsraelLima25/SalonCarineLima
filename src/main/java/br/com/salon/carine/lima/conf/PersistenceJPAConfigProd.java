@@ -37,9 +37,6 @@ public class PersistenceJPAConfigProd {
 	@Autowired
 	private Environment environment;
 	
-    private static Logger logger = LoggerFactory.getLogger(PersistenceJPAConfigProd.class);
-	
-	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws URISyntaxException {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
