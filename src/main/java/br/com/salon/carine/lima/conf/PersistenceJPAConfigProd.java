@@ -7,8 +7,6 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -63,20 +61,13 @@ public class PersistenceJPAConfigProd {
 		
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		
-//		logger.error("Criando conexão");;
-//		logger.error("DATABASE_URL");
-//		logger.error(environment.getProperty("DATABASE_URL").toString());
-//		logger.error("CLEARDB_DATABASE_URL");
-//		logger.error(environment.getProperty("CLEARDB_DATABASE_URL").toString());
-//		logger.error("PASSWORD_EMAIL");
-//		logger.error(environment.getProperty("PASSWORD_EMAIL").toString());
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		System.out.println("israel" + environment.getProperty("DATABASE_URL"));
+		URI dbUrl = new URI(environment.getProperty("DATABASE_URL"));
 		
-		//URI dbUrl = new URI("mysql://bcf5398440fcaf:bec5aafe@us-cdbr-east-03.cleardb.com/heroku_ee0664da547d01d?reconnect=true");
-		
-		dataSource.setUrl("mysql://us-cdbr-east-03.cleardb.com:3306/heroku_ee0664da547d01d");
-		dataSource.setUsername("bcf5398440fcaf");
-		dataSource.setPassword("bec5aafe");
+		dataSource.setUrl("jdbc:mysql://"+dbUrl.getHost()+":"+dbUrl.getPort()+dbUrl.getPath());
+		dataSource.setUsername(dbUrl.getUserInfo().split(":")[0]);
+		dataSource.setPassword(dbUrl.getUserInfo().split(":")[1]);
 
 		return dataSource;
 	}
