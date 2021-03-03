@@ -33,7 +33,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class PersistenceJPAConfigProd {
 	
 	@Autowired
-	private Environment environment;
+	Environment environment;
 	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws URISyntaxException {
