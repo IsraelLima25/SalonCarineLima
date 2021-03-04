@@ -49,7 +49,6 @@ public class PersistenceJPAConfigProd {
 		return entityManagerFactoryBean;
 	}
 	
-	@Bean
 	public Properties additionalProperties() {
 		Properties hibernateProperties = new Properties();
 		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
