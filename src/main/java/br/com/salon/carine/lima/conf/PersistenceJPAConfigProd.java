@@ -7,6 +7,7 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -57,18 +58,26 @@ public class PersistenceJPAConfigProd {
 	}
 
 	@Bean
-	public DataSource dataSource() throws URISyntaxException {
+	public BasicDataSource dataSource() throws URISyntaxException {
 		
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		BasicDataSource basicDataSource = new BasicDataSource();
+		basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		URI dbUrl = new URI(environment.getProperty("DATABASE_URL"));
+        String dbUrl = System.getenv("JDBC_DATABASE_URL");
+        String username = System.getenv("JDBC_DATABASE_USERNAME");
+        String password = System.getenv("JDBC_DATABASE_PASSWORD");
 		
-		dataSource.setUrl("jdbc:mysql://"+dbUrl.getHost()+":"+dbUrl.getPort()+dbUrl.getPath());
-		dataSource.setUsername(dbUrl.getUserInfo().split(":")[0]);
-		dataSource.setPassword(dbUrl.getUserInfo().split(":")[1]);
-
-		return dataSource;
+		//URI dbUrl = new URI(environment.getProperty("DATABASE_URL"));
+		
+		//dataSource.setUrl("jdbc:mysql://"+dbUrl.getHost()+":"+dbUrl.getPort()+dbUrl.getPath());
+		//dataSource.setUsername(dbUrl.getUserInfo().split(":")[0]);
+		//dataSource.setPassword(dbUrl.getUserInfo().split(":")[1]);
+        
+        basicDataSource.setUrl(dbUrl);
+        basicDataSource.setUsername(username);
+        basicDataSource.setPassword(password);
+        
+		return basicDataSource;
 	}
 	
 	@Bean
