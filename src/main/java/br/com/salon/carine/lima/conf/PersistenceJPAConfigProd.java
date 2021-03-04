@@ -1,6 +1,5 @@
 package br.com.salon.carine.lima.conf;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Properties;
 
@@ -54,20 +53,19 @@ public class PersistenceJPAConfigProd {
 	public BasicDataSource dataSource() throws URISyntaxException {
 		
 		BasicDataSource basicDataSource = new BasicDataSource();
+		basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		
-		basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");	
+        String dbUrl = System.getenv("JDBC_DATABASE_URL");
+        String username = System.getenv("JDBC_DATABASE_USERNAME");
+        String password = System.getenv("JDBC_DATABASE_PASSWORD");
 		
-        URI dbUri = new URI(System.getenv("DATABASE_URL"));
-
-        String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:mysql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-
         basicDataSource.setUrl(dbUrl);
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);
-
-        return basicDataSource;
+        
+		return basicDataSource;
+		
+		
 	}
 	
 	@Bean
