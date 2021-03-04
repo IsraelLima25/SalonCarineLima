@@ -33,7 +33,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class PersistenceJPAConfigProd {
 	
 	@Autowired
-	Environment environment;
+	private Environment environment;
 	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws URISyntaxException {
@@ -48,7 +48,8 @@ public class PersistenceJPAConfigProd {
 
 		return entityManagerFactoryBean;
 	}
-
+	
+	@Bean
 	public Properties additionalProperties() {
 		Properties hibernateProperties = new Properties();
 		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.guava.GuavaCacheManager;
@@ -12,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.env.Environment;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -28,9 +26,6 @@ import com.google.common.cache.CacheBuilder;
 @ComponentScan(basePackages = { "br.com.salon.carine.lima.controllers", "br.com.salon.carine.lima.services" })
 @EnableCaching
 public class WebMvcConfig implements WebMvcConfigurer {
-	
-	@Autowired
-	private Environment environment;
 
 	@Bean
 	public InternalResourceViewResolver resolver() {
