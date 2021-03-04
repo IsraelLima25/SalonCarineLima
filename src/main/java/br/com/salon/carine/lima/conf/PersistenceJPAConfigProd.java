@@ -65,7 +65,6 @@ public class PersistenceJPAConfigProd {
         
 		return basicDataSource;
 		
-		
 	}
 	
 	@Bean
@@ -75,7 +74,7 @@ public class PersistenceJPAConfigProd {
 	    mailSender.setPort(587);
 	    	
 	    mailSender.setUsername("sagsoftwareagendamentos@gmail.com");
-	    mailSender.setPassword("");
+	    mailSender.setPassword(System.getenv("PASSWORD_EMAIL"));
 	    
 	    Properties props = mailSender.getJavaMailProperties();
 	    props.put("mail.transport.protocol", "smtp");
