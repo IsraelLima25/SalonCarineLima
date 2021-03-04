@@ -7,10 +7,12 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -29,6 +31,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "br.com.salon.carine.lima.repositoriessdp")
 @Profile("prod")
 public class PersistenceJPAConfigProd {
+	
+	@Autowired
+	private Environment environment;
 	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws URISyntaxException {
@@ -56,9 +61,8 @@ public class PersistenceJPAConfigProd {
 		
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		
-		
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		URI dbUrl = new URI(System.getenv("DATABASE_URL"));
+		URI dbUrl = new URI("mysql://bcf5398440fcaf:bec5aafe@us-cdbr-east-03.cleardb.com/heroku_ee0664da547d01d?reconnect=true");
 		
 		dataSource.setUrl("jdbc:mysql://"+dbUrl.getHost()+":"+dbUrl.getPort()+dbUrl.getPath());
 		dataSource.setUsername(dbUrl.getUserInfo().split(":")[0]);
