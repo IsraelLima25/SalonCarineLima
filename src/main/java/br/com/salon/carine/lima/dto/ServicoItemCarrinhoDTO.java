@@ -10,15 +10,17 @@ public class ServicoItemCarrinhoDTO implements Serializable {
 	private ServicoDTO servicoDTO;
 	private Integer quantidade;
 	private BigDecimal precoTotal;
+	private BigDecimal precoAtual;
 
 	public ServicoItemCarrinhoDTO() {
 
 	}
 
-	public ServicoItemCarrinhoDTO(ServicoDTO servicoDTO, Integer quantidade) {
+	public ServicoItemCarrinhoDTO(ServicoDTO servicoDTO, Integer quantidade, BigDecimal precoAtual) {
 		super();
 		this.servicoDTO = servicoDTO;
 		this.quantidade = quantidade;
+		this.precoAtual = precoAtual;
 	}
 
 	public ServicoDTO getServicoDTO() {
@@ -45,5 +47,12 @@ public class ServicoItemCarrinhoDTO implements Serializable {
 		this.precoTotal = precoTotal;
 	}
 	
+	public BigDecimal getPrecoAtual() {
+		return precoAtual;
+	}
+	
+	public void setPrecoAtual(BigDecimal precoAtual) {
+		this.precoAtual = precoAtual;
+	}
 
 }

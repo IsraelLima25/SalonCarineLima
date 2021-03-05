@@ -132,6 +132,7 @@ public class AtendimentoService {
 			Servico servico = ConvertersServico.deServicoDTOparaServico(servicoDTO);
 
 			servicoItemCarrinho.setServico(servico);
+			servicoItemCarrinho.setPrecoAtual(servicoItemCarrinhoDTO.getPrecoAtual());
 
 			servicoItemCarrinho.setQuantidade(servicoItemCarrinhoDTO.getQuantidade());
 

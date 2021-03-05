@@ -46,6 +46,7 @@ public class CarrinhoService {
 		Servico servico = ConvertersServico.deServicoDTOparaServico(servicoDTO);
 		ServicoItemCarrinho servicoAdicionadoCarrinho = new ServicoItemCarrinho();
 		servicoAdicionadoCarrinho.setServico(servico);
+		servicoAdicionadoCarrinho.setPrecoAtual(servico.getPreco());
 
 		ServicoItemCarrinhoDTO itemAdicionado = carrinho.add(servicoAdicionadoCarrinho);				
 

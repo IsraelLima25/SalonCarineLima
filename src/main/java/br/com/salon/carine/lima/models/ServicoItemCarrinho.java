@@ -32,6 +32,8 @@ public class ServicoItemCarrinho implements Serializable {
 	private Servico servico;
 
 	private Integer quantidade;
+	
+	private BigDecimal precoAtual;
 
 	public ServicoItemCarrinho() {
 	}
@@ -60,6 +62,11 @@ public class ServicoItemCarrinho implements Serializable {
 		BigDecimal total = this.servico.getPreco().multiply(BigDecimal.valueOf(quantidadeItem));
 		return total;
 	}
+	
+	public BigDecimal getTotalPorPrecoAtual(Integer quantidadeItem) {
+		BigDecimal total = this.getPrecoAtual().multiply(BigDecimal.valueOf(quantidadeItem));
+		return total;
+	}
 
 	public Integer getQuantidade() {
 		return quantidade;
@@ -67,6 +74,14 @@ public class ServicoItemCarrinho implements Serializable {
 
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+	
+	public BigDecimal getPrecoAtual() {
+		return precoAtual;
+	}
+	
+	public void setPrecoAtual(BigDecimal precoAtual) {
+		this.precoAtual = precoAtual;
 	}
 
 	@Override

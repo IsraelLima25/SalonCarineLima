@@ -185,7 +185,7 @@
                             <td class="text-center">${itemAtendimento.quantidade}</td>
                             <td class="text-center">
                             	<fmt:formatNumber type="currency" pattern="#,##0.00"
-                            	 value="${itemAtendimento.getTotal(itemAtendimento.quantidade)}"/>
+                            	 value="${itemAtendimento.getTotalPorPrecoAtual(itemAtendimento.quantidade)}"/>
                             </td>
                         </tr>
                     </c:forEach>

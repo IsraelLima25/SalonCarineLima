@@ -10,7 +10,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -54,7 +53,6 @@ public class AtendimentoController {
 	
 	private Logger logger = Logger.getLogger("br.com.salon.carine.lima.Atendimento");
 	
-	@Cacheable(value = "listarHTML")
 	@RequestMapping(method = RequestMethod.GET, value = "listar")
 	public ModelAndView formDetalheAtendimento(
 			@RequestParam(defaultValue = "0") Integer page,
@@ -116,7 +114,6 @@ public class AtendimentoController {
 		}
 	}
 	
-	@CacheEvict(value = "listarHTML", allEntries = true)
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<ResponseMarcar> marcaAtendimento(
 			@Valid MarcarAtendimentoDTO atendimentoDTO, BindingResult result, 
