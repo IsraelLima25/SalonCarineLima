@@ -75,6 +75,8 @@
 			                        	</button>
 			                        </div>
 			                    </div>
+			                    
+			                    ${email }
 
 			                    <div class="text-center">
 			                    	<a href="../SalonCarineLima/esqueciSenha">Esqueceu a senha?</a>
