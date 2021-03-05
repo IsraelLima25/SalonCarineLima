@@ -20,7 +20,7 @@
 <body>
 <main>
 
-	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%-- 	<c:set var="contextPath" value="${pageContext.request.contextPath}"/> --%>
 	
 	<section id="login">
 			<div class="container">
@@ -77,13 +77,13 @@
 			                    </div>
 
 			                    <div class="text-center">
-			                    	<a href="${contextPath}/esqueciSenha">Esqueceu a senha?</a>
+			                    	<a href="../SalonCarineLima/esqueciSenha">Esqueceu a senha?</a>
 			                    </div>
 			                    
 			                    <div class="form-group">
 			                        <div class="col-lg-12 control text-center mt-3">
 			                            <div>Não tem conta? 
-			                            <a href="${contextPath}/registrar" style="display: block;">
+			                            <a href="../SalonCarineLima/registrar" style="display: block;">
 			                                 Cadastre-se agora
 			                            </a>
 			                            </div>
