@@ -42,8 +42,6 @@ public class LoginController {
 			modelAndView.addObject("emailInvalido", emailInvalido);
 			return modelAndView;
 		}else {
-			Usuario usuario = usuarioService.userSaltByUser("$2a$10$ta8sUQc7.ajToK1LV72dFu").get();
-			modelAndView.addObject("email", usuario.getEmail());
 			return modelAndView;
 		}
 	}

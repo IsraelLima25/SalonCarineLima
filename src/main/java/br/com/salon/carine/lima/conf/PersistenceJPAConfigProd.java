@@ -4,14 +4,15 @@ import java.net.URISyntaxException;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -50,9 +51,9 @@ public class PersistenceJPAConfigProd {
 	}
 
 	@Bean
-	public BasicDataSource dataSource() throws URISyntaxException {
+	public DataSource dataSource() throws URISyntaxException {
 		
-		BasicDataSource basicDataSource = new BasicDataSource();
+		DriverManagerDataSource basicDataSource = new DriverManagerDataSource();
 		basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		
         String dbUrl = System.getenv("JDBC_DATABASE_URL");
