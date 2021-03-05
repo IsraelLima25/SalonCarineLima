@@ -4,8 +4,11 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 <tags:pageTemplate titulo="Lista Cliente">
-
+	
+	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+	
 	<div class="container">
+		<span id="contextPage" hidden> ${contextPath}</span>
 		<h4 class="color-font">Lista de Clientes</h4>
 		<hr />
 

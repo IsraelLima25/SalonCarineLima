@@ -1,9 +1,11 @@
+var contextCurrent = $('#contextPage').text();
+
 $(function() {
 	$('button[type=submit]').click(function(e) {
 		e.preventDefault();
 		showLoader();
 		$.post({
-			url : '/SalonCarineLima/cliente/alterar',
+			url : contextCurrent+'/cliente/alterar',
 			method : 'POST',
 			data : $('form[name=formDetalhar]').serialize(),
 
@@ -65,7 +67,7 @@ function limparMessagesErrors(){
 function removerCliente(idCliente) {
 	showLoader();
 	$.post({
-		url : `/SalonCarineLima/cliente/remover/${idCliente}`,
+		url : `${contextCurrent}/cliente/remover/${idCliente}`,
 		method : 'DELETE'
 	})
 	.then(function() {
@@ -89,7 +91,7 @@ function showModalExclusaoInvalida(){
 }
 
 $('#modalMessageExclusaoValida').on('hidden.bs.modal', function(e) {
-	window.location.href = `/SalonCarineLima/cliente/listar`;
+	window.location.href = `${contextCurrent}/cliente/listar`;
 })
 
 function topPage() {

@@ -1,11 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
 <tags:pageTemplate titulo="Detalhar Cliente">
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 	<div class="container page container-space-default">
+	
+	<span id="contextPage" hidden> ${contextPath}</span>
 
 		<div class="row">
 			<div class="text-left col-8 col-md-8">
@@ -24,13 +29,13 @@
 			<div class="text-left col-6 col-md-6">
 				<span>
 					<a	class="btn btn-success fas fa-chevron-left" 
-	               	href="/SalonCarineLima/cliente/previous?idClienteAtual=${cliente.id}">
+	               	href="${contextPath}/cliente/previous?idClienteAtual=${cliente.id}">
 	               	</a>
 				</span>
 			</div>
 			<div class="text-right col-6 col-md-6">
 				<a	class="btn btn-success fas fa-chevron-right" 
-	                	href="/SalonCarineLima/cliente/next?idClienteAtual=${cliente.id}">
+	                	href="${contextPath}/cliente/next?idClienteAtual=${cliente.id}">
 	            		    	
 	            </a>
 			</div>

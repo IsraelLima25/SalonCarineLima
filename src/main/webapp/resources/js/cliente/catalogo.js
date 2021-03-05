@@ -1,3 +1,5 @@
+var contextCurrent = $('#contextPage').text();
+
 /****************** Scripts de paginação ***********************************/
 
 function removerActiveButton(){
@@ -48,7 +50,7 @@ function paginaAnterior (totalPaginas){
 
 function getNextPage(numeroPagina){
 	$.get({
-		url: `/SalonCarineLima/cliente/listar.json?page=${numeroPagina+1}`,
+		url: `${contextCurrent}/cliente/listar.json?page=${numeroPagina+1}`,
 		success : function(response) {
 			rendererTabela(response.paginas.content);
 			updateNextButtonActive(numeroPagina);
@@ -62,7 +64,7 @@ function getNextPage(numeroPagina){
 
 function getPreviousPage(numeroPagina){
 	$.get({
-		url: `/SalonCarineLima/cliente/listar.json?page=${numeroPagina-1}`,
+		url: `${contextCurrent}/cliente/listar.json?page=${numeroPagina-1}`,
 		success : function(response) {
 			rendererTabela(response.paginas.content);
 			updatePreviousButtonActive(numeroPagina);
@@ -76,7 +78,7 @@ function getPreviousPage(numeroPagina){
 
 function getPage(numeroPagina){
 	$.get({
-		url: `/SalonCarineLima/cliente/listar.json?page=${numeroPagina}`,
+		url: `${contextCurrent}/cliente/listar.json?page=${numeroPagina}`,
 		success : function(response) {
 			rendererTabela(response.paginas.content);
 			updateButtonActive(numeroPagina);
@@ -105,7 +107,7 @@ function rendererTabela (clientes) {
 				<td>${cliente.nome}</td>
 				<td class="text-center">
 				<a class="fas fa-search btn btn-info"
-				 href="/SalonCarineLima/cliente/${cliente.id}" />
+				 href="${contextCurrent}/cliente/${cliente.id}" />
 				</td>
 			</tr>	
 			`
@@ -117,7 +119,7 @@ $('#nome-filter').keyup(function() {
 	var nomeFilter = $(this).val();
 	setTimeout(() => {
 		$.get({
-			url: `/SalonCarineLima/cliente/filter?nome=${nomeFilter}`,
+			url: `${contextCurrent}/cliente/filter?nome=${nomeFilter}`,
 			success: function(response) {
 				rendererTabela(response);
 			},
