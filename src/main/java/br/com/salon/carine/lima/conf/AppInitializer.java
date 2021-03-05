@@ -40,7 +40,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
 		servletContext.addListener(new RequestContextListener());
-		servletContext.setInitParameter("spring.profiles.active", "test");
+		servletContext.setInitParameter("spring.profiles.active", "prod");
 	}	
 
 }
