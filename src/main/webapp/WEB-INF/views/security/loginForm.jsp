@@ -19,6 +19,9 @@
 </head>
 <body>
 <main>
+
+	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+	
 	<section id="login">
 			<div class="container">
 			    <div id="loginbox" style="margin-top: 50px;" class="mainbox col-lg-6 offset-md-3 col-md-8 offset-sm-2">
@@ -72,15 +75,15 @@
 			                        	</button>
 			                        </div>
 			                    </div>
-			                    
+
 			                    <div class="text-center">
-			                    	<a href="../SalonCarineLima/esqueciSenha">Esqueceu a senha?</a>
+			                    	<a href="${contextPath}/esqueciSenha">Esqueceu a senha?</a>
 			                    </div>
 			                    
 			                    <div class="form-group">
 			                        <div class="col-lg-12 control text-center mt-3">
 			                            <div>Não tem conta? 
-			                            <a href="../SalonCarineLima/registrar" style="display: block;">
+			                            <a href="${contextPath}/registrar" style="display: block;">
 			                                 Cadastre-se agora
 			                            </a>
 			                            </div>
