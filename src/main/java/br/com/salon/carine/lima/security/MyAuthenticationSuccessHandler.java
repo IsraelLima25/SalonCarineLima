@@ -19,7 +19,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 		
 		request.getSession(false).setMaxInactiveInterval(900);
 		
-		response.sendRedirect(request.getContextPath());
+		response.sendRedirect(request.getContextPath().concat("/dashboard/home"));
 	}
 	
 	
