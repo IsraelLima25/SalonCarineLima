@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -43,7 +41,6 @@ public class ClienteController {
 		return modelAndView;
 	}
 	
-	@CacheEvict(value = "listarClientesHTML", allEntries = true)
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<ResponseCliente> cadastrarCliente(@Valid ClienteDTO clienteDTO,			
 			BindingResult result, HttpServletRequest request) {
@@ -63,7 +60,6 @@ public class ClienteController {
 		return ResponseEntity.created(uri).body(response);
 	}
 	
-	@CacheEvict(value = "listarClientesHTML", allEntries = true)
 	@RequestMapping(method = RequestMethod.POST, value = "/alterar")
 	public ResponseEntity<ResponseCliente> alterarCliente(@Valid ClienteDTO clienteDTO,
 			BindingResult result, HttpServletRequest request) {
@@ -81,7 +77,6 @@ public class ClienteController {
 		return ResponseEntity.ok().body(response);
 	}
 	
-	@Cacheable(value = "listarClientesHTML")
 	@RequestMapping(method = RequestMethod.GET, value = "listar")
 	public ModelAndView buscaPaginadaCliente(
 			@RequestParam(defaultValue = "0") Integer page,
@@ -102,7 +97,6 @@ public class ClienteController {
 		return modelAndView;
 	}
 
-	@CacheEvict(value = "listarClientesHTML", allEntries = true)
 	@RequestMapping(method = RequestMethod.DELETE, value = "/remover/{id}")
 	public ResponseEntity<Void> removerCliente(@PathVariable("id") Integer id) {
 		
