@@ -2,10 +2,7 @@ package br.com.salon.carine.lima.conf;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +14,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import com.google.common.cache.CacheBuilder;
 
 @Configuration
 @EnableWebMvc
@@ -36,16 +31,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
-	}
-
-	@Bean
-	public CacheManager cacheManager() {
-		CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder()
-				.maximumSize(100).expireAfterAccess(5,
-				TimeUnit.MINUTES);
-		GuavaCacheManager manager = new GuavaCacheManager();
-		manager.setCacheBuilder(builder);
-		return manager;
 	}
 	
 	@Bean
@@ -70,9 +55,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry
-//            .addResourceHandler("/resources/**")
-//            .addResourceLocations("/resources/");
-//    }
 }
