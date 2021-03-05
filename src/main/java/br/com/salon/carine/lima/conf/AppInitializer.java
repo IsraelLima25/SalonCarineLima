@@ -33,6 +33,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	protected Filter[] getServletFilters() {
 		CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
 		encodingFilter.setEncoding("UTF-8");
+		
 		return new Filter[] { encodingFilter };
 	}
 
@@ -40,7 +41,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
 		servletContext.addListener(new RequestContextListener());
-		servletContext.setInitParameter("spring.profiles.active", "prod");
+		servletContext.setInitParameter("spring.profiles.active", "test");
 	}	
 
 }

@@ -19,8 +19,6 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 		
 		request.getSession(false).setMaxInactiveInterval(900);
 		
-		System.out.println(request.getContextPath());
-		
 		response.sendRedirect(request.getContextPath());
 	}
 	

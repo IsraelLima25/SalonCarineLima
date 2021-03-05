@@ -34,7 +34,15 @@ public class LoginController {
 	public ModelAndView loginForm(@RequestParam(required = false, 
 		defaultValue = "") String error, RedirectAttributes redirect) {
 		
-		ModelAndView modelAndView = new ModelAndView("security/loginForm");
+		ModelAndView modelAndView = new ModelAndView();
+		
+		if(loginService.isAuthenticated()) {
+			modelAndView.setViewName("redirect:dashboard/home");
+			return modelAndView;
+		}
+		
+		modelAndView.setViewName("security/loginForm");
+		
 
 		if(!error.isEmpty()) {
 			String emailInvalido = UsuarioService.emailPage;

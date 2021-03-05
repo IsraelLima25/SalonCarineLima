@@ -5,6 +5,8 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import br.com.salon.carine.lima.converters.ConvertersUsuario;
@@ -13,6 +15,7 @@ import br.com.salon.carine.lima.dto.UsuarioDTO;
 import br.com.salon.carine.lima.models.Role;
 import br.com.salon.carine.lima.models.Usuario;
 import br.com.salon.carine.lima.repositoriessdp.UsuarioRepositorySJPA;
+import br.com.salon.carine.lima.security.AuthenticationFacade;
 import br.com.salon.carine.lima.security.BCriptyHashImpl;
 import br.com.salon.carine.lima.utils.GeneratorPassword;
 
@@ -24,6 +27,9 @@ public class LoginService {
 	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private AuthenticationFacade authenticationFacade;
 	
 	@Autowired
 	private BCriptyHashImpl bCriptyHashImpl;
@@ -101,6 +107,15 @@ public class LoginService {
 	
 	public void updateUsuario(Usuario usuario) {
 		usuarioRepository.save(usuario);
+	}
+	
+	public boolean isAuthenticated() {
+	    Authentication authentication = authenticationFacade.getAuthentication();
+	    if (authentication == null || AnonymousAuthenticationToken.class.
+	      isAssignableFrom(authentication.getClass())) {
+	        return false;
+	    }
+	    return authentication.isAuthenticated();
 	}
 	
 }
