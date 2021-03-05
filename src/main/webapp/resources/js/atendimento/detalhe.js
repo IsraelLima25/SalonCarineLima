@@ -1,3 +1,5 @@
+var contextCurrent = $('#contextPage').text();
+
 /* Ao carregar a página sempre chama função para atualização da cor do estado */
 if($('#status').val() === 'Atendido'){
 	$('#status').css("color","green");
@@ -11,7 +13,7 @@ $(function() {
 		e.preventDefault();
 
 		$.post({
-			url : '/SalonCarineLima/lancamento/lancar',
+			url : contextCurrent+'/lancamento/lancar',
 			method : 'POST',
 			data : $('form[name=formLancamento]').serialize(),
 		})
@@ -34,7 +36,7 @@ $(function() {
 		e.preventDefault();
 
 		$.post({
-			url : '/SalonCarineLima/atendimento/cancelar',
+			url : contextCurrent+'/atendimento/cancelar',
 			method : 'POST',
 			data : $('form[name=formCancelamento]').serialize(),
 		})
@@ -52,11 +54,11 @@ $(function() {
 
 $('#modalSucesso').on('hidden.bs.modal', function (e) {
 	var idAtendimento = $('#atendimentoId').val();
-	window.location.href = `/SalonCarineLima/atendimento/${idAtendimento}`; 
+	window.location.href = `${contextCurrent}/atendimento/${idAtendimento}`; 
 });
 
 $('#modalCancelado').on('hidden.bs.modal', function (e) {
-	window.location.href = `/SalonCarineLima/atendimento/listar`; 
+	window.location.href = `${contextCurrent}/atendimento/listar`; 
 });
 
 

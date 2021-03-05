@@ -1,3 +1,5 @@
+var contextCurrent = $('#contextPage').text();
+
 $(function () {
     var token = $("input[name='_csrf']").val();
     var header = "X-CSRF-TOKEN";
@@ -8,7 +10,7 @@ $(function () {
 
 function incrementarItem(idServico){
 	$.ajax({
-		url: `/SalonCarineLima/carrinho/add/${idServico}`,
+		url: `${contextCurrent}/carrinho/add/${idServico}`,
 		method: 'GET'
 		
 	}).then(function(response) {
@@ -23,7 +25,7 @@ function incrementarItem(idServico){
 
 function removerItem(idServico){
 	$.ajax({
-		url: `/SalonCarineLima/carrinho/remover/${idServico}`,
+		url: `${contextCurrent}/carrinho/remover/${idServico}`,
 		method: 'GET'
 	}).then(function(response) {
 		atualizarValoresServico(response);
@@ -36,7 +38,7 @@ function removerItem(idServico){
 
 function removerServico(idServico){
 	$.ajax({
-		url: `/SalonCarineLima/carrinho/remover/servico/${idServico}`,
+		url: `${contextCurrent}/carrinho/remover/servico/${idServico}`,
 		method: 'DELETE',
 		
 	}).then(function(response) {
@@ -49,7 +51,7 @@ function removerServico(idServico){
 
 function atualizarTotalCarrinho(){
 	$.ajax({
-		url:'/SalonCarineLima/carrinho/totalCarrinho',
+		url: contextCurrent+'/carrinho/totalCarrinho',
 		method: 'GET'
 	}).then(function(data) {
 		atualizarValorTotalCarrinho(data);
@@ -71,18 +73,18 @@ function atualizarValorTotalCarrinho(valorTotal){
 
 function atualizaCardsServicos(idServico){
 	atualizarTotalCarrinho();
-	window.location.href = "/SalonCarineLima/carrinho/itensCarrinho";
+	window.location.href = contextCurrent+"/carrinho/itensCarrinho";
 }
 
 function marcarAtendimento(){
 	showLoader();
 	$.ajax({
-		url: "/SalonCarineLima/carrinho/totalCarrinho",
+		url: contextCurrent+"/carrinho/totalCarrinho",
 		method: 'GET',
 		
 	}).then(function(valorTotalCarrinho) {
 		if(valorTotalCarrinho > 0){
-			window.location.href = "/SalonCarineLima/atendimento/formMarcar";
+			window.location.href = contextCurrent+"/atendimento/formMarcar";
 			hideLoader();
 		}else{
 			showMessageClient("Carrinho Vazio","Nenhum serviço foi adicionado ao carrinho");

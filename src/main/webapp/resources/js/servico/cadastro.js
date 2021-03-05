@@ -1,9 +1,10 @@
+var contextCurrent = $('#contextPage').text();
 $(function() {
 	$('button[type=submit]').click(function(e) {
 		e.preventDefault();
 		showLoader();
 		$.post({
-			url : '/SalonCarineLima/servico',
+			url : contextCurrent+'/servico',
 			method : 'POST',
 			data : $('form[name=formCadastro]').serialize()
 		})

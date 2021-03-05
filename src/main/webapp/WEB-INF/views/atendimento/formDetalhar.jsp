@@ -7,7 +7,10 @@
 
 <tags:pageTemplate titulo="Detalhe Atendimento">
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
  <main>
+ 		<span id="contextPage" hidden> ${contextPath}</span>
         <section>
             <div class="container container-space-default">
             	<input id="rowNumberAtual" hidden value="${page.getNumber()}" />
@@ -27,11 +30,11 @@
                 <div class="row">
                 	<div class="col-6 col-md-6 text-left">
                 		<a	class="btn btn-success fas fa-chevron-left" 
-	                	href="/SalonCarineLima/atendimento/previous?idAtendimentoAtual=${atendimento.id}"></a>
+	                	href="${contextPath}/atendimento/previous?idAtendimentoAtual=${atendimento.id}"></a>
                 	</div>
                 	<div class="col-6 col-md-6 text-right">
 	                	<a	class="btn btn-success fas fa-chevron-right" 
-	                	href="/SalonCarineLima/atendimento/next?idAtendimentoAtual=${atendimento.id}"></a>
+	                	href="${contextPath}/atendimento/next?idAtendimentoAtual=${atendimento.id}"></a>
                 	</div>
                 </div>
  				<div class="row">
@@ -57,7 +60,7 @@
                 	<div class="col-12 col-md-12">
 	                    <label>Cliente</label>
                     		<a class="fas fa-search ml-2"
-							href="/SalonCarineLima/cliente/${atendimento.cliente.id}">
+							href="${contextPath}/cliente/${atendimento.cliente.id}">
 							</a>
 	                    <input disabled="disabled" class="form-control" 
                     	value="${atendimento.cliente.nome}" />

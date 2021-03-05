@@ -7,7 +7,10 @@
 
 <tags:pageTemplate titulo="Relatório Lançamento">
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 	<main>
+		<span id="contextPage" hidden> ${contextPath}</span>
 		<section>
 			<div class="container container-space-default">
 				<h4 class="color-font">Relatório Lançamento</h4>

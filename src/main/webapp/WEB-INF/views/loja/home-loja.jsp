@@ -7,7 +7,10 @@
 
 <tags:pageTemplate titulo="Loja">
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 	<main>
+		<span id="contextPage" hidden> ${contextPath}</span>
 		<section>
 			<div class="container">
 				<div class="row">

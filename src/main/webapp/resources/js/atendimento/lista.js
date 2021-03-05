@@ -1,9 +1,11 @@
+var contextCurrent = $('#contextPage').text();
+
 $(function() {
 	$('button[type=submit]').click(function(e) {
 		showLoader();
 		e.preventDefault();
 		$.post({
-			url : '/SalonCarineLima/atendimento/filterData',
+			url : contextCurrent+'/atendimento/filterData',
 			data : $('form[name=formFiltro]').serialize()
 		})
 		.then(function(data, textStatus, xhr) {
@@ -71,7 +73,7 @@ function paginaAnterior (totalPaginas){
 
 function getNextPage(numeroPagina){
 	$.get({
-		url: `/SalonCarineLima/atendimento/listar.json?page=${numeroPagina+1}`,
+		url: `${contextCurrent}/atendimento/listar.json?page=${numeroPagina+1}`,
 		success : function(response) {
 			rendererTabela(response.paginas.content);
 			updateNextButtonActive(numeroPagina);
@@ -85,7 +87,7 @@ function getNextPage(numeroPagina){
 
 function getPreviousPage(numeroPagina){
 	$.get({
-		url: `/SalonCarineLima/atendimento/listar.json?page=${numeroPagina-1}`,
+		url: `${contextCurrent}/atendimento/listar.json?page=${numeroPagina-1}`,
 		success : function(response) {
 			rendererTabela(response.paginas.content);
 			updatePreviousButtonActive(numeroPagina);
@@ -99,7 +101,7 @@ function getPreviousPage(numeroPagina){
 
 function getPage(numeroPagina){
 	$.get({
-		url: `/SalonCarineLima/atendimento/listar.json?page=${numeroPagina}`,
+		url: `${contextCurrent}/atendimento/listar.json?page=${numeroPagina}`,
 		success : function(response) {
 			rendererTabela(response.paginas.content);
 			updateButtonActive(numeroPagina);
@@ -150,7 +152,7 @@ function rendererTabela (atendimentos) {
 				<td>${horaFormatada}</td>
 				<td class="text-center">
 				<a class="fas fa-search btn btn-info"
-				 href="/SalonCarineLima/atendimento/${atendimento.id}" />
+				 href="${contextCurrent}/atendimento/${atendimento.id}" />
 				</td>
 			</tr>	
 			`
@@ -173,7 +175,7 @@ $('#cliente-atendimento-filter').keyup(function() {
 	var nomeFilter = $(this).val();
 	setTimeout(() => {
 		$.get({
-			url: `/SalonCarineLima/atendimento/cliente/filter?nome=${nomeFilter}`,
+			url: `${contextCurrent}/atendimento/cliente/filter?nome=${nomeFilter}`,
 			success: function(response) {
 				rendererTabela(response);
 			},

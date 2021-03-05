@@ -6,7 +6,11 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <tags:pageTemplate titulo="Lista Atendimentos">
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 	<main>
+		<span id="contextPage" hidden> ${contextPath}</span>
 		<section>
 			<div class="container">
 			  <p hidden id="paginaAtual">${paginas.pageable.pageNumber}</p>

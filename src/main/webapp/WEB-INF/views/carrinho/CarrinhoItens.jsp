@@ -5,7 +5,10 @@
 
 <tags:pageTemplate titulo="Carrinho">
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 	<main>
+		<span id="contextPage" hidden> ${contextPath}</span>
 		<section>
 			<div class="container">
 

@@ -1,10 +1,12 @@
+var contextCurrent = $('#contextPage').text();
+
 $(function() {
 	$('button[type=submit]').click(function(e) {
 		showLoader();
 		e.preventDefault();
 
 		$.post({
-			url : '/SalonCarineLima/servico/alterar',
+			url : contextCurrent+'/servico/alterar',
 			method : 'POST',
 			data : $('form[name=formDetalhar]').serialize(),
 
@@ -46,7 +48,7 @@ function topPage() {
 function removerServico(idServico) {
 	showLoader();
 	$.post({
-		url : `/SalonCarineLima/servico/remover/${idServico}`,
+		url : `${contextCurrent}/servico/remover/${idServico}`,
 		method : 'DELETE'
 	})
 	.then(

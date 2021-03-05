@@ -1,10 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"	pageEncoding="UTF-8"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
 <tags:pageTemplate titulo="Detalhar Serviço">
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 	<div class="container container-space-default">
+	<span id="contextPage" hidden> ${contextPath}</span>
 		<div class="row">
 			<div class="text-left col-8 col-md-8">
 				<h4 class="text-left color-font">Dados Serviço</h4>
@@ -23,13 +26,13 @@
 			<div class="text-left col-6 col-md-6">
 				<span>
 					<a class="btn btn-success fas fa-chevron-left" 
-	                	href="/SalonCarineLima/servico/previous?idServicoAtual=${servico.id}">
+	                	href="${contextPath}/servico/previous?idServicoAtual=${servico.id}">
 	                </a>
 				</span>
 			</div>
 			<div class="text-right col-6 col-md-6">
 				<a	class="btn btn-success fas fa-chevron-right" 
-	                	href="/SalonCarineLima/servico/next?idServicoAtual=${servico.id}">
+	                	href="${contextPath}/servico/next?idServicoAtual=${servico.id}">
 	            </a>
 			</div>
 		</div>

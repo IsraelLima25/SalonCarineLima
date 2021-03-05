@@ -1,11 +1,13 @@
+var contextCurrent = $('#contextPage').text();
+
 function detalharCliente(id) {
-	window.location.href = `/SalonCarineLima/servico/${id}`;
+	window.location.href = `${contextCurrent}/servico/${id}`;
 }
 
 function removerCliente(){
 	var idAtual = $('#registroAtual').val()
 	$.ajax({
-		url: `/SalonCarineLima/servico/remover/${idAtual}`,
+		url: `${contextCurrent}/servico/remover/${idAtual}`,
 		method: 'DELETE',
 		
 	});	
@@ -15,7 +17,7 @@ $('#servico-filter').keyup(function() {
 	var nomeFilter = $(this).val();
 	setTimeout(() => {
 		$.get({
-			url: `/SalonCarineLima/servico/filter?nome=${nomeFilter}`,
+			url: `${contextCurrent}/servico/filter?nome=${nomeFilter}`,
 			success: function(response) {
 				rendererTabela(response);
 			},
@@ -78,7 +80,7 @@ function paginaAnterior (totalPaginas){
 
 function getNextPage(numeroPagina){
 	$.get({
-		url: `/SalonCarineLima/servico/listar.json?page=${numeroPagina+1}`,
+		url: `${contextCurrent}/servico/listar.json?page=${numeroPagina+1}`,
 		success : function(response) {
 			rendererTabela(response.paginas.content);
 			updateNextButtonActive(numeroPagina);
@@ -92,7 +94,7 @@ function getNextPage(numeroPagina){
 
 function getPreviousPage(numeroPagina){
 	$.get({
-		url: `/SalonCarineLima/servico/listar.json?page=${numeroPagina-1}`,
+		url: `${contextCurrent}/servico/listar.json?page=${numeroPagina-1}`,
 		success : function(response) {
 			rendererTabela(response.paginas.content);
 			updatePreviousButtonActive(numeroPagina);
@@ -106,7 +108,7 @@ function getPreviousPage(numeroPagina){
 
 function getPage(numeroPagina){
 	$.get({
-		url: `/SalonCarineLima/servico/listar.json?page=${numeroPagina}`,
+		url: `${contextCurrent}/servico/listar.json?page=${numeroPagina}`,
 		success : function(response) {
 			rendererTabela(response.paginas.content);
 			updateButtonActive(numeroPagina);
@@ -152,7 +154,7 @@ function rendererTabela (servicos) {
 				<td>${preco}</td>
 				<td class="text-center">
 				<a class="fas fa-search btn btn-info"
-				 href="/SalonCarineLima/servico/${servico.id}" />
+				 href="${contextCurrent}/servico/${servico.id}" />
 				</td>
 			</tr>	
 			`

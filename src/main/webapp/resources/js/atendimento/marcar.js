@@ -1,9 +1,11 @@
+var contextCurrent = $('#contextPage').text();
+
 $(function() {
 	$('button[type=submit]').click(function(e) {
 		showLoader();
 		e.preventDefault();
 		$.post({
-			url : '/SalonCarineLima/atendimento',
+			url : contextCurrent+'/atendimento',
 			method : 'POST',
 			data : $('form[name=formMarcar]').serialize()
 		})
@@ -26,7 +28,7 @@ $(function() {
 });
 
 $('#modalPageMarcar').on('hidden.bs.modal', function(e) {
-	window.location.href = "/SalonCarineLima/loja/itensLoja";
+	window.location.href = contextCurrent+"/loja/itensLoja";
 })
 
 function showModal(data){

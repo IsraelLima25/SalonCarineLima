@@ -1,9 +1,11 @@
+var contextCurrent = $('#contextPage').text();
+
 $(function() {
 	$('button[type=submit]').click(function(e) {
 		showLoader();
 		e.preventDefault();
 		$.post({
-			url : '/SalonCarineLima/lancamento/filterData',
+			url : contextCurrent+'/lancamento/filterData',
 			data : $('form[name=formFiltroRelatorio]').serialize()
 		})
 		.then(function(data, textStatus, xhr) {
@@ -42,7 +44,7 @@ function rendererTabela(data) {
 					<td class="text-center">${dataFormatada}</td>
 					<td class="text-center">
 						<a class="fas fa-search btn btn-info"
-						 href="/SalonCarineLima/atendimento/${lancamento.atendimento.id}" />
+						 href="${contextCurrent}/atendimento/${lancamento.atendimento.id}" />
 					</td>
 					 <td class="text-center">
 						<a class="fas fa-undo btn btn-danger" onClick="updateIdOpenModal(${lancamento.id})" />
@@ -98,7 +100,7 @@ function estornarLancamento(){
 	var idLancamentoAtual = $('#idLancamento').text();
 	showLoader();
 	$.get({
-		url : `/SalonCarineLima/lancamento/estornar/${idLancamentoAtual}`
+		url : `${contextCurrent}/lancamento/estornar/${idLancamentoAtual}`
 	})
 	.then(function(data, textStatus, xhr) {
 		removeElement(idLancamentoAtual);

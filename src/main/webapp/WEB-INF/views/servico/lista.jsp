@@ -6,7 +6,10 @@
 
 <tags:pageTemplate titulo="Lista Serviços">
 
+	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 	<div class="container container-space-default">
+	<span id="contextPage" hidden> ${contextPath}</span>
 		<h4 class="color-font">Lista de Serviços</h4>
 		<hr />
 

@@ -1,7 +1,9 @@
+var contextCurrent = $('#contextPage').text();
+
 function adicionarItemCarrinho (idServico){	
 	showLoader();
 	$.get({
-		url : `/SalonCarineLima/carrinho/add/${idServico}`,
+		url : `${contextCurrent}/carrinho/add/${idServico}`,
 		method : 'GET'		
 	})
 	.then(function(response) {

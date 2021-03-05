@@ -10,11 +10,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.salon.carine.lima.dto.UsuarioAlterarSenhaDTO;
 import br.com.salon.carine.lima.models.Atendimento;
+import br.com.salon.carine.lima.scheduled.LancamentoAtendimentoAgendamento;
 import br.com.salon.carine.lima.services.DashBoardService;
 
 @Controller
 @RequestMapping(value = "dashboard")
 public class DashBoardController {
+	
+	@Autowired
+	private LancamentoAtendimentoAgendamento lancamentoAtendimentoAgendamento;
 	
 	@Autowired
 	public DashBoardService dashBoardService;
@@ -30,6 +34,8 @@ public class DashBoardController {
 		modelAndView.addObject("atendimentos", atendimentos);
 		
 		modelAndView.addObject("usuarioConfig", usuarioConfig);
+		
+		lancamentoAtendimentoAgendamento.lancFutureScheduling();
 		
 		return modelAndView;
 	}
