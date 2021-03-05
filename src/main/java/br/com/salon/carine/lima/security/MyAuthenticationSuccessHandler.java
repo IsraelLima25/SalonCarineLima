@@ -12,12 +12,14 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 @Configuration
 public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-
+	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		
 		request.getSession(false).setMaxInactiveInterval(900);
+		
+		System.out.println(request.getContextPath());
 		
 		response.sendRedirect(request.getContextPath());
 	}
