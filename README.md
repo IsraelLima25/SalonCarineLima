@@ -5,7 +5,7 @@
 
 # Sobre o projeto
 
-http://sag-test-carine.herokuapp.com/login
+http://sag-test-env.herokuapp.com/login
 
 Sag é uma aplicação web construída para gerenciar os atendimentos, clientes, serviços e fluxo financeiro de um salão de beleza.
 A aplicação possuí cadastro dos clientes e serviços, marcação de atendimentos, alerta de atendimentos diários e um controle total sobre o faturamento.
