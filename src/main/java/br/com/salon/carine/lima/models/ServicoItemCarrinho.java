@@ -83,6 +83,14 @@ public class ServicoItemCarrinho implements Serializable {
 	public void setPrecoAtual(BigDecimal precoAtual) {
 		this.precoAtual = precoAtual;
 	}
+	
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	@Override
 	public int hashCode() {

@@ -68,7 +68,7 @@ public class PersistenceJPAConfigTest {
 	    mailSender.setPort(587);
 	    
 	    mailSender.setUsername("sagsoftwareagendamentos@gmail.com");
-	    mailSender.setPassword("sag*#$2021");
+	    mailSender.setPassword("");
 	    
 	    Properties props = mailSender.getJavaMailProperties();
 	    props.put("mail.transport.protocol", "smtp");

@@ -35,7 +35,7 @@ public class CarrinhoService {
 	private void calcularPrecoTotalPorItem(List<ServicoItemCarrinhoDTO> listServicosCarrinho) {
 		
 		listServicosCarrinho.forEach((servicoItemCarrinhoDTO) -> 
-			servicoItemCarrinhoDTO.setPrecoTotal(carrinho.getTotalServico(new ServicoItemCarrinho(
+			servicoItemCarrinhoDTO.setPrecoTotal(carrinho.getTotalUnidadeServicoCarrinho(new ServicoItemCarrinho(
 					ConvertersServico.deServicoDTOparaServico(
 							servicoItemCarrinhoDTO.getServicoDTO()))))
 		);
@@ -48,7 +48,7 @@ public class CarrinhoService {
 		servicoAdicionadoCarrinho.setServico(servico);
 		servicoAdicionadoCarrinho.setPrecoAtual(servico.getPreco());
 
-		ServicoItemCarrinhoDTO itemAdicionado = carrinho.add(servicoAdicionadoCarrinho);				
+		ServicoItemCarrinhoDTO itemAdicionado = carrinho.adicionarItemCarrinho(servicoAdicionadoCarrinho);				
 
 		return itemAdicionado;
 	}
@@ -59,7 +59,7 @@ public class CarrinhoService {
 		ServicoItemCarrinho servicoRemovidoCarrinho = new ServicoItemCarrinho();
 		servicoRemovidoCarrinho.setServico(servico);
 		
-		ServicoItemCarrinhoDTO itemRemovido = carrinho.removerItemCarrinho(servicoRemovidoCarrinho);
+		ServicoItemCarrinhoDTO itemRemovido = carrinho.removerUnidadeItemCarrinho(servicoRemovidoCarrinho);
 		
 		return itemRemovido;
 	}
@@ -70,7 +70,7 @@ public class CarrinhoService {
 		ServicoItemCarrinho servicoItemCarrinho = new ServicoItemCarrinho();
 		servicoItemCarrinho.setServico(servico);
 		
-		boolean removido = carrinho.removerTodoItem(servicoItemCarrinho);
+		boolean removido = carrinho.removerItemCarrinho(servicoItemCarrinho);
 		
 		return removido;
 
@@ -78,24 +78,24 @@ public class CarrinhoService {
 	}
 	
 	public Integer getQuantidadeTotalItensCarrinho() {
-		return carrinho.getQuantidadeTotal();
+		return carrinho.getTotalUnidadeItemCarrinho();
 	}
 	
 
 	public Integer getQuantidadePorItemCarrinho(ServicoItemCarrinho item) {
-		return carrinho.getQuantidadeItem(item);
+		return carrinho.getQuantidadeItemCarrinho(item);
 	}
 
 	public void esvaziarCarrinho() {
-		this.carrinho.esvaziar();
+		this.carrinho.esvaziarCarrinho();
 	}
 
 	public BigDecimal getValorTotalPorServicoCarrinho(ServicoItemCarrinho item) {
-		return this.carrinho.getTotalServico(item);
+		return this.carrinho.getTotalUnidadeServicoCarrinho(item);
 	}
 
 	public BigDecimal getValorTotalCarrinho() {
-		return carrinho.getTotalCarrinho();
+		return carrinho.getPrecoTotalCarrinho();
 	}
 	
 	public List<ServicoItemCarrinhoDTO> finalizarAtendimentoItensCarrinho() {

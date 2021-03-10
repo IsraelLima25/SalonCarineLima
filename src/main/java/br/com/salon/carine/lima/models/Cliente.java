@@ -19,8 +19,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@NamedEntityGraph(name = "Cliente.endereco", 
-attributeNodes = @NamedAttributeNode("endereco"))
+@NamedEntityGraph(name = "Cliente.endereco", attributeNodes = @NamedAttributeNode("endereco"))
 public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -32,18 +31,22 @@ public class Cliente implements Serializable {
 	private String nome;
 	private String email;
 	private String telefone;
-	
+
 	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
-	
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
 	private List<Atendimento> atendimentos = new ArrayList<>();
 
 	public Cliente() {
+	}
+
+	public Cliente(String nome) {
+		super();
+		this.nome = nome;
 	}
 
 	public Cliente(String nome, String email, String telefone, Endereco endereco) {
@@ -93,7 +96,7 @@ public class Cliente implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public List<Atendimento> getAtendimentos() {
 		return atendimentos;
 	}
@@ -101,7 +104,7 @@ public class Cliente implements Serializable {
 	public void setAtendimentos(List<Atendimento> atendimentos) {
 		this.atendimentos = atendimentos;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", endereco="

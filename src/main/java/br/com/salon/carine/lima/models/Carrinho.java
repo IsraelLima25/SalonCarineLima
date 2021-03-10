@@ -21,15 +21,15 @@ public class Carrinho implements Serializable {
 		return servicos;
 	}
 
-	public ServicoItemCarrinhoDTO add(ServicoItemCarrinho itemServico) {
+	public ServicoItemCarrinhoDTO adicionarItemCarrinho(ServicoItemCarrinho itemServico) {
 		
-		servicos.put(itemServico, getQuantidadeItem(itemServico) + 1);		
+		servicos.put(itemServico, getQuantidadeItemCarrinho(itemServico) + 1);		
 		ServicoItemCarrinhoDTO itemAdicionado = getItemCarrinho(itemServico);
 		
 		return itemAdicionado;
 	}
 	
-	public ServicoItemCarrinhoDTO removerItemCarrinho(ServicoItemCarrinho itemServico) {	
+	public ServicoItemCarrinhoDTO removerUnidadeItemCarrinho(ServicoItemCarrinho itemServico) {	
 		
 		Integer quantidade = servicos.get(itemServico);
 		
@@ -42,48 +42,47 @@ public class Carrinho implements Serializable {
 			ServicoItemCarrinhoDTO itemRemovido = getItemCarrinho(itemServico);
 			return itemRemovido;
 		}
-		
 	}
 	
 	public ServicoItemCarrinhoDTO getItemCarrinho(ServicoItemCarrinho itemServico) {
 		
 		ServicoItemCarrinhoDTO servicoItemCarrinhoDTO = new ServicoItemCarrinhoDTO();
 		servicoItemCarrinhoDTO.setServicoDTO(ConvertersServico.deServicoParaServicoDTO(itemServico.getServico()));
-		servicoItemCarrinhoDTO.setQuantidade(getQuantidadeItem(itemServico));
-		servicoItemCarrinhoDTO.setPrecoTotal(getTotalServico(itemServico));
+		servicoItemCarrinhoDTO.setQuantidade(getQuantidadeItemCarrinho(itemServico));
+		servicoItemCarrinhoDTO.setPrecoTotal(getTotalUnidadeServicoCarrinho(itemServico));
 		
 		return servicoItemCarrinhoDTO;
 	}
 	
-	public Integer getQuantidadeItem(ServicoItemCarrinho itemServico) {
+	public Integer getQuantidadeItemCarrinho(ServicoItemCarrinho itemServico) {
 		if (!servicos.containsKey(itemServico)) {
 			servicos.put(itemServico, 0);
 		}
 		return servicos.get(itemServico);
 	}	
 
-	public void esvaziar() {
+	public void esvaziarCarrinho() {
 		this.servicos.clear();
 	}
 
-	public int getQuantidadeTotal() {
+	public int getTotalUnidadeItemCarrinho() {
 		return this.servicos.values().stream().reduce(0, (proximo, acumulador) -> proximo + acumulador);
 	}
 
-	public BigDecimal getTotalServico(ServicoItemCarrinho itemServico) {
-		return itemServico.getTotal(getQuantidadeItem(itemServico));
+	public BigDecimal getTotalUnidadeServicoCarrinho(ServicoItemCarrinho itemServico) {
+		return itemServico.getTotal(getQuantidadeItemCarrinho(itemServico));
 	}
 
-	public BigDecimal getTotalCarrinho() {
+	public BigDecimal getPrecoTotalCarrinho() {
 		BigDecimal total = BigDecimal.ZERO;
 
 		for (ServicoItemCarrinho itemServico : servicos.keySet()) {
-			total = total.add(getTotalServico(itemServico));
+			total = total.add(getTotalUnidadeServicoCarrinho(itemServico));
 		}
 		return total;
 	}
 	
-	public boolean removerTodoItem(ServicoItemCarrinho itemServico) {		
+	public boolean removerItemCarrinho(ServicoItemCarrinho itemServico) {		
 		if(itemServico != null) {			
 			this.servicos.remove(itemServico);	
 			return true;

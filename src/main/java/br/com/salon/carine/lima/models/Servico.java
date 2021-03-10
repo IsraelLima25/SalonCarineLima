@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
 public class Servico implements Serializable {
 
@@ -19,11 +18,17 @@ public class Servico implements Serializable {
 	private Integer id;
 
 	private String descricao;
-	
+
 	private BigDecimal preco;
 
 	public Servico() {
 
+	}
+
+	public Servico(Integer id, String descricao, BigDecimal preco) {
+		this.id = id;
+		this.descricao = descricao;
+		this.preco = preco;
 	}
 
 	public Servico(String descricao, BigDecimal preco) {
@@ -47,7 +52,7 @@ public class Servico implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
 	public BigDecimal getPreco() {
 		return preco;
 	}
@@ -55,7 +60,7 @@ public class Servico implements Serializable {
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

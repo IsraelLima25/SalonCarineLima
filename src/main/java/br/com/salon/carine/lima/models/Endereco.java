@@ -35,6 +35,13 @@ public class Endereco implements Serializable {
 		this.complemento = complemento;
 		this.pontoReferencia = pontoReferencia;
 	}
+	
+	
+
+	public Endereco(String cep) {
+		super();
+		this.cep = cep;
+	}
 
 	public String getCep() {
 		return cep;
