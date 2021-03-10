@@ -1,4 +1,4 @@
-package br.com.salon.carine.lima.carrinho;
+package br.com.salon.carine.lima.unit.carrinho;
 
 import java.math.BigDecimal;
 

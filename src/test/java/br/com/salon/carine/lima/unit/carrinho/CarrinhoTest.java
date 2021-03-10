@@ -1,4 +1,4 @@
-package br.com.salon.carine.lima.carrinho;
+package br.com.salon.carine.lima.unit.carrinho;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
