@@ -19,13 +19,13 @@
                 </a>
             </li>
             <li class="nav-item dropdown ${activeCliente} ">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a id="clientes-dropdown" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-users"></i>              
                   Clientes
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="../cliente/cadastro">Cadastrar</a>
-                    <a class="dropdown-item" href="../cliente/listar">Listar</a>
+                    <a id="cadastrar-cliente" class="dropdown-item" href="../cliente/cadastro">Cadastrar</a>
+                    <a id="listar-cliente" class="dropdown-item" href="../cliente/listar">Listar</a>
                 </div>
             </li>
             <li class="nav-item ${activeFinanceiro}">

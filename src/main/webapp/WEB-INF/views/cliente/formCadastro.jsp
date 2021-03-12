@@ -10,7 +10,7 @@
 		<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 		
 		
-		<section>
+		<section id="section-cadastro-cliente">
 		
 			<span id="contextPage" hidden> ${contextPath}</span>
 			
@@ -75,11 +75,12 @@
 							name="endereco.pontoReferencia" id="ponto-referencia">
 						<small hidden class="form-text obrigatorio pontoReferencia"></small>
 					</div>
-					
-					<div class="text-center alinhamento">
-						<button id="btnCadastrar" style="margin-bottom: 100px;"
-							data-toggle="modal" type="submit"
-							class="btn btn-color-salon btn-block">Cadastrar</button>
+					<div class="form-group">
+						<div class="text-center alinhamento">
+							<button id="btnCadastrar" style="margin-bottom: 100px;"
+								data-toggle="modal" type="submit"
+								class="btn btn-color-salon btn-block">Cadastrar</button>
+						</div>
 					</div>
 				</form:form>
 			</div>
