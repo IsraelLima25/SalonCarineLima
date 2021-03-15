@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.salon.carine.lima.conf.ConfGeneric;
 import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.exceptions.ArgumentNotValidException;
 import br.com.salon.carine.lima.models.Cliente;

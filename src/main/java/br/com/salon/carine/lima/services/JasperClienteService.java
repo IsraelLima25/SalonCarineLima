@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +11,7 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -28,7 +28,7 @@ public class JasperClienteService {
 	private static final String JASPER_SUFIXO = ".jasper";
 	
 	@Autowired
-	private Connection connection;
+	private BasicDataSource dataSource;
 	
 	private Map<String, Object> params = new HashMap<>();
 	
@@ -50,8 +50,7 @@ public class JasperClienteService {
 					.concat(code)
 					.concat(JASPER_SUFIXO));
 			
-			JasperPrint print = JasperFillManager.fillReport(file.getAbsolutePath(), params, connection);
-			Thread.sleep(10000);
+			JasperPrint print = JasperFillManager.fillReport(file.getAbsolutePath(), params, dataSource.getConnection());
 			bytes = JasperExportManager.exportReportToPdf(print);
 		} catch (FileNotFoundException | JRException e) {
 			e.printStackTrace();
