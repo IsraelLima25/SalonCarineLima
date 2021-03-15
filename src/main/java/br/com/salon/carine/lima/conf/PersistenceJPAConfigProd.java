@@ -51,7 +51,7 @@ public class PersistenceJPAConfigProd {
 	}
 
 	@Bean
-	public DataSource dataSource() throws URISyntaxException {
+	public BasicDataSource dataSource() throws URISyntaxException {
 		
 		BasicDataSource basicDataSource = new BasicDataSource();
 		basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
