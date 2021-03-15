@@ -2,10 +2,14 @@ package br.com.salon.carine.lima.services;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +36,12 @@ public class JasperClienteService {
 		this.params.put(key, value);
 	}
 	
-	public byte[] exportarPDF(String code, HttpServletRequest request) {
+	public byte[] exportarPDF(String code, HttpServletRequest request) throws SQLException, MalformedURLException {
 		
-		final String JASPER_DIRETORIO = request.getServletContext().getRealPath("/WEB-INF/jasper/clientes/");
+		ServletContext servletContext = request.getServletContext();
+		URL resource = servletContext.getResource("/WEB-INF/jasper/clientes/");
+		
+		final String JASPER_DIRETORIO = resource.getFile();
 		
 		byte [] bytes = null;
 		try {
@@ -48,6 +55,7 @@ public class JasperClienteService {
 		} catch (FileNotFoundException | JRException e) {
 			e.printStackTrace();
 		}
+
 		return bytes;
 	}
 	

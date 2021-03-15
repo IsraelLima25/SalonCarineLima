@@ -1,6 +1,7 @@
 package br.com.salon.carine.lima.controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +25,7 @@ public class JasperClienteController {
 	@RequestMapping(method=RequestMethod.GET, value="/relatorios/pdf/clientesCadastrados")
 	public void exibirRelatorioClientesCadastrados(@RequestParam String code,
 			@RequestParam String acao, HttpServletResponse response,
-			HttpServletRequest request) throws IOException {
+			HttpServletRequest request) throws IOException, SQLException {
 		
 		byte[] bytes = jasperService.exportarPDF(code, request);
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);
