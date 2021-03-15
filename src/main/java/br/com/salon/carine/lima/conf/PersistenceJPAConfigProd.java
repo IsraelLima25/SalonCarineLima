@@ -4,6 +4,7 @@ import java.net.URISyntaxException;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
@@ -50,7 +51,7 @@ public class PersistenceJPAConfigProd {
 	}
 
 	@Bean
-	public BasicDataSource dataSource() throws URISyntaxException {
+	public DataSource dataSource() throws URISyntaxException {
 		
 		BasicDataSource basicDataSource = new BasicDataSource();
 		basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
@@ -64,7 +65,6 @@ public class PersistenceJPAConfigProd {
         basicDataSource.setPassword(password);
         
 		return basicDataSource;
-		
 	}
 	
 	@Bean

@@ -10,8 +10,8 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -28,7 +28,7 @@ public class JasperClienteService {
 	private static final String JASPER_SUFIXO = ".jasper";
 	
 	@Autowired
-	private BasicDataSource dataSource;
+	private DataSource dataSource;
 	
 	private Map<String, Object> params = new HashMap<>();
 	
