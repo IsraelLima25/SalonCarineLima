@@ -16,7 +16,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	protected Class<?>[] getRootConfigClasses() {
 		
 		return new Class[] {PersistenceJPAConfigTest.class, SecurityConfiguration.class, 
-				PersistenceJPAConfigProd.class,WebMvcConfig.class};
+				PersistenceJPAConfigProd.class,WebMvcConfig.class, ConfGeneric.class};
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
 		servletContext.addListener(new RequestContextListener());
-		servletContext.setInitParameter("spring.profiles.active", "test");
+		servletContext.setInitParameter("spring.profiles.active", "prod");
 	}	
 
 }

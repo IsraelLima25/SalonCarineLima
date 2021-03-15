@@ -58,7 +58,7 @@ public class NovoClientePage {
 		pontoReferenciaInput.sendKeys("Ao lado do mercado do juca");
 	}
 	
-	public ListaClientePage clicarBotaoCadastrar() {
+	private ListaClientePage clicarBotaoCadastrar() {
 		
 		WebElement element = driver.findElement(By.id("btnCadastrar"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);

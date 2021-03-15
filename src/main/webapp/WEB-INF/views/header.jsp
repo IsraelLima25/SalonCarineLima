@@ -26,6 +26,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a id="cadastrar-cliente" class="dropdown-item" href="../cliente/cadastro">Cadastrar</a>
                     <a id="listar-cliente" class="dropdown-item" href="../cliente/listar">Listar</a>
+                    <a id="listar-cliente" class="dropdown-item" href="../cliente/relatorios">Relatórios</a>
                 </div>
             </li>
             <li class="nav-item ${activeFinanceiro}">
@@ -55,7 +56,7 @@
                 <i class="fas fa-cart-plus"></i>
                 	Carrinho
                 </a>
-            </li>
+            </li>  
             
             <li class="nav-item dropdown profile">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

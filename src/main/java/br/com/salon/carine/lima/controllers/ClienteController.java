@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.salon.carine.lima.conf.ConfGeneric;
 import br.com.salon.carine.lima.dto.ClienteDTO;
 import br.com.salon.carine.lima.exceptions.ArgumentNotValidException;
 import br.com.salon.carine.lima.models.Cliente;
@@ -31,13 +32,19 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteService serviceCliente;
-
+	
 	private Logger logger = Logger.getLogger("br.com.salon.carine.lima.Cliente");
 
 	@RequestMapping(method = RequestMethod.GET, value = "cadastro")
 	public ModelAndView formCadastroCliente() {
 		ModelAndView modelAndView = new ModelAndView("cliente/formCadastro");
 		modelAndView.addObject("activeCliente", "active");
+		return modelAndView;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="relatorios")
+	public ModelAndView reportRunCliente() {
+		ModelAndView modelAndView = new ModelAndView("cliente/reportRun");
 		return modelAndView;
 	}
 	
