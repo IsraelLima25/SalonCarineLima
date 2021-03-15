@@ -25,7 +25,7 @@ public class JasperClienteController {
 	@RequestMapping(method=RequestMethod.GET, value="/relatorios/pdf/clientesCadastrados")
 	public void exibirRelatorioClientesCadastrados(@RequestParam String code,
 			@RequestParam String acao, HttpServletResponse response,
-			HttpServletRequest request) throws IOException, SQLException {
+			HttpServletRequest request) throws IOException, SQLException, InterruptedException {
 		
 		byte[] bytes = jasperService.exportarPDF(code, request);
 		response.setContentType(MediaType.APPLICATION_PDF_VALUE);

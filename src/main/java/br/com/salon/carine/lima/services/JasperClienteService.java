@@ -36,7 +36,7 @@ public class JasperClienteService {
 		this.params.put(key, value);
 	}
 	
-	public byte[] exportarPDF(String code, HttpServletRequest request) throws SQLException, MalformedURLException {
+	public byte[] exportarPDF(String code, HttpServletRequest request) throws SQLException, MalformedURLException, InterruptedException {
 		
 		ServletContext servletContext = request.getServletContext();
 		URL resource = servletContext.getResource("/WEB-INF/jasper/clientes/");
@@ -51,6 +51,7 @@ public class JasperClienteService {
 					.concat(JASPER_SUFIXO));
 			
 			JasperPrint print = JasperFillManager.fillReport(file.getAbsolutePath(), params, connection);
+			Thread.sleep(10000);
 			bytes = JasperExportManager.exportReportToPdf(print);
 		} catch (FileNotFoundException | JRException e) {
 			e.printStackTrace();
