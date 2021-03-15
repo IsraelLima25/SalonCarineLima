@@ -36,7 +36,7 @@ public class JasperClienteService {
 		this.params.put(key, value);
 	}
 	
-	public byte[] exportarPDF(String code, HttpServletRequest request) throws SQLException, MalformedURLException, InterruptedException {
+	public byte[] exportarPDF(String code, HttpServletRequest request) throws MalformedURLException, InterruptedException, SQLException {
 		
 		ServletContext servletContext = request.getServletContext();
 		URL resource = servletContext.getResource("/WEB-INF/jasper/clientes/");
