@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,12 +32,12 @@ public class Cliente implements Serializable {
 	private String telefone;
 
 	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "cliente")
 	private List<Atendimento> atendimentos = new ArrayList<>();
 
 	public Cliente() {

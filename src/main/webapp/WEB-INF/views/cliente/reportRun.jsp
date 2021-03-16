@@ -27,10 +27,10 @@
 				</div>
 			</div>
 			<div class="mt-1">
-				<button type="button" onclick="gerarRelatorio('o')" class="btn btn-color-salon btn-sm">
+				<button type="button" onclick="gerarRelatorio('o')" class="btn btn-color-salon btn-sm btn-report-page">
 					Abrir Relatório
 				</button>
-				<button type="button" onclick ="gerarRelatorio('d')" class="btn btn-color-salon btn-sm">
+				<button type="button" onclick ="gerarRelatorio('d')" class="btn btn-color-salon btn-sm btn-report-page">
 					Download Relatório
 				</button>
 			</div>

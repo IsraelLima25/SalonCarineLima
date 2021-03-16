@@ -7,6 +7,10 @@ select{
 	font-size: 14px;
 }
 
+.btn-report-page{
+	width: 175px;
+}
+
 .thumb-redondo {
 	border-radius: 80%;
 	width: 160px;
